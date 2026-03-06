@@ -3,6 +3,13 @@
 rTemboz is a rewrite of Temboz (https://github.com/fazalmajid/temboz) from
 Python to Rust.
 
+It is somewhat functional, but not yet at parity with the original, so I would
+advise waiting a few weeks for it to settle.
+
+## TODO
+
+- [ ] Authentication!
+
 ## Migrating from Temboz
 
 * compile: `cargo build --release`
