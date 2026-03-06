@@ -1,13 +1,24 @@
 #SSL_HOME=	/usr/local/ssl
-SSL_HOME=	$$HOME/local/ssl
-ENV=		env CARGO_BACKTRACE=1 OPENSSL_DIR=$(SSL_HOME)
+#SSL_HOME=	$$HOME/local/ssl
+PREFIX=		/home/majid/local
+SSL_HOME=	$(shell openssl version -a | grep OPENSSLDIR | cut -d " " -f 2|tr -d '"')
+ENV=		env CARGO_BACKTRACE=1 OPENSSL_DIR=$(SSL_HOME) \
+		HYPERSCAN_DIR=$(PREFIX) \
+		HYPERSCAN_INCLUDE_PATH=$(PREFIX)/include \
+		HYPERSCAN_LIB_PATH=$(PREFIX)/lib \
+		BINDGEN_EXTRA_CLANG_ARGS=-I$(PREFIX)/include \
+		RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PREFIX)/lib"
+
 CARGO=		$(ENV) cargo
 
 all: run
 
-.sqlx: boot.db
+.sqlx: boot.db $(HOME)/.cargo/bin/sqlx
 	clear
-	env OPENSSL_DIR=$(SSL_HOME) DATABASE_URL=sqlite://boot.db cargo sqlx prepare
+	$(ENV) DATABASE_URL=sqlite://boot.db cargo sqlx prepare
+
+$(HOME)/.cargo/bin/sqlx:
+	env OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli
 
 boot.db:
 	sqlite3 boot.db < migrations/001_initial.sql
