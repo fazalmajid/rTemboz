@@ -1,0 +1,8 @@
+/target
+*~
+Cargo.lock
+*.db
+.sqlx
+.dir-locals.el
+*.log
+tests/__pycache__

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block TITLE %}Untitled{% endblock TITLE %}</title>
+    {% block CSS %}
+    <link rel="stylesheet" type="text/css" media="all" href="/static/temboz.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="/static/iphone.css">
+    {% block EXTRACSS %}{% endblock EXTRACSS %}
+    {% endblock CSS %}
+    {% block EXTRAHEAD %}{% endblock EXTRAHEAD %}
+  </head>
+  <body{% block BODYOPTIONS %}{% endblock BODYOPTIONS %}>
+    {% block MENUBAR %}
+    <ul id="menu" class="menu">
+      {% block CONTEXT_MENU %}
+      {% endblock CONTEXT_MENU %}
+      {% block SEARCH_FORM %}
+      &nbsp;&nbsp;
+      {% for menu in menu_items %}
+      <li class="non-iphone">
+        {% if menu.new_window %}
+        <a target="_blank" href="/{{ menu.link }}">{{ menu.name }}</a>
+        {% else %}
+        <a href="/{{ menu.link }}">{{ menu.name }}</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+{# Crude search functionality #}
+      <li class="non-iphone"><span>
+        <form method="GET" action="view" target="_blank" class="inline">
+          {% if feed_uid > 0 %}
+	  <input name="feed_uid" type="hidden" value="{{ feed_uid }}">
+          {% endif %}
+      <input name="search" id="search" {% if path != "/view" %}action="/view"{% endif %} value="{{ search.as_deref().unwrap_or("") }}">
+      <select name="show" class="hidden">
+	<option value="all" selected>All articles</option>
+	<option value="unread">Unread only</option>
+	<option value="down">Uninteresting only</option>
+	<option value="up">Interesting only</option>
+	<option value="filtered">Filtered only</option>
+      </select>
+      <select name="search_in" class="hidden">
+	<option value="content" selected>in title and content</option>
+	<option value="title">in title</option>
+      </select>
+      <input type="submit" value="Search">
+    </form></span>
+  </li>
+{% endblock SEARCH_FORM %}
+{% block HELP %}
+<li class="help">
+  <span><a href="/settings">Settings</a></span>
+</li>
+{% endblock HELP %}
+</ul>
+<div class="spacer">&nbsp;</div>
+{% endblock MENUBAR %}
+
+{% block CONTENT %}
+{% endblock CONTENT %}
+  </body>
+</html>

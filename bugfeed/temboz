@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is a RDF-free zone -->
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Temboz - interesting articles feed</title>
+  <id>http://www.majid.info/mylos/</id>
+  <link href="https://majid.info/temboz.atom" />
+  <generator uri="http://www.temboz.com/">Temboz</generator>
+  <link rel="self" type="application/atom+xml"
+   href="http://www.majid.info/mylos/temboz.atom" />
+  <rights>Copyright (c) 2002-2020 Fazal Majid and respective authors
+          - All rights reserved</rights>
+  <updated>2026-03-02T10:24:00Z</updated>
+  <entry>
+    <id>https://www.lefigaro.fr/societes/le-francais-dalkia-decarbone-le-british-museum-20260301</id>
+    <title>Le Figaro: Le fran&#231;ais Dalkia d&#233;carbone le British Museum</title>
+    <updated>2026-03-01T16:07:53Z</updated>
+    <author><name>Le Figaro</name></author>
+    <content type="html">Le chantier, qui sera d&#233;coup&#233; par phase sur les 135 000 m2 du mus&#233;e, n’impliquera pas la fermeture totale du b&#226;timent.</content>
+    <link rel="alternate" href="https://www.lefigaro.fr/societes/le-francais-dalkia-decarbone-le-british-museum-20260301" />
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story241927</id>
+    <title>The Register: China slaps 1-hour deadline on reporting serious cyber incidents</title>
+    <updated>2025-09-16T07:15:13Z</updated>
+    <author><name>Paul Kunert</name></author>
+    <content type="html">&lt;h4&gt;Cyberspace watchdog tightens reporting regime, leaving little time to hide incidents&lt;/h4&gt; &lt;p&gt;Beijing will soon expect Chinese network operators to &apos;fess up to serious cyber incidents within an hour of spotting them – or risk penalties for dragging their feet.…&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.theregister.com/2025/09/16/china_1hour_cyber_reporting/" />
+  </entry>
+  <entry>
+    <id>https://growingswe.com/blog/quadtrees</id>
+    <title>Hacker News: An interactive intro to quadtrees</title>
+    <updated>2026-02-27T11:12:53Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47139911&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://growingswe.com/blog/quadtrees" />
+  </entry>
+  <entry>
+    <id>https://youjustneedpostgres.com/</id>
+    <title>Linkhut: YOU JUST NEED POSTGRES — Stop managing 7 databases</title>
+    <updated>2026-02-27T12:33:30Z</updated>
+    <author><name>tmfnk</name></author>
+    <content type="html">Stop managing 7 databases. Stop paying for 7 services. Stop waking up at 3 AM for 7 reasons. PostgreSQL can replace Redis, Elasticsearch, MongoDB, Kafka, and more — with the same algorithms.</content>
+    <link rel="alternate" href="https://youjustneedpostgres.com/" />
+  </entry>
+  <entry>
+    <id>https://arstechnica.com/gadgets/2026/02/how-to-downgrade-from-macos-26-tahoe-on-a-new-mac/</id>
+    <title>Ars Technica: How to downgrade from macOS 26 Tahoe on a new Mac</title>
+    <updated>2026-02-27T15:05:07Z</updated>
+    <author><name>Andrew Cunningham</name></author>
+    <content type="html">&lt;p&gt;An Ars Technica colleague recently bought a new M4 MacBook Air. I have &lt;a href=&quot;https://arstechnica.com/apple/2025/03/apple-m4-macbook-air-review-i-have-no-notes/&quot;&gt;essentially nothing bad to say about this hardware&lt;/a&gt;, except to point out that even in our current memory shortage apocalypse, Apple is still charging higher-than-market-rates for RAM and SSD upgrades. Still, most people buying this laptop...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://arstechnica.com/gadgets/2026/02/how-to-downgrade-from-macos-26-tahoe-on-a-new-mac/" />
+  </entry>
+  <entry>
+    <id>https://electrek.co/?p=457456</id>
+    <title>Electrek: China discovers ‘breakthrough’ EV battery that could double range to 1,000+ km</title>
+    <updated>2026-02-27T16:35:49Z</updated>
+    <author><name>Peter Johnson</name></author>
+    <content type="html">&lt;div class=&quot;feat-image&quot;&gt;&lt;img src=&quot;https://electrek.co/wp-content/uploads/sites/3/2026/02/China-breakthrough-EV-battery-1.jpeg?quality=82&amp;#038;strip=all&amp;#038;w=1400&quot;&gt;&lt;/div&gt;&lt;p&gt;Chinese scientists have developed a new &lt;a href=&quot;https://electrek.co/guides/ev-batteries/&quot;&gt;EV battery&lt;/a&gt; capable of delivering over 1,000 km (620 miles) of driving range with an energy density above 700 Wh/kg.&lt;/p&gt;
+
+
+
+ &lt;a class=&quot;more-link&quot; href=&quot;https://electrek.co/2026/02/27/china-discovers-breakthrough-ev-battery-with-1000-km-range/#more-457456&quot;&gt;more…&lt;/a&gt;</content>
+    <link rel="alternate" href="https://electrek.co/2026/02/27/china-discovers-breakthrough-ev-battery-with-1000-km-range/" />
+  </entry>
+  <entry>
+    <id>tag:cspace@cks.mef.org,2009-03-24:/blog/web/FeedLimitingImportance</id>
+    <title>Chris Siebenmann: The importance of limiting syndication feed requests in some way</title>
+    <updated>2026-02-22T01:28:35Z</updated>
+    <author><name>cks</name></author>
+    <content type="html">&lt;div class=&quot;wikitext&quot;&gt;&lt;p&gt;People sometimes wonder why I care so much about &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Conditional_requests&quot;&gt;HTTP conditional
+GETs&lt;/a&gt;
+and rate limiting for syndication feed fetchers. There are multiple
+reasons, including &lt;a href=&quot;https://utcc.utoronto.ca/~cks/space/blog/web/WeShouldBlockForSocialReasons&quot;&gt;social reasons to establish norms&lt;/a&gt;, but one obvious one is transfer volumes. To illustrate that, I&apos;ll look at the statistics for yesterday for feed fetches...&lt;a href=&quot;https://utcc.utoronto.ca/~cks/space/blog/&quot;&gt;&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</content>
+    <link rel="alternate" href="https://utcc.utoronto.ca/~cks/space/blog/web/FeedLimitingImportance" />
+  </entry>
+  <entry>
+    <id>https://m.dpreview.com/reviews/ricoh-gr-iv-monochrome-launch</id>
+    <title>DPReview reviews: Ricoh GR IV Monochrome initial review</title>
+    <updated>2026-02-26T09:37:42Z</updated>
+    <author><name>DPReview reviews</name></author>
+    <content type="html">&lt;div&gt;When you use DPReview links to buy products, the site may earn a commission.&lt;/div&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;images noCaptions noCrop singleNoBorder center&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;image&quot;&gt;&lt;a href=&quot;https://www.dpreview.com/sample-galleries/9372203582/ricoh-gr-iv-monochrome-product-photos/5120765188&quot; target=&quot;article-4824152875&quot;&gt;&lt;img alt=&quot;Ricoh GR IV Monochrome front&quot; border=&quot;0&quot; height=&quot;394&quot; src=&quot;https://3.img-dpreview.com/files/p/E~TS590x0~articles/4824152875/Ricoh_GR_IV_Monochrome_front.jpeg&quot; width=&quot;590&quot;&gt;&lt;/a&gt;
+
+
+&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;div&gt;
+&lt;div class=&quot;reviewWidgetPlaceholder&quot;&gt;&lt;div class=&quot;title&quot;&gt;Sample gallery&lt;/div&gt;&lt;div class=&quot;note&quot;&gt;This widget is not optimized for RSS feed readers. Please open this article&apos;s permalink in a browser to view this content.&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;&lt;em&gt;Product photos: Richard Butler&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Ricoh has released a monochrome version of its GR...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://m.dpreview.com/reviews/ricoh-gr-iv-monochrome-launch" />
+  </entry>
+  <entry>
+    <id>https://arstechnica.com/security/2026/02/new-airsnitch-attack-breaks-wi-fi-encryption-in-homes-offices-and-enterprises/</id>
+    <title>Ars Technica: New AirSnitch attack breaks Wi-Fi encryption in homes, offices, and enterprises</title>
+    <updated>2026-02-26T16:08:00Z</updated>
+    <author><name>Dan Goodin</name></author>
+    <content type="html">&lt;p&gt;It’s hard to overstate the role that Wi-Fi plays in virtually every facet of life. The organization that shepherds the wireless protocol &lt;a href=&quot;https://www.wi-fi.org/beacon/the-beacon/powering-connected-world-wi-fi-momentum-2025&quot;&gt;says&lt;/a&gt; that more than 48 billion Wi-Fi-enabled devices have shipped since it debuted in the late 1990s. One &lt;a href=&quot;https://thenetworkinstallers.com/blog/wifi-statistics/&quot;&gt;estimate&lt;/a&gt;pegs the number of individual users at 6 billion,...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://arstechnica.com/security/2026/02/new-airsnitch-attack-breaks-wi-fi-encryption-in-homes-offices-and-enterprises/" />
+  </entry>
+  <entry>
+    <id>https://www.chargerlab.com/?p=56395</id>
+    <title>ChargerLAB: New Firmware Preview: ChargerLAB POWER-Z KM003C to Support Apple Cable SN Identification</title>
+    <updated>2026-02-26T06:55:05Z</updated>
+    <author><name>Joey</name></author>
+    <content type="html">&lt;div class=&quot;nc-light-gallery&quot;&gt;
+&lt;p&gt;Not long ago, we showcased the upcoming &lt;strong&gt;E-marker IC reading&lt;/strong&gt; feature for the &lt;a href=&quot;https://www.chargerlab.com/tag/km003c/&quot; target=&quot;_blank&quot; title=&quot;View all posts in KM003C&quot;&gt;KM003C&lt;/a&gt;. With no need to strip the cable or use professional equipment, it can easily read the chip solution inside the cable.&lt;/p&gt;
+
+
+
+&lt;p&gt;But that’s not all — there’s an even more special feature: for &lt;a href=&quot;https://www.chargerlab.com/tag/apple/&quot; target=&quot;_blank&quot; title=&quot;View all posts in Apple&quot;&gt;Apple&lt;/a&gt;cables,...&lt;a href=&quot;https://www.chargerlab.com/tag/apple/&quot; target=&quot;_blank&quot; title=&quot;View all posts in Apple&quot;&gt;&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</content>
+    <link rel="alternate" href="https://www.chargerlab.com/new-firmware-preview-chargerlab-power-z-km003c-to-support-apple-cable-sn-identification/" />
+  </entry>
+  <entry>
+    <id>https://canwe.dev/</id>
+    <title>Linkhut: Can We</title>
+    <updated>2026-02-25T17:45:53Z</updated>
+    <author><name>dalamb</name></author>
+    <content type="html">&lt;a href=&quot;https://canwe.dev/&quot;&gt;Can We&lt;/a&gt;</content>
+    <link rel="alternate" href="https://canwe.dev/" />
+  </entry>
+  <entry>
+    <id>https://lobste.rs/s/oj6hru</id>
+    <title>Lobsters: Google API Keys Weren&apos;t Secrets. But then Gemini Changed the Rules</title>
+    <updated>2026-02-26T08:20:57Z</updated>
+    <author><name>trufflesecurity.com via krtab</name></author>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://lobste.rs/s/oj6hru/google_api_keys_weren_t_secrets_then&quot;&gt;Comments&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://trufflesecurity.com/blog/google-api-keys-werent-secrets-but-then-gemini-changed-the-rules" />
+  </entry>
+  <entry>
+    <id>https://www.gutenberg.org/ebooks/78037</id>
+    <title>Project Gutenberg Recently Posted or Updated EBooks: Les trente-six vues de la Tour Eiffel by Henri Rivi&#232;re</title>
+    <updated>2026-02-26T00:24:59Z</updated>
+    <author><name>Project Gutenberg Recently Posted or Updated EBooks</name></author>
+    <content type="html">Language: French</content>
+    <link rel="alternate" href="https://www.gutenberg.org/ebooks/78037" />
+  </entry>
+  <entry>
+    <id>https://www.quantamagazine.org/?p=159245</id>
+    <title>Quanta Magazine: The Man Who Stole Infinity</title>
+    <updated>2026-02-25T17:31:48Z</updated>
+    <author><name>Joseph Howlett</name></author>
+    <content type="html">&lt;p&gt;When Demian Goos followed Karin Richter into her office on March 12 of last year, the first thing he noticed was the bust. It sat atop a tall pedestal in the corner of the room, depicting a bald, elderly gentleman with a stoic countenance. Goos saw no trace of the...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.quantamagazine.org/the-man-who-stole-infinity-20260225/" />
+  </entry>
+  <entry>
+    <id>https://boingboing.net/?p=1106170</id>
+    <title>Boing Boing: Newly found letters show Georg Cantor stole his famous infinity proof</title>
+    <updated>2026-02-25T20:10:45Z</updated>
+    <author><name>Ellsworth Toohey</name></author>
+    <content type="html">&lt;a href=&quot;https://boingboing.net/2026/02/25/newly-found-letters-show-georg-cantor-stole-his-famous-infinity-proof.html&quot; rel=&quot;nofollow&quot; title=&quot;Newly found letters show Georg Cantor stole his famous infinity proof&quot;&gt;&lt;img alt=&quot;By Unknown author - https://www.math.cmu.edu/~rcristof/pdf/Cantor_pubblicato.pdfand they had it from https://photos.aip.org/history-programs/niels-bohr-library/photos/cantor-georg-a1, Public Domain, Link&quot; class=&quot;webfeedsFeaturedVisual wp-post-image&quot; height=&quot;1200&quot; src=&quot;https://i0.wp.com/boingboing.net/wp-content/uploads/2026/02/Georg_Cantor.jpg?fit=888%2C1200&amp;amp;quality=60&amp;amp;ssl=1&quot; width=&quot;888&quot;&gt;&lt;/a&gt;&lt;p&gt;Georg Cantor&apos;s 1874 proof that infinity comes in different sizes reshaped mathematics. It also appears to have been stolen. Newly discovered letters show that Cantor&apos;s colleague Richard Dedekind provided key proofs that Cantor published under his own name, &lt;a href=&quot;https://www.quantamagazine.org/the-man-who-stole-infinity-20260225/&quot;&gt;reports Quanta Magazine&lt;/a&gt;. &amp;#8212; &lt;a class=&quot;read-more&quot; href=&quot;https://boingboing.net/2026/02/25/newly-found-letters-show-georg-cantor-stole-his-famous-infinity-proof.html&quot;&gt;Read the rest &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://boingboing.net/2026/02/25/newly-found-letters-show-georg-cantor-stole-his-famous-infinity-proof.html&quot;&gt;Newly found...&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://boingboing.net/2026/02/25/newly-found-letters-show-georg-cantor-stole-his-famous-infinity-proof.html" />
+  </entry>
+  <entry>
+    <id>https://simonwillison.net/2026/Feb/24/go-size-analyzer/#atom-everything</id>
+    <title>Simon Willison&apos;s Weblog: go-size-analyzer</title>
+    <updated>2026-02-24T16:10:06Z</updated>
+    <author><name>Simon Willison</name></author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/Zxilly/go-size-analyzer&quot;&gt;go-size-analyzer&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+The Go ecosystem is &lt;em&gt;really&lt;/em&gt; good at tooling. I just learned about this tool for analyzing the size of Go binaries using a pleasing treemap view of their bundled dependencies.&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;You can install and run the tool locally, but it&apos;s also compiled to WebAssembly and hosted at &lt;a href=&quot;https://gsa.zxilly.dev/&quot;&gt;gsa.zxilly.dev&lt;/a&gt;-...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://simonwillison.net/2026/Feb/24/go-size-analyzer/#atom-everything" />
+  </entry>
+  <entry>
+    <id>https://lobste.rs/s/tzyslr</id>
+    <title>Lobsters: Reducing the size of Go binaries by up to 77%</title>
+    <updated>2026-02-24T15:04:55Z</updated>
+    <author><name>datadoghq.com by hemitheconyx</name></author>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://lobste.rs/s/tzyslr/reducing_size_go_binaries_by_up_77&quot;&gt;Comments&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.datadoghq.com/blog/engineering/agent-go-binaries/" />
+  </entry>
+  <entry>
+    <id>https://mketab.org/blog/sqlite_kdbx/</id>
+    <title>Hacker News: Why the KeePass format should be based on SQLite</title>
+    <updated>2026-02-24T19:00:50Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47136658&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://mketab.org/blog/sqlite_kdbx/" />
+  </entry>
+  <entry>
+    <id>https://petapixel.com/?p=841129</id>
+    <title>PetaPixel: Asus’ New ProArt Color Calibration Ecosystem Helps You Achieve Accurate Colors</title>
+    <updated>2026-02-24T00:43:33Z</updated>
+    <author><name>Kate Garibaldi</name></author>
+    <content type="html">&lt;p class=&quot;feature-image&quot;&gt;&lt;a href=&quot;https://petapixel.com/2026/02/23/asus-new-proart-color-calibration-ecosystem-helps-you-achieve-accurate-colors/&quot;&gt;&lt;img alt=&quot;A sleek ASUS monitor displays vibrant abstract digital art, with a round webcam mounted at the center top. The monitor stands on a modern silver base against a dark, colorful, gradient background.&quot; class=&quot;attachment-card-large size-card-large wp-post-image&quot; height=&quot;840&quot; src=&quot;https://petapixel.com/assets/uploads/2026/02/Asus-ProArt-CaliContrO-MCA02-PetaPixel-BG.jpg&quot; width=&quot;1600&quot;&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Asus is expanding its professional display ecosystem with the ProArt CaliContrO MCA02, a 3-in-1 colorimeter that combines precision color measurement, hardware and software calibration, and integrated display control into a single compact device. Aimed at photographers, video editors, designers, and other color-critical professionals, the tool reflects Asus’ continued push toward...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://petapixel.com/2026/02/23/asus-new-proart-color-calibration-ecosystem-helps-you-achieve-accurate-colors/" />
+  </entry>
+  <entry>
+    <id>https://www.theguardian.com/books/2026/feb/24/america-says-goodbye-paperback</id>
+    <title>Guardian Unlimited: ‘We’re losing accessibility’: America says goodbye to the mass-market paperback</title>
+    <updated>2026-02-24T10:03:10Z</updated>
+    <author><name>David Smith in Washington</name></author>
+    <content type="html">&lt;p&gt;The so-called ‘pocket book’ sold in supermarkets is being phased out across the US, the latest sign of an ongoing shift in how people are choosing to read&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://shellyromero.com/&quot;&gt;Shelly Romero&lt;/a&gt;has early memories of going to her local supermarket and picking pulp fiction off the shelves. “We were very working...&lt;em&gt;&lt;/em&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.theguardian.com/books/2026/feb/24/america-says-goodbye-paperback" />
+  </entry>
+  <entry>
+    <id>https://lobste.rs/s/phgo6d</id>
+    <title>Lobsters: UTS #39: Unicode Security Mechanisms</title>
+    <updated>2026-02-22T09:39:59Z</updated>
+    <author><name>unicode.org via kana</name></author>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://lobste.rs/s/phgo6d/uts_39_unicode_security_mechanisms&quot;&gt;Comments&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.unicode.org/reports/tr39/" />
+  </entry>
+  <entry>
+    <id>https://leicarumors.com/?p=109418</id>
+    <title>Leica News &amp; Rumors: Gura Gear camera bags designed for Leica systems</title>
+    <updated>2026-02-22T02:53:00Z</updated>
+    <author><name>LR admin</name></author>
+    <content type="html">&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.bhphotovideo.com/c/search?q=Gura%20gear%20Kiboko%20City%20Sling%206L&amp;amp;sts=ma&amp;amp;BI=2446&amp;amp;KBID=3285&amp;amp;SID=DFF&amp;amp;DFF=d50&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;alignnone size-large wp-image-109430&quot; height=&quot;478&quot; src=&quot;http://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-8-560x496.jpeg&quot; width=&quot;540&quot;&gt;&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://www.bhphotovideo.com/c/search?q=Gura%20gear%20Kiboko%20City%20Sling%206L&amp;amp;sts=ma&amp;amp;BI=2446&amp;amp;KBID=3285&amp;amp;SID=DFF&amp;amp;DFF=d50&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;alignnone size-large wp-image-109437&quot; height=&quot;314&quot; src=&quot;http://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-560x326.jpg&quot; width=&quot;540&quot;&gt;&lt;/a&gt;&lt;br&gt;
+The &lt;a href=&quot;https://guragear.com/products/kiboko-city-sling-6l-with-photo-insert?ref=YJdk5phGcePBK&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;Gura Gear Kiboko City Sling 6L camera bags&lt;/a&gt; with photo insert are designed for Leica systems and can be purchased from:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://www.bhphotovideo.com/c/search?q=Gura%20gear%20Kiboko%20City%20Sling%206L&amp;amp;sts=ma&amp;amp;BI=2446&amp;amp;KBID=3285&amp;amp;SID=DFF&amp;amp;DFF=d50&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;B&amp;amp;H Photo&lt;/a&gt;&lt;/strong&gt;
+&lt;/li&gt;&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://guragear.com/products/kiboko-city-sling-6l-with-photo-insert?ref=YJdk5phGcePBK&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt;Gura Geaar onlines tore&lt;/a&gt;&lt;/strong&gt;
+&lt;/li&gt;&lt;/ul&gt;
+
+&lt;a href=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-3.jpg&quot; rel=&quot;shadowbox[sbalbum-109418];player=img;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-thumbnail size-thumbnail&quot; height=&quot;170&quot; src=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-3-170x170.jpg&quot; width=&quot;170&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-9.jpg&quot; rel=&quot;shadowbox[sbalbum-109418];player=img;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-thumbnail size-thumbnail&quot; height=&quot;170&quot; src=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-9-170x170.jpg&quot; width=&quot;170&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-5.jpg&quot; rel=&quot;shadowbox[sbalbum-109418];player=img;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-thumbnail size-thumbnail&quot; height=&quot;170&quot; src=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-5-170x170.jpg&quot; width=&quot;170&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-4.jpg&quot; rel=&quot;shadowbox[sbalbum-109418];player=img;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-thumbnail size-thumbnail&quot; height=&quot;170&quot; src=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-4-170x170.jpg&quot; width=&quot;170&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-6.jpg&quot; rel=&quot;shadowbox[sbalbum-109418];player=img;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-thumbnail size-thumbnail&quot; height=&quot;170&quot; src=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-6-170x170.jpg&quot; width=&quot;170&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://leicarumors.com/2026/02/21/gura-gear-camera-bags-designed-for-leica-systems.aspx/gura-gear-camera-bags-designed-for-leica-systems-10/&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-thumbnail size-thumbnail&quot; height=&quot;170&quot; src=&quot;https://leicarumors.com/wp-content/uploads/2026/02/Gura-Gear-camera-bags-designed-for-Leica-systems-10-170x170.webp&quot; width=&quot;170&quot;&gt;&lt;/a&gt;
+
+&lt;p&gt;Additional informtion:&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Everyday Carry &amp;amp; Travel Ready
+&lt;/li&gt;&lt;li&gt;Dynamic Leveling System &amp;#8211; sling stays level
+&lt;/li&gt;&lt;li&gt;Removable Kiboko City Photo Insert
+&lt;/li&gt;&lt;li&gt;Perfect for Leica...&lt;/li&gt;&lt;/ul&gt;</content>
+    <link rel="alternate" href="https://leicarumors.com/2026/02/21/gura-gear-camera-bags-designed-for-leica-systems.aspx/" />
+  </entry>
+  <entry>
+    <id>https://www.anuragk.com/blog/posts/Taalas.html</id>
+    <title>Hacker News: How Taalas &quot;prints&quot; LLM onto a chip?</title>
+    <updated>2026-02-22T06:52:49Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47103661&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://www.anuragk.com/blog/posts/Taalas.html" />
+  </entry>
+  <entry>
+    <id>https://www.cnx-software.com/?p=165881</id>
+    <title>CNX Software – Embedded Systems News: Taalas HC1 hardwired Llama-3.1 8B AI accelerator delivers up to 17,000 tokens/s</title>
+    <updated>2026-02-22T05:37:10Z</updated>
+    <author><name>Jean-Luc Aufranc (CNXSoft)</name></author>
+    <content type="html">&lt;div&gt;&lt;img alt=&quot;Taalas-HC1 hardwired AI accelerator&quot; class=&quot;attachment-medium size-medium wp-post-image&quot; height=&quot;511&quot; src=&quot;https://www.cnx-software.com/wp-content/uploads/2026/02/Taalas-HC1-hardwired-AI-accelerator-720x511.jpg&quot; width=&quot;720&quot;&gt;&lt;/div&gt;
+&lt;p&gt;Taalas HC1 is an AI accelerator hardwired (i.e, implemented in hardware) with Llama-3.1 8B and delivering close to 17,000 tokens/s of AI performance with the model, outperforming datacenter accelerators such as NVIDIA B200 or Cerebras chips. The Taalas HC1 is about 10x faster than the Cerebras chip, costs 20x less...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.cnx-software.com/2026/02/22/taalas-hc1-hardwired-llama-3-1-8b-ai-accelerator-delivers-up-to-17000-tokens-s/" />
+  </entry>
+  <entry>
+    <id>https://www.notebookcheck.net/This-tiny-M-2-module-turns-your-everyday-laptop-into-a-penetration-testing-tool.1231444.0.html</id>
+    <title>Notebookcheck.net News: This tiny M.2 module turns your everyday laptop into a penetration testing tool</title>
+    <updated>2026-02-21T19:02:25Z</updated>
+    <author><name>Debashis Das</name></author>
+    <content type="html">Wavelet Lab’s xSDR is a tiny M.2 2230 A+E-key software-defined radio (SDR) module built to plug straight into laptops, tablets, embedded PCs, and other compact systems. Just drop this tiny card into a spare M.2 slot, and turn it into a portable cellular network analyzer or penetration testing tool.</content>
+    <link rel="alternate" href="https://www.notebookcheck.net/This-tiny-M-2-module-turns-your-everyday-laptop-into-a-penetration-testing-tool.1231444.0.html" />
+  </entry>
+  <entry>
+    <id>https://lobste.rs/s/l0gv3h</id>
+    <title>Lobsters: The Fastest Way to Board an Airplane</title>
+    <updated>2026-02-21T13:40:33Z</updated>
+    <author><name>navendu.me via abhin4v</name></author>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://lobste.rs/s/l0gv3h/fastest_way_board_airplane&quot;&gt;Comments&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://navendu.me/posts/airlines-hate-this-trick/" />
+  </entry>
+  <entry>
+    <id>t3_1r9v9lx</id>
+    <title>r/San Francisco: Richest Neighborhoods in San Francisco (Ranked by Income &amp;amp; Home Prices )</title>
+    <updated>2026-02-20T13:24:34Z</updated>
+    <author><name>/u/Coolonair</name></author>
+    <content type="html">&lt;table&gt; &lt;tbody&gt;&lt;tr&gt;&lt;td&gt; &lt;a href=&quot;https://www.reddit.com/r/sanfrancisco/comments/1r9v9lx/richest_neighborhoods_in_san_francisco_ranked_by/&quot;&gt; &lt;img alt=&quot;Richest Neighborhoods in San Francisco (Ranked by Income &amp;amp; Home Prices )&quot; src=&quot;https://external-preview.redd.it/eeLeegPdShHUXkBOZ8OQSj8yHDeX7RoUFB2vA9lszOk.jpeg?width=640&amp;amp;crop=smart&amp;amp;auto=webp&amp;amp;s=29b94363e71845b7553579a034db74e9ad419ac5&quot; title=&quot;Richest Neighborhoods in San Francisco (Ranked by Income &amp;amp; Home Prices )&quot;&gt; &lt;/a&gt; &lt;/td&gt;&lt;td&gt; &amp;#32; submitted by &amp;#32; &lt;a href=&quot;https://www.reddit.com/user/Coolonair&quot;&gt; /u/Coolonair &lt;/a&gt; &lt;br&gt; &lt;span&gt;&lt;a href=&quot;https://professpost.com/richest-neighborhoods-in-san-francisco-ranked-by-income-home-prices/&quot;&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href=&quot;https://www.reddit.com/r/sanfrancisco/comments/1r9v9lx/richest_neighborhoods_in_san_francisco_ranked_by/&quot;&gt;[comments]&lt;/a&gt;&lt;/span&gt; &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</content>
+    <link rel="alternate" href="https://www.reddit.com/r/sanfrancisco/comments/1r9v9lx/richest_neighborhoods_in_san_francisco_ranked_by/" />
+  </entry>
+  <entry>
+    <id>https://electrek.co/?p=456502</id>
+    <title>Electrek: The first country to BAN the sale of new gas cars is doing just fine, actually</title>
+    <updated>2026-02-20T16:16:36Z</updated>
+    <author><name>Jo Borr&#225;s</name></author>
+    <content type="html">&lt;div class=&quot;feat-image&quot;&gt;&lt;img src=&quot;https://electrek.co/wp-content/uploads/sites/3/2024/02/ethernopia.png?w=1600&quot;&gt;&lt;/div&gt;&lt;p&gt;Ethiopia made history in 2024 by becoming the first country to ban the sale and import of new internal combustion-powered vehicles. Despite the predictions of the anti-EV hysterics, they’re doing just fine — but the process hasn’t been without its challenges!&lt;/p&gt;
+
+
+
+ &lt;a class=&quot;more-link&quot; href=&quot;https://electrek.co/2026/02/20/the-first-country-to-ban-the-sale-of-new-gas-cars-is-doing-just-fine-actually/#more-456502&quot;&gt;more…&lt;/a&gt;</content>
+    <link rel="alternate" href="https://electrek.co/2026/02/20/the-first-country-to-ban-the-sale-of-new-gas-cars-is-doing-just-fine-actually/" />
+  </entry>
+  <entry>
+    <id>urn:id:8716</id>
+    <title>Aeon: Books and screens</title>
+    <updated>2026-02-20T06:51:19Z</updated>
+    <author><name>Carlo Iacono</name></author>
+    <content type="html">&lt;p&gt;&lt;img alt=&quot;A modern library with tall bookshelves and people reading or using devices in a cosy, well-lit atmosphere.&quot; src=&quot;https://images.aeonmedia.co/images/8687b382-776e-4b4b-93c8-38f76fce5a6a/essay-gettyimages-2236919722.jpg?width=1200&amp;amp;quality=75&amp;amp;format=auto&quot;&gt;&lt;/p&gt;&lt;p&gt;Your inability to focus isn’t a failing. It’s a design problem, and the answer isn’t getting rid of our screen time&lt;/p&gt;&lt;p&gt;&lt;em&gt;- by Carlo Iacono&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://aeon.co/essays/what-we-think-is-a-decline-in-literacy-is-a-design-problem?utm_source=rss-feed&quot;&gt;Read on Aeon&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://aeon.co/essays/what-we-think-is-a-decline-in-literacy-is-a-design-problem?utm_source=rss-feed" />
+  </entry>
+  <entry>
+    <id>https://postgr.es/p/7tI</id>
+    <title>Planet PostgreSQL: Radim Marek: Inside PostgreSQL&apos;s 8KB Page</title>
+    <updated>2026-02-19T22:59:51Z</updated>
+    <author><name>Planet PostgreSQL</name></author>
+    <content type="html">&lt;p&gt;If you read previous &lt;a href=&quot;https://boringsql.com/posts/introduction-to-buffers/&quot;&gt;post about buffers&lt;/a&gt;, you already know PostgreSQL might not necessarily care about your rows. You might be inserting a user profile, or retrieving payment details, but all that Postgres works with are blocks of data. 8KB blocks, to be precise. You want to retrieve one...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://boringsql.com/posts/inside-the-8kb-page/" />
+  </entry>
+  <entry>
+    <id>https://hackaday.com/?p=916638</id>
+    <title>Hackaday: LEGO Orrery Gets A Real-Time Drive Upgrade</title>
+    <updated>2026-02-17T20:21:25Z</updated>
+    <author><name>Lewin Day</name></author>
+    <content type="html">&lt;div&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-large size-large wp-post-image&quot; height=&quot;450&quot; src=&quot;https://hackaday.com/wp-content/uploads/2026/02/maxresdefault-4.jpg?w=800&quot; width=&quot;800&quot;&gt;&lt;/div&gt;&lt;p&gt;An orrery is a beautiful type of mechanical contrivance, built to demonstrate the motion of heavenly objects. LEGO happens to offer just such a device, built using its Technic line of blocks, shafts, and gears. Only, it has a serious limitation—it has to be cranked manually to make it spin...&lt;a href=&quot;https://gorkem.cc/projects/LegoOrreryMod/&quot; target=&quot;_blank&quot;&gt;&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://hackaday.com/2026/02/17/lego-orrery-gets-a-real-time-drive-upgrade/" />
+  </entry>
+  <entry>
+    <id>https://eutechmap.com/map</id>
+    <title>Hacker News: European Tech Alternatives</title>
+    <updated>2026-02-19T06:52:48Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47070142&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://eutechmap.com/map" />
+  </entry>
+  <entry>
+    <id>https://arstechnica.com/security/2026/02/password-managers-promise-that-they-cant-see-your-vaults-isnt-always-true/</id>
+    <title>Ars Technica: Password managers&apos; promise that they can&apos;t see your vaults isn&apos;t always true</title>
+    <updated>2026-02-17T21:35:12Z</updated>
+    <author><name>Dan Goodin</name></author>
+    <content type="html">&lt;p&gt;Over the past 15 years, password managers have grown from a niche security tool used by the technology savvy into an indispensable security tool for the masses, with an &lt;a href=&quot;https://www.security.org/digital-safety/password-manager-annual-report/&quot;&gt;estimated&lt;/a&gt;94 million US adults—or roughly 36 percent of them—having adopted them. They store not only passwords for pension, financial, and...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://arstechnica.com/security/2026/02/password-managers-promise-that-they-cant-see-your-vaults-isnt-always-true/" />
+  </entry>
+  <entry>
+    <id>https://www.capital.fr/entreprises-marches/le-specialiste-des-fournitures-scolaires-maped-abandonne-le-made-in-france-1523884</id>
+    <title>capital.fr: Le sp&#233;cialiste des fournitures scolaires Maped abandonne le made in France</title>
+    <updated>2026-02-18T10:56:34Z</updated>
+    <author><name>capital.fr</name></author>
+    <content type="html">&lt;p&gt;Maped va fermer sa derni&#232;re usine de fabrication fran&#231;aise en mai prochain. La fin d’un combat de haut vol qui n’a pas r&#233;sist&#233; &#224; la concurrence indienne et chinoise. La soci&#233;t&#233; sp&#233;cialiste des fournitures scolaires s’est r&#233;solue &#224; mettre fin &#224; ses ambitions de &#171;made in France&#187;.&lt;/p&gt;</content>
+    <link rel="alternate" href="https://consents.capital.fr/v2?redirectUrl=https%3a%2f%2fwww.capital.fr%2fentreprises-marches%2fle-specialiste-des-fournitures-scolaires-maped-abandonne-le-made-in-france-1523884&amp;authId=8d420147676e688b16f1a3d377daafb4&amp;fromStep=v2-site1.1-step1" />
+  </entry>
+  <entry>
+    <id>https://www.diyphotography.net/?p=315386</id>
+    <title>DIYPhotography: Get Free, Open Source, Full Frame Focus Stacking for Everyone</title>
+    <updated>2026-02-17T17:32:52Z</updated>
+    <author><name>David Prochnow</name></author>
+    <content type="html">&lt;img alt=&quot;&quot; class=&quot;webfeedsFeaturedVisual wp-post-image&quot; height=&quot;169&quot; src=&quot;https://www.diyphotography.net/wp-content/uploads/2026/02/trilobite2-300x169.jpeg&quot; width=&quot;300&quot;&gt;&lt;p&gt;When it comes to focus stacking or focus bracketing, forget about using proprietary software and subscription-fee based programs. Right? You want a nice, simple, and...&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;The post &lt;a href=&quot;https://www.diyphotography.net/get-free-open-source-full-frame-focus-stacking-for-everyone/&quot;&gt;Get Free, Open Source, Full Frame Focus Stacking for Everyone&lt;/a&gt; appeared first on &lt;a href=&quot;https://www.diyphotography.net&quot;&gt;DIY Photography&lt;/a&gt;.&lt;/small&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.diyphotography.net/get-free-open-source-full-frame-focus-stacking-for-everyone/" />
+  </entry>
+  <entry>
+    <id>https://petapixel.com/?p=839770</id>
+    <title>PetaPixel: Peak Design’s Low-Profile Straps Are for Your Phone or Compact Camera</title>
+    <updated>2026-02-17T17:34:05Z</updated>
+    <author><name>Jaron Schneider</name></author>
+    <content type="html">&lt;p class=&quot;feature-image&quot;&gt;&lt;a href=&quot;https://petapixel.com/2026/02/17/peak-designs-low-profile-straps-are-for-your-phone-or-compact-camera/&quot;&gt;&lt;img alt=&quot;A hand holds a smartphone on a black lanyard against the sky, while another lanyard secures a camera and small pouch to a person in a light-colored jacket.&quot; class=&quot;attachment-card-large size-card-large wp-post-image&quot; height=&quot;840&quot; src=&quot;https://petapixel.com/assets/uploads/2026/02/Peak-Design-Has-New-Slim-and-Low-Profile-Phone-and-Camera-Straps.jpg&quot; width=&quot;1600&quot;&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Peak Design has announced a series of mobile-focused straps that it says are quick-adjusting, low profile, comfy, and durable.&#160;The Mobile Straps work with smartphones but are also meant to secure small point-and-shoot cameras, too.&lt;/p&gt;
+&lt;p class=&quot;read-more&quot;&gt;[&lt;a href=&quot;https://petapixel.com/2026/02/17/peak-designs-low-profile-straps-are-for-your-phone-or-compact-camera/&quot;&gt;Read More&lt;/a&gt;]&lt;/p&gt;</content>
+    <link rel="alternate" href="https://petapixel.com/2026/02/17/peak-designs-low-profile-straps-are-for-your-phone-or-compact-camera/" />
+  </entry>
+  <entry>
+    <id>tag:blog.golang.org,2013:blog.golang.org/gofix</id>
+    <title>The Go Programming Language: Using go fix to modernize Go code</title>
+    <updated>2026-02-17T00:00:00Z</updated>
+    <author><name>Alan Donovan</name></author>
+    <content type="html">&lt;div id=&quot;blog&quot;&gt;&lt;div id=&quot;content&quot;&gt;
+  &lt;div id=&quot;content&quot;&gt;
+
+    &lt;div class=&quot;Article&quot;&gt;
+    
+    &lt;h1 class=&quot;small&quot;&gt;&lt;a href=&quot;/blog/&quot;&gt;The Go Blog&lt;/a&gt;&lt;/h1&gt;
+    
+
+    &lt;h1&gt;Using go fix to modernize Go code&lt;/h1&gt;
+      
+      &lt;p class=&quot;author&quot;&gt;
+      Alan Donovan&lt;br&gt;
+      17 February 2026
+      &lt;/p&gt;
+      
+      &lt;div class=&quot;markdown&quot;&gt;
+
+&lt;p&gt;The 1.26 release of Go this month includes a completely rewritten go fix subcommand. Go fix uses a suite of algorithms to identify opportunities to improve your code, often by taking advantage of more modern...&lt;code&gt;&lt;/code&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</content>
+    <link rel="alternate" href="https://go.dev/blog/gofix" />
+  </entry>
+  <entry>
+    <id>https://00f.net/2026/02/17/sorting-without-leaking-secrets</id>
+    <title>Frank Denis: Fast sorting, branchless by design</title>
+    <updated>2026-02-16T23:00:00Z</updated>
+    <author><name>Frank Denis (Jedi/Sector One)</name></author>
+    <content type="html">&lt;p&gt;Sorting is one of the most studied problems in computer science. Every language ships a built-in sort, and for most applications, picking the right one is a matter of performance. Quicksort, mergesort, pdqsort. They all produce the correct output. The main question is how fast they get there.&lt;/p&gt;
+
+&lt;p&gt;But there’s...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://00f.net/2026/02/17/sorting-without-leaking-secrets/" />
+  </entry>
+  <entry>
+    <id>https://hackaday.com/?p=916817</id>
+    <title>Hackaday: AirTag Has Hole Behind the Battery? It’s Likely Been Silenced</title>
+    <updated>2026-02-17T12:13:07Z</updated>
+    <author><name>Donald Papp</name></author>
+    <content type="html">&lt;div&gt;&lt;img alt=&quot;&quot; class=&quot;attachment-large size-large wp-post-image&quot; height=&quot;450&quot; src=&quot;https://hackaday.com/wp-content/uploads/2026/02/AirTag-2-The-Easiest-Way-to-Disable-the-Speaker-and-Keep-It-Watertight-2-41-screenshot.png?w=800&quot; width=&quot;800&quot;&gt;&lt;/div&gt;&lt;p&gt;Apple AirTags have speakers in them, and the speaker is not entirely under the owner&amp;#8217;s control. [Shahram] shows &lt;a href=&quot;https://www.youtube.com/watch?v=nO_Bg4vAuwM&quot; target=&quot;_blank&quot;&gt;how the speaker of an AirTag can be disabled while keeping the device watertight&lt;/a&gt;. Because AirTags are not intended to be opened or tampered with, doing so boils down to making...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://hackaday.com/2026/02/17/airtag-has-hole-behind-the-battery-its-likely-been-silenced/" />
+  </entry>
+  <entry>
+    <id>https://sgom.es/posts/2026-02-13-js-heavy-approaches-are-not-compatible-with-long-term-performance-goals/</id>
+    <title>Hacker News: JavaScript-heavy approaches are not compatible with long-term performance goals</title>
+    <updated>2026-02-16T02:56:21Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47029339&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://sgom.es/posts/2026-02-13-js-heavy-approaches-are-not-compatible-with-long-term-performance-goals/" />
+  </entry>
+  <entry>
+    <id>https://github.com/alibaba/zvec</id>
+    <title>Hacker News: Zvec: A lightweight, fast, in-process vector database</title>
+    <updated>2026-02-14T22:56:51Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47000535&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://github.com/alibaba/zvec" />
+  </entry>
+  <entry>
+    <id>https://blog.dmcc.io/journal/2026-bluetooth-privacy-bluehood/</id>
+    <title>Hacker News: What Your Bluetooth Devices Reveal About You</title>
+    <updated>2026-02-16T16:12:16Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47035560&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://blog.dmcc.io/journal/2026-bluetooth-privacy-bluehood/" />
+  </entry>
+  <entry>
+    <id>https://news.speedata.de/2026/02/10/typesetting-benchmark/</id>
+    <title>Hacker News: Benchmarking Automatic Typesetting Systems</title>
+    <updated>2026-02-16T05:32:40Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=46971547&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://news.speedata.de/2026/02/10/typesetting-benchmark/" />
+  </entry>
+  <entry>
+    <id>https://www.confectionerynews.com/Article/2026/02/13/cocoa-prices-collapse-following-record-highs/</id>
+    <title>ConfectioneryNews: Cocoa prices collapse following record highs</title>
+    <updated>2026-02-13T10:50:46Z</updated>
+    <author><name>Donna Eastlake</name></author>
+    <content type="html">Cocoa prices collapse following record highs.</content>
+    <link rel="alternate" href="https://www.confectionerynews.com/Article/2026/02/13/cocoa-prices-collapse-following-record-highs/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS" />
+  </entry>
+  <entry>
+    <id>https://toolguyd.com/?p=142875</id>
+    <title>ToolGuyd: Leatherman OPNR is Cheap One-Piece Multi-Tool</title>
+    <updated>2026-02-16T16:08:43Z</updated>
+    <author><name>Stuart</name></author>
+    <content type="html">&lt;figure class=&quot;wp-block-image size-full&quot;&gt;&lt;img alt=&quot;Leatherman OPNR Multi-Tool on Key Chain&quot; class=&quot;wp-image-142876&quot; height=&quot;450&quot; src=&quot;https://i0.wp.com/toolguyd.com/blog/wp-content/uploads/2026/02/Leatherman-OPNR-Multi-Tool-on-Key-Chain.jpg?resize=600%2C450&amp;#038;ssl=1&quot; width=&quot;600&quot;&gt;
+
+
+
+&lt;p&gt;Leatherman has launched a new one-piece multi-tool, the OPNR.&lt;/p&gt;
+
+
+
+&lt;p&gt;The Leatherman OPNR is a keychain-sized tool with 4-functions:&lt;/p&gt;
+
+
+
+&lt;ul class=&quot;wp-block-list&quot;&gt;
+&lt;li&gt;Package opener
+
+
+
+&lt;/li&gt;&lt;li&gt;Bottle opener
+
+
+
+&lt;/li&gt;&lt;li&gt;Pry bar/screwdriver
+
+
+
+&lt;/li&gt;&lt;li&gt;Keychain or lanyard hole
+&lt;/li&gt;&lt;/ul&gt;
+
+
+
+&lt;figure class=&quot;wp-block-image size-full&quot;&gt;&lt;img alt=&quot;Leatherman OPNR Multi-Tool&quot; class=&quot;wp-image-142877&quot; height=&quot;246&quot; src=&quot;https://i0.wp.com/toolguyd.com/blog/wp-content/uploads/2026/02/Leatherman-OPNR-Multi-Tool.jpg?resize=600%2C246&amp;#038;ssl=1&quot; width=&quot;600&quot;&gt;
+
+
+
+&lt;p&gt;The OPNR is just 2.6&amp;#8243; long, 1.01&amp;#8243; wide, and 0.09&amp;#8243; thick. It&amp;#8217;s made from 420HC stainless steel and has a plain metal...&lt;/p&gt;&lt;/figure&gt;&lt;/figure&gt;</content>
+    <link rel="alternate" href="https://toolguyd.com/leatherman-opnr-multi-tool/" />
+  </entry>
+  <entry>
+    <id>https://modern-css.com</id>
+    <title>Hacker News: Modern CSS Code Snippets: Stop writing CSS like it&apos;s 2015</title>
+    <updated>2026-02-15T21:35:07Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47025851&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://modern-css.com" />
+  </entry>
+  <entry>
+    <id>https://www.notebookcheck.net/First-Core-Ultra-7-355-benchmarks-are-in-and-they-re-nowhere-near-as-good-as-the-Core-Ultra-X7.1227025.0.html</id>
+    <title>Notebookcheck.net News: First Core Ultra 7 355 benchmarks are in and they&apos;re nowhere near as good as the Core Ultra X7</title>
+    <updated>2026-02-15T23:04:47Z</updated>
+    <author><name>Allen Ngo</name></author>
+    <content type="html">Panther Lake-H has proven itself to be quite impressive thus far, but the lesser Panther Lake-U series loses a lot of what makes the architecture unique from predecessors.</content>
+    <link rel="alternate" href="https://www.notebookcheck.net/First-Core-Ultra-7-355-benchmarks-are-in-and-they-re-nowhere-near-as-good-as-the-Core-Ultra-X7.1227025.0.html" />
+  </entry>
+  <entry>
+    <id>https://blog.feld.me/posts/2026/02/wolfssl-sucks-too/</id>
+    <title>Hacker News: WolfSSL Sucks Too, So Now What?</title>
+    <updated>2026-02-13T10:54:09Z</updated>
+    <author><name>Hacker News</name></author>
+    <content type="html">&lt;a href=&quot;https://news.ycombinator.com/item?id=47001095&quot;&gt;Comments&lt;/a&gt;</content>
+    <link rel="alternate" href="https://blog.feld.me/posts/2026/02/wolfssl-sucks-too/" />
+  </entry>
+  <entry>
+    <id>https://lobste.rs/s/aykqb9</id>
+    <title>Lobsters: If you use AI-generated code, you currently cannot claim copyright on it in the US</title>
+    <updated>2026-02-13T13:42:05Z</updated>
+    <author><name>zomglol.wtf via mrexodia</name></author>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://lobste.rs/s/aykqb9/if_you_use_ai_generated_code_you_currently&quot;&gt;Comments&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="alternate" href="https://zomglol.wtf/@jamie/116059523957674208" />
+  </entry>
+  <entry>
+    <id>https://www.theguardian.com/uk-news/2026/feb/13/original-bramley-apple-tree-at-risk-site-for-sale</id>
+    <title>Guardian Unlimited: Original Bramley apple tree ‘at risk’ after site where it grows is put up for sale</title>
+    <updated>2026-02-13T18:19:53Z</updated>
+    <author><name>Neha Gohil Midlands correspondent</name></author>
+    <content type="html">&lt;p&gt;Tree has never been granted preservation order to protect it under law and prevent it from being cut down&lt;/p&gt;&lt;p&gt;The future of the original Bramley apple tree, which is responsible for one of the world’s most popular cooking apples, is at risk now that the site where it grows has...&lt;/p&gt;</content>
+    <link rel="alternate" href="https://www.theguardian.com/uk-news/2026/feb/13/original-bramley-apple-tree-at-risk-site-for-sale" />
+  </entry>
+</feed>

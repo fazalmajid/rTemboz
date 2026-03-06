@@ -1,0 +1,13 @@
+query filters in items
+sort order in items
+opml
+stemmer endpoint
+make overload limit configurable again
+proper user-agent for feed fetching
+implement /feed /catchup and /reload
+stop constantly refreshing mv on startup
+authentication
+figure out why tags are not being set
+Test cases
+Fix weird title decoding errors from TechRadar et al if they still occur
+Make sure there isn't a mix of julianday and ISO in the DB

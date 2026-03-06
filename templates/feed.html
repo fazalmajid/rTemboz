@@ -1,0 +1,125 @@
+{% extends "menubar.html" %}
+
+{% block TITLE %}Temboz - Feed details{% endblock TITLE %}
+{% block BODYOPTIONS %} class="unpadded"{% endblock BODYOPTIONS %}
+{% block EXTRAHEAD %}
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    <script language="JavaScript" src="/static/temboz.js"></script>
+{% endblock EXTRAHEAD %}
+
+{% block CONTENT %}
+<h1><a href="{{ feed.html }}">{{ feed.title }}</a></h1>
+{% for notice in notices %}
+{{ notice|safe }}
+{% endfor %}
+{% if op == "/dedupe" && confirm %}
+<p>Deduped {{ deduped }} items successfully.</p>
+{% endif %}
+{% if op == "/catchup" && confirm %}
+<p>Caught up {{ caught_up }} items successfully.</p>
+{% endif %}
+{% if op == "/reload" && confirm %}
+<p>Purged {{ purged }} items successfully.</p>
+{% endif %}
+{{ refresh_msg | safe }}
+{% if (op == "/catchup" || op == "/reload" || op == "/dedupe") && !confirm %}
+<form method="POST">
+  {% if back != "" %}
+  <input type="hidden" name="back" value="{{ back }}">
+  {% endif %}
+  <input type="hidden" name="confirm" value="yes">
+  Please confirm you want to
+  {% match op.as_str() %}
+  {% when "/dedupe" %}deduplicate items in this feed
+  {% when "/catchup" %}mark as read all unread items in this feed
+  {% when "/reload" %}purge and reload all unread items in this feed (some may be lost if they have been paged out of the feed online)
+  {% when _ %}??? this shouldn't happen!!!
+  {% endmatch %}
+  <a href="{{ feed.html }}">{{ feed.title }}</a>
+  <input type="submit" value="Confirm">
+</form>
+{% endif %}
+{% if op == "hardpurge" && !confirm %}
+<form method="POST">
+  <input type="hidden" name="confirm" value="yes">
+  Please confirm you want to delete the post and {{ feed.total }} articles
+  ({{ feed.unread }} unread)
+  <a href="{{ feed.html }}">{{ feed.title }}</a>
+  <input type="submit" value="Confirm">
+</form>
+{% endif %}
+{# Display feed URL with option to change it #}
+<form method="POST" class="feed_info" name="feed.xml">
+<table>
+  <tr><td>Title</td><td><input name="feed_title" size="80"
+   value="{{ feed.title }}"></td></tr>
+  <tr><td><a href="{{ feed.html }}">Site</a></td>
+    <td><input name="feed_html" size="80" value="{{ feed.html }}"></td></tr>
+  </tr>
+  <tr><td><a href="{{ feed.xml }}">Feed</a></td>
+    <td>
+      <input name="feed_xml" size="80" value="{{ feed.xml }}"></td></tr>
+  <tr><td>Public feed</a></td>
+    <td>
+      {{ !feed.private|safe }}
+      <input name="feed_pubxml" size="80" value="{{ feed.pubxml }}">
+      (if the Feed XML is not shareable)</td></tr>
+  <tr><td>Desc</td><td><textarea cols="80"
+                                 rows="{{ feed.desc_rows() }}"
+                                 name="feed_desc">{{ feed.description }}</textarea>
+  </td></tr>
+  <tr><td colspan="2" align="center"><input type="button" value="Clear"
+    onclick="document.forms.feed_xml.feed_xml.value='';document.forms.feed_xml.feed_title.value='';document.forms.feed_xml.feed_desc.value='';document.forms.feed_xml.feed_xml.focus();">
+    <input type="submit" value="Change"></td></tr>
+</table>
+</form>
+<br><br>
+
+{# Feed statistics #}
+<table border="0">
+  <tr><td>Last modified</td><td align="right">{{ feed.last_modified }}</td></tr>
+  <tr><td><a href="/view?feed_uid={{ feed.uid }}&show=unread">Unread</a></td><td align="right">{{ feed.unread }}</td></tr>
+  <tr><td><a href="/view?feed_uid={{ feed.uid }}&show=filtered">Filtered</a></td><td align="right">{{ feed.filtered }}</td></tr>
+  <tr><td><a href="/view?feed_uid={{ feed.uid }}&show=up">Interesting</a></td><td align="right">{{ feed.interesting }}</td></tr>
+  <tr><td><a href="/view?feed_uid={{ feed.uid }}&show=down">Uninteresting</a></td><td align="right">{{ feed.uninteresting }}</td></tr>
+  <tr><td>Hit ratio</td><td align="right">{{ ratio }}%</td></tr>
+  <tr><td>Errors</td><td align="right">{{ feed.errors }}</td></tr>
+
+  <tr><td>Status</td><td>{{ feed.status }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ status_change_op }}">{{ status_change_op }}</a></td></tr>
+  <tr><td>Privacy</td><td>{{ private_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ private_change_op}}">{{ private_change_op }}</a></td></tr>
+  <tr><td>Filtering exemption</td><td>{{ exempt_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ exempt_change_op }}">{{ exempt_change_op }}</a> (exempt feeds are still subject to feed-specific filtering rules).</td></tr>
+{########################################################################}
+{% if !feed.dupcheck %}
+  <tr><td>Duplicate<br>title<br>checking</td><td>No duplicate checks&nbsp;<a href="/feed/{{ feed.uid }}/Dupcheck">check for duplicate titles</a></td></tr>
+{% else %}
+  <tr><td>Duplicate<br>title<br>checking</td><td>Duplicate checking in effect&nbsp;<a href="/feed/{{ feed.uid }}/NoDupcheck">disable duplicate checking</a></td></tr>
+{% endif %}
+  <tr><td>Refresh</td><td><a href="/feed/{{ feed.uid }}/refresh">Manually refresh</a> feed</td></tr>
+  <tr><td>Catch-up</td><td><a href="/feed/{{ feed.uid }}/catchup">Mark as read</a> {{ feed.unread }} unread articles</td></tr>
+  <tr><td>Purge</td><td><a href="/feed/{{ feed.uid }}/reload">Purge and reload</a> {{ feed.unread }} unread articles</td></tr>
+  <tr>
+    <td>Deduplicate</td><td><a href="/feed/{{ feed.uid }}/dedupe">Deduplicate</a> unread articles whose title matches that of past ones</td>
+  </tr>
+  <tr><td>Hard purge</td><td><a href="/feed/{{ feed.uid }}/hardpurge">Completely delete</a> {{ feed.total }} articles
+{% if feed.interesting > 0 %}
+  (including {{ feed.interesting }} flagged as interesting)
+{% endif %}
+  </td></tr>
+  <tr><td>Debug</td><td><a href="/feed_debug/{{ feed.uid }}">Dump the parsed feed</a>, useful for writing <a href="/rules">filtering rules</a></td></tr>
+</table>
+<br>
+{% if !top_rules.is_empty() %}
+<h2>Top filter rules</h2>
+<table>
+  <tr><th>Rule</th><th>Type</th><th>Text</th><th>Filtered articles</th></tr>
+  {% for (index, (rule, count)) in top_rules.iter().enumerate() %}
+  <tr valign="top" class="{% if index % 2 == 0 %}odd{% else %}even{% endif %}" id="top_rule_{{ rule.uid }}">
+    <td>{{ rule.uid }}</td>
+    <td>{{ rule.rule_type }}</td><td>{{ rule.text }}</td>
+    <td><a href="/view?show=filtered&feed_uid={{ feed.uid }}&rule_uid={{ rule.uid }}">{{ count }} filtered articles</a></td>
+  </tr>
+  {% endfor %}
+{% endif %}
+</table>
+
+{% endblock CONTENT %}

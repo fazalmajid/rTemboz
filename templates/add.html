@@ -1,0 +1,30 @@
+{% extends "menubar.html" %}
+
+{% block TITLE %}Temboz - Add feed{% endblock %}
+{% block EXTRAHEAD %}
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<script language="JavaScript" src="/static/temboz.js"></script>
+<script language="JavaScript" src="/static/add.js"></script>
+{% endblock %}
+
+{% block CONTENT %}
+{% match msg %}
+{% when Some with (m) %}
+{% match m.feed_uid %}
+{% when 0 %}
+<p>Error: {{ m.feed_title }}</p>
+{% when _ %}
+<p>
+  Subscribed successfully to <a href="/feed/{{ m.feed_uid }}">{{ m.feed_title }}</a>
+  ({{ m.added }} new articles, {{ m.filtered }} of which were filtered).
+</p>
+{% endmatch %}
+{% when _ %}
+{% endmatch %}
+    
+<p>Subscribe to a RSS feed:</p>
+<form class="add" action="add" method="POST">
+  <input size=64 id="feed_xml" name="feed_xml">
+  <input type="submit" value="Subscribe">
+</form>
+{% endblock CONTENT %}

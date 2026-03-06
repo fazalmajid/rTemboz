@@ -1,0 +1,63 @@
+{% extends "menubar.html" %}
+
+{% block TITLE %}Temboz - Rule details{% endblock %}
+{% block BODYOPTIONS %} class="unpadded"{% endblock %}
+{% block EXTRAHEAD %}
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<script language="JavaScript" src="/static/temboz.js"></script>
+<script src="/static/simple-datatables.js"></script>
+<link href="/static/datatables.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block CONTENT %}
+<table class="rules">
+  <thead class="fixed">
+    <tr class="header">
+      <th align="right" style="width:5em;">ID</th>
+      <th align="right" style="width:17em;">Type</th>
+      <th align="right" style="width:75%;">Rule</th>
+      <th align="right" style="width:25%;">Feed</th>
+      <th style="width:32em;">Actions</th>
+  </thead>
+  <tbody>
+{# ########################################################################
+##   Loop over feeds
+#}
+{% for row in rules.iter() %}
+    <tr valign="top">
+      <td>{{ row.uid }}</td>
+      <td>{{ row.rule_type }}</td>
+      <td>{{ row.text }}</td>
+      <td>
+        {% match row.feed %}
+        {% when Some with (feed_uid) %}<a href="/feed/{{ feed_uid }}">
+        {% match row.feed_title %}
+        {% when Some with (feed_title_) %}{{ feed_title_ }}
+        {% when _ %}
+        {% endmatch %}
+        </a>
+        {% when _ %}
+        {% endmatch %}
+      </td>
+      <td>Actions here</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+<script type="module">
+  const dataTable = new simpleDatatables.DataTable("table.rules", {
+    searchable: true,
+    perPage: 20,
+    perPageSelect: [5, 10, 20, 50, 100, 200, 400, ["All", 0]],
+    firstText: "FIRST &#9197;",
+    lastText: "LAST &#9198;",
+    fixedColumns: true,
+    columns: [
+      {
+        select: 5,
+        sortable: false
+      }
+    ]
+  });
+</script>
+{% endblock %}

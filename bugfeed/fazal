@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fazal Majid&#39;s low-intensity blog</title>
+    <link>https://blog.majid.info/</link>
+    <description>Recent content on Fazal Majid&#39;s low-intensity blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 Feb 2026 15:14:23 +0000</lastBuildDate>
+    
+        <atom:link href="https://blog.majid.info/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dardenne dark milk chocolate praliné</title>
+      <link>https://blog.majid.info/dardenne-praline/</link>
+      <pubDate>Sun, 22 Feb 2026 15:14:23 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/dardenne-praline/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://blog.majid.info/dardenne-praline/dardenne.png&#34; alt=&#34;&#34; width=&#34;250&#34; height=&#34;296&#34; class=&#34;thumbnail&#34;/&gt;
+It&amp;rsquo;s been a while since I last did a chocolate
+review. There are not many bars that can claim to be made using a patented
+process invented by a Nobel laureate. The &lt;a href=&#34;1&#34;&gt;Dardenne Lait Praliné&lt;/a&gt; (dark milk
+chocolate with ground hazelnuts) is one.&lt;/p&gt;
+&lt;p&gt;The special cooking process was invented in 1910 by Paul Sabatier (Chemistry
+Nobel, 1912) to make chocolate easier to digest for people who don&amp;rsquo;t tolerate
+it well. In any case, this is an organic and Fairtrade bar with a moderately
+high 43% cacao content (for milk chocolate).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Moving away from Apple platforms, a living diary</title>
+      <link>https://blog.majid.info/quit-apple/</link>
+      <pubDate>Thu, 04 Sep 2025 11:25:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/quit-apple/</guid>
+      <description>&lt;p&gt;The first computer I purchased with my own money was a Mac Plus,
+circa 1990. Then I discovered Linux in 1991 and switched. When Apple
+introduced Mac OS X, I purchased an iMac G4, and over time transitioned fully
+to the new UNIX-based Mac. I also got the first iPod, iPhone and iPads, so I
+could fairly be accused of being an Apple fanboi, even if I have never been
+blind to the platform&amp;rsquo;s limitation and Apple&amp;rsquo;s questionable business
+practices.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Making the LEDs on the LincStation N2 work in Alpine</title>
+      <link>https://blog.majid.info/lincstation/</link>
+      <pubDate>Sun, 01 Jun 2025 20:27:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/lincstation/</guid>
+      <description>&lt;p&gt;I normally run backups on my network on a SmartOS server equipped with 2x14TB
+mirrored hard drives running ZFS, using &lt;code&gt;rsync&lt;/code&gt; and SMB/CIFS as the access
+protocol (and eventually &lt;a href=&#34;https://kopia.io&#34;&gt;Kopia&lt;/a&gt;). It&amp;rsquo;s a bit noisy and sluggish, despite
+having a 10G Ethernet connection, so I recently bought a &lt;a href=&#34;https://liliputing.com/lincplus-lincstation-n2-review-a-compact-nas-with-10-gbe-lan-four-m-2-slots-and-support-for-two-2-5-inch-drives/&#34;&gt;LincPlus LincStation
+N2&lt;/a&gt; all-flash server during its Kickstarter to eventually replace it.&lt;/p&gt;
+&lt;p&gt;The N2 is a very slim device, has 10G (copper) networking, supports 4x M2 SSDs
+plus 2x SATA 2.5&amp;quot; drives (I suppose they could be spinning rust) and a 128G
+MMC boot drive so you don&amp;rsquo;t have to waste data drives on the operating
+system. The only thing missing, really, is ECC memory.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Paris travel tips</title>
+      <link>https://blog.majid.info/paris/</link>
+      <pubDate>Sun, 11 May 2025 19:02:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/paris/</guid>
+      <description>&lt;p&gt;France is the world&amp;rsquo;s most popular destination for tourism, and its capital is
+of course the entry point for most visitors. The Paris region has a population
+of 9 million, but &lt;em&gt;Paris intra muros&lt;/em&gt; (Paris within the walls, the deep
+historical core city within the &lt;em&gt;Périphérique&lt;/em&gt; ring road) is only about 2
+million.&lt;/p&gt;
+&lt;p&gt;Driving within Paris proper is a nightmare, and completely unnecessary given
+the quality of the regional &lt;a href=&#34;https://www.iledefrance-mobilites.fr/en/the-network/maps-plans&#34;&gt;public transit network&lt;/a&gt;. Going to suburbs
+like Versailles or Saint-Germain en Laye is easy, but going from one suburb to
+another is harder because the public transport network is radial, you often
+have to go all the way back to Paris to transfer, although the situation is
+improving.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apple privacy checklist</title>
+      <link>https://blog.majid.info/defang-apple/</link>
+      <pubDate>Wed, 08 Jan 2025 22:17:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/defang-apple/</guid>
+      <description>&lt;p&gt;Apple claims to hold privacy at its core, but it has been an advertising company for at least a decade, and now that smartphone and computer sales are plateauing and new products like the Apple Vision Pro have failed to set the world on fire, Services revenue (an euphemism for the 30% App Store tax on developers and advertising) is critical to maintaining the company&amp;rsquo;s stock price.&lt;/p&gt;
+&lt;p&gt;Recent behavior from Apple has confirmed Google or Meta&amp;rsquo;s take that Apple&amp;rsquo;s privacy claims are just that, clever marketing to obscure the fact the privacy measures they do have are mainly there to stymie its competitors:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Getting the Hasivo F1100W-4SX-4XGT switch to work</title>
+      <link>https://blog.majid.info/hasivo/</link>
+      <pubDate>Tue, 07 Jan 2025 20:05:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/hasivo/</guid>
+      <description>&lt;p&gt;I was first exposed to Cisco network equipment in 1995, and for a long time I
+used their gear for my home network. Then around 2012 I switched to Juniper
+switches for their more sane management interface and more reasonable
+prices. Neither have WiFI equipment that&amp;rsquo;s really appropriate for a home
+setting, however, with onerous licensing terms or crackpot schizophrenic
+hardware like my old Cisco 877W that was one half ADSL router and one half
+WiFi AP (coexisting uneasily in the same physical box with separate management
+interfaces).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Fiber for your home network</title>
+      <link>https://blog.majid.info/fiber-network/</link>
+      <pubDate>Sun, 17 Mar 2024 18:03:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/fiber-network/</guid>
+      <description>&lt;p&gt;My apartment, like many, is elongated. The living room is on one end, the
+bedrooms (one of which is my home office), on the other side. This makes it
+hard to cover both sides with a single WiFi access point, or to have uniform
+Internet access speed on the wired network. I have a semi-pro Ubiquiti UniFi
+network of WiFi access points and switches, which makes it realtively easy,
+but only if you have good backhaul connectivity between the APs.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PSA: LinkedIn single-sign-on dangers</title>
+      <link>https://blog.majid.info/linkedin-sso/</link>
+      <pubDate>Thu, 17 Nov 2022 13:35:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/linkedin-sso/</guid>
+      <description>&lt;p&gt;I have a work-issued computer that I keep rigorously separate from my personal
+stuff. It belongs to my employer and thus I do not keep personal files on it,
+or access personal email and certainly don&amp;rsquo;t save personal passwords on
+it. I even have it on a separate VLAN on my home network.&lt;/p&gt;
+&lt;p&gt;This is why I was horrified when I went to the LinkedIn website on my work
+computer (to look at a colleague&amp;rsquo;s posting) and it automatically started a
+single sign-on with my company&amp;rsquo;s GMail (my work address is of course linked to
+my LinkedIn profile).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Funding the vetting of the Software Supply-Chain</title>
+      <link>https://blog.majid.info/supply-chain-vetting/</link>
+      <pubDate>Wed, 21 Sep 2022 10:36:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/supply-chain-vetting/</guid>
+      <description>&lt;p&gt;As memorably illustrated by XKCD, the way most software is built today is by
+bolting together reusable software packages (dependencies) with a thin layer
+of app-specific integration code that glues it all together. Others have
+described &lt;a href=&#34;https://snarfed.org/2022-03-10_were-drowning-software-dependencies&#34;&gt;more eloquently than I can&lt;/a&gt; the mess we are in, and &lt;a href=&#34;https://research.swtch.com/deps&#34;&gt;the
+technical issues&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://xkcd.com/2347/&#34;&gt;&lt;img src=&#34;https://blog.majid.info/supply-chain-vetting/dependency.png&#34; alt=&#34;XKCD&#34; width=&#34;385&#34; height=&#34;489&#34; class=&#34;centered&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;Crises like the &lt;a href=&#34;https://govcert.ch/blog/zero-day-exploit-targeting-popular-java-library-log4j/&#34;&gt;log4j fiasco&lt;/a&gt; or the &lt;a href=&#34;https://arstechnica.com/information-technology/2020/12/feds-warn-that-solarwinds-hackers-likely-used-other-ways-to-breach-networks/&#34;&gt;Solarwinds debacle&lt;/a&gt; are forcing
+the community to wake up to something security experts have been warning about
+for decades: this culture of promiscuous and undiscriminating code reuse is
+unsustainable. On the other hand, for most software developers without the
+resources of a Google or Apple behind them, being able to leverage
+third-parties for 80% of their code is too big an advantage to abandon.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The fetish for uptime</title>
+      <link>https://blog.majid.info/uptime-fetish/</link>
+      <pubDate>Thu, 28 Jul 2022 09:07:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/uptime-fetish/</guid>
+      <description>&lt;p&gt;At one of my previous jobs, the engineers on my team had an informal
+competition as to who could rack up the longest uptime on their workstation
+(they all had Sun Solaris or Linux, of course). When the company moved to a
+new office, one crafty engineer managed to beat all the others by putting his
+Sun into the seldom-used hibernation mode to preserve his uptime when everyone
+else was forced to reboot.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PSA: iCloud Private Relay can make Safari on your iPad unusable</title>
+      <link>https://blog.majid.info/icloud-private-relay/</link>
+      <pubDate>Tue, 24 May 2022 21:01:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/icloud-private-relay/</guid>
+      <description>&lt;p&gt;After upgrading my iPad to iPadOS 15.5, Safari became unusable. It would take
+forever to load the Reddit login page, and many others like Dilbert.com.
+Opening the same in Firefox Focus had no issues.&lt;/p&gt;
+&lt;p&gt;Going into &lt;code&gt;Settings / Safari / Privacy &amp;amp; Security / Hide IP Address&lt;/code&gt; and
+disabling it fixed this for me. Alternatively you can disable it only for
+specific networks (&lt;code&gt;Settings / Wi-Fi / ⓘ / Limit IP Address Tracing / Off&lt;/code&gt;).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Batch-converting HEIC images to JPEGs on the Mac</title>
+      <link>https://blog.majid.info/heic2jpeg/</link>
+      <pubDate>Wed, 27 Oct 2021 10:49:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/heic2jpeg/</guid>
+      <description>&lt;p&gt;I use Lightroom 6 to manage my photo collection, although it is falling victim to bit rot (e.g. the face recognition module no longer works, apparently due to a &lt;a href=&#34;https://feedback.photoshop.com/conversations/lightroom-classic/lightroom-classic-v610-crashes-in-the-facial-recognition-modul/5fd510567288d52d004c42d6?commentId=5fd6ac51f82792403a008d28&amp;amp;replyId=5fda56a39eb36838aa90b6d6&#34;&gt;licensing logic time bomb in the code&lt;/a&gt;). Exploitative pay-forever software subscriptions are simply unacceptable so I will not yield to Adobe&amp;rsquo;s Creative Clout bondage, and since Lightroom will not work in newer versions of MacOS, that means I am working on migrating to &lt;a href=&#34;https://www.darktable.org/&#34;&gt;Darktable&lt;/a&gt;, albeit very slowly.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>How to ensure a cron job runs exclusively</title>
+      <link>https://blog.majid.info/lock/</link>
+      <pubDate>Wed, 01 Sep 2021 16:18:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/lock/</guid>
+      <description>&lt;p&gt;Often you need to run a job periodically, e.g. backing up files, but the job could take more time than the interval allotted between runs, and you do not want multiple instances of the process to be running at the same time. For instance, bad things happen when multiple &lt;code&gt;rsync&lt;/code&gt; processes are trying to synchronize the same folders to the same destination. Thus you want a mutex, something that ensures only one copy of the process can run at any given time.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Setting HTTP headers for a static site on AWS CloudFront</title>
+      <link>https://blog.majid.info/cloudfront-headers/</link>
+      <pubDate>Wed, 28 Apr 2021 15:49:00 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/cloudfront-headers/</guid>
+      <description>&lt;p&gt;For a very long time, I ran this site off my cloud server in the US. When I
+moved to London, I started experiencing the painful impact of the ~100ms
+latency on the loading time for images and videos, and decided to move to a
+Content Delivery Network (CDN) with global reach. Unfortunately, most CDNs
+have steep minimum spend requirements that are excessive for a low-traffic
+site like this one. Amazon&amp;rsquo;s CloudFront is an exception, and my hosting costs
+are in the vicinity of $20 per month, which is why I settled for it despite my
+&lt;a href=&#34;https://blog.majid.info/why-i-will-never-buy-a-kindle/&#34;&gt;dislike for Amazon&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>HSTS: surprisingly rare</title>
+      <link>https://blog.majid.info/hsts-preload/</link>
+      <pubDate>Wed, 14 Apr 2021 16:21:57 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/hsts-preload/</guid>
+      <description>&lt;p&gt;HTTP Strict Transport Security (HSTS) is a critical security feature that
+allows a site to say &amp;ldquo;always use the secure HTTPS version, not the insecure
+unencrypted one&amp;rdquo;. There is a chicken-and-egg effect where the first time you
+access a website, you have no way to know if your site has HSTS turned on or
+not without accessing it, so browsers distribute a &amp;ldquo;HSTS Preload&amp;rdquo; list of
+domains for which it is turned on even if you have never accessed it before,
+as explained by &lt;a href=&#34;https://www.imperialviolet.org/2012/07/19/hope9talk.html&#34;&gt;Adam Langley&lt;/a&gt; of the Google Security Team. On Chromium
+based browsers you can check by accessing
+&lt;a href=&#34;chrome://net-internals/#hsts&#34;&gt;chrome://net-internals/#hsts&lt;/a&gt;. Yours truly is &lt;a href=&#34;https://hstspreload.org/?domain=majid.info&#34;&gt;on the list&lt;/a&gt;, which
+means that almost every single device on the planet has a file with my name in
+it, to my never-ceasing amusement.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>My Broadband Setup</title>
+      <link>https://blog.majid.info/broadband-setup/</link>
+      <pubDate>Fri, 05 Mar 2021 23:15:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/broadband-setup/</guid>
+      <description>&lt;p&gt;I moved to the UK, a country that was a leader in Europe for PC adoption and
+early telecoms deregulation, but has since become &lt;a href=&#34;https://www.theguardian.com/technology/2020/sep/02/uk-broadband-speeds-among-slowest-in-europe-study-finds&#34;&gt;one of the worst&lt;/a&gt; for
+the quality of its broadband through misguided laisser-faire policies. The
+only fixed broadband option available in my apartment is BT OpenReach&amp;rsquo;s
+pathetic VDSL service&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; (resold by Vodafone), which advertises 72 Mbps
+but I am lucky to get 40 Mbps down and 10 Mbps up.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>A pack of... backpacks</title>
+      <link>https://blog.majid.info/backpacks/</link>
+      <pubDate>Tue, 02 Mar 2021 23:26:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/backpacks/</guid>
+      <description>&lt;p&gt;I have many bags. So many I no longer keep an inventory in a spreadsheet but
+use a relational database to track. For a very long time, I preferred
+messenger bags but at age 36 I started developing muscle spasms in the right
+shoulder. After a few years of off and on physical therapy, I figured out it
+was the asymmetric load from the shoulder bag that was causing it (even though
+the load was on the left shoulder). This left me no option but to switch to
+backpacks exclusively, despite their less than ideal looks.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Automating Epson SSL/TLS certificate renewal</title>
+      <link>https://blog.majid.info/epson-certificates/</link>
+      <pubDate>Sun, 13 Dec 2020 17:54:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/epson-certificates/</guid>
+      <description>&lt;p&gt;Network-capable Epson printers like my new &lt;a href=&#34;https://www.epson.co.uk/products/printers/inkjet-printers/for-home/ecotank-et-16600&#34;&gt;ET-16600&lt;/a&gt; have a web-based user
+interface that supports HTTPS. You can even upload publicly recognized
+certificates from Let&amp;rsquo;s Encrypt et al, unfortunately the only options they
+offer is a Windows management app (blech) or a manual form.&lt;/p&gt;
+&lt;img src=&#34;https://blog.majid.info/epson-certificates/form.png&#34; alt=&#34;&#34; width=&#34;832&#34; height=&#34;509&#34; class=&#34;fullwidth&#34;/&gt;
+&lt;p&gt;When you have to upload this every month (that&amp;rsquo;s when I automatically renew my
+Let&amp;rsquo;s Encrypt certificates), this gets old really fast, and strange errors
+happen if you forget to do so and end up with an expired certificate.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apple iCalendar&#39;s buggy SNI</title>
+      <link>https://blog.majid.info/icalendar-sni/</link>
+      <pubDate>Mon, 07 Dec 2020 18:15:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/icalendar-sni/</guid>
+      <description>&lt;p&gt;I run my own CalDAV calendar server for my family and for myself. For a very
+long time I used &lt;a href=&#34;https://www.davical.org&#34;&gt;DAViCal&lt;/a&gt;, but it&amp;rsquo;s always been a slight annoyance to set
+up on Apple devices because they don&amp;rsquo;t like DAViCal&amp;rsquo;s
+&lt;code&gt;https://example.com/davical/caldav.php/majid&lt;/code&gt; URLs. What&amp;rsquo;s more, recent
+versions of iCalendar would pop up password prompts at random, and after
+re-entering the password a couple of times (once is not enough), would finally
+go on and work. The various devices would also all too often get out of sync,
+sometimes with the inscrutable error:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Edgewalker, a DIY VPN server</title>
+      <link>https://blog.majid.info/edgewalker-vpn/</link>
+      <pubDate>Mon, 30 Nov 2020 23:57:05 +0000</pubDate>
+      
+      <guid>https://blog.majid.info/edgewalker-vpn/</guid>
+      <description>&lt;h3 id=&#34;rationale&#34;&gt;Rationale&lt;/h3&gt;
+&lt;p&gt;There are many reasons to use a Virtual Private Network. Perhaps you are on an
+unsecured WiFi network. Perhaps you don&amp;rsquo;t want your Internet Service Provider
+to snoop on your browsing history using &lt;a href=&#34;https://blog.majid.info/telco-snooping/&#34;&gt;Deep Packet Inspection&lt;/a&gt; and
+compile a marketing dossier on your. Perhaps like my daughter you want to
+access video content on Netflix that is not available in your country. Perhaps
+you want to bypass the nanny state content filters the British government
+mandates.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
