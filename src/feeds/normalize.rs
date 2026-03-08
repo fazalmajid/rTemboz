@@ -78,7 +78,10 @@ pub fn extract(e: &Entry) -> Result<Item> {
     });
     let guid = match e.id.clone() {
         Some(s) => s.into_string(),
-        _ => sha256(content.clone()),
+        _ => match url.as_str() {
+            "" => sha256(content.clone()),
+            _ => url.clone(),
+        },
     };
     Ok(Item {
         guid,
