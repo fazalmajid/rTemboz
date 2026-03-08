@@ -1,0 +1,62 @@
+# --- Build stage ---
+FROM ubuntu:24.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    build-essential \
+    pkg-config \
+    clang \
+    libclang-dev \
+    libhyperscan-dev \
+    libssl-dev \
+    sqlite3 \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ubuntu 24.04 ships Rust 1.75 which is too old for edition=2024 (needs 1.85+)
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+ENV PATH="/root/.cargo/bin:$PATH"
+
+WORKDIR /build
+
+COPY Cargo.toml Cargo.lock ./
+# Remove the Alpine-specific static-bindgen vendor patch; runtime dlopen works on glibc
+RUN sed -i '/^\[patch\.crates-io\]/,$d' Cargo.toml
+
+# Download datatables assets required by build.rs (static file embedding)
+COPY static/ static/
+RUN wget -q -O static/datatables.css \
+        https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css && \
+    wget -q -O static/simple-datatables.js \
+        https://cdn.jsdelivr.net/npm/simple-datatables@latest
+
+# Create the SQLite database from migrations so sqlx can check queries at compile time
+COPY migrations/ migrations/
+RUN cat migrations/*.sql | sqlite3 boot.db
+
+COPY build.rs ./
+COPY src/ src/
+COPY templates/ templates/
+
+ENV DATABASE_URL=sqlite://boot.db
+
+RUN cargo build --release
+
+# --- Runtime stage ---
+FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libhyperscan5 \
+    libssl3 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /build/target/release/rtemboz /usr/local/bin/rtemboz
+
+VOLUME ["/data"]
+WORKDIR /data
+
+ENTRYPOINT ["/usr/local/bin/rtemboz"]
