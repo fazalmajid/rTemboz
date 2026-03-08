@@ -59,7 +59,11 @@ test: .venv/bin/pytest
 
 docker:
 	docker build . -t fazalmajid/rtemboz:latest
+	docker build . -t fazalmajid/rtemboz:alpine
+	docker build -f Dockerfile.ubuntu . -t fazalmajid/rtemboz:ubuntu
 	docker push fazalmajid/rtemboz:latest
+	docker push fazalmajid/rtemboz:alpine
+	docker push fazalmajid/rtemboz:ubuntu
 
 upgrade:
 	$(CARGO) install cargo-edit
