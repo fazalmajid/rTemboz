@@ -43,6 +43,7 @@ INSERT INTO setting (
   name, value
 )
 SELECT name, value
-FROM temboz.fm_settings;
+FROM temboz.fm_settings
+WHERE NOT name LIKE 'fb_%';
 
 EOF

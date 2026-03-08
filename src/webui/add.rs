@@ -61,7 +61,7 @@ pub async fn add(
         _ => None,
     };
     let template = AddTemplate {
-        menu_items: &menus("feed"),
+        menu_items: &menus("add"),
         search: None,
         path: "/add".to_string(),
         feed_uid: 0, // dummy

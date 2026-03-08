@@ -351,7 +351,7 @@ pub fn spawn_worker(
                         //     fetch_all(&db.clone(), work_q.clone(), bf.clone(), filters.clone()).await;
                         //     interval.reset()
                         // },
-                        FeedOp::RefreshOne{feed: feed, reply: reply} => {
+                        FeedOp::RefreshOne{feed, reply} => {
                             if let Err(e) = fetch_one(work_q.clone(), bf.clone(), filters.clone(), feed, reply).await {
                                 error!("error in RefreshOne: {}", e);
                             }
@@ -364,7 +364,7 @@ pub fn spawn_worker(
                     }
                 }
                 _ = interval.tick() => {
-                    fetch_all(&db.clone(), work_q.clone(), bf.clone(), filters.clone()).await;
+                    let _ = fetch_all(&db.clone(), work_q.clone(), bf.clone(), filters.clone()).await;
                 }
             }
         }

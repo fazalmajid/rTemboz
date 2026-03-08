@@ -57,8 +57,8 @@
   <body>
     <div class="loginform">
       <h1>Temboz</h1>
-      {% if err %}
-      <p class="err" >{{ err }}</p>
+      {% if !error_msg.is_empty() %}
+      <p class="err" >{{ error_msg }}</p>
       {% endif %}
       <center>
         <form method="POST">

@@ -14,6 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::feeds::worker::{feed_worker_setup, spawn_worker};
+use crate::webui::auth::Authentication;
 use actix_web::{web, App, HttpServer};
 use clap::{Parser, Subcommand};
 use log::{error, info};
@@ -70,6 +71,7 @@ async fn serve() -> std::io::Result<()> {
     info!("starting web server");
     HttpServer::new(move || {
         App::new()
+            .wrap(Authentication)
             .app_data(web::Data::new(db.clone()))
             .app_data(web::Data::new(work_q.clone()))
             .app_data(web::Data::new(feed_work_q.clone()))
@@ -103,7 +105,7 @@ async fn refresh() -> std::io::Result<()> {
     let db = db::create_db().await;
     let (bf, filters) = feed_worker_setup(&db).await;
     let (work_q, worker_handle) = db::worker::spawn(&db);
-    feeds::worker::fetch_all(&db, work_q.clone(), bf, filters).await;
+    let _ = feeds::worker::fetch_all(&db, work_q.clone(), bf, filters).await;
     let _ = work_q.send(db::worker::DbOp::Quit);
     // Wait for the worker to finish processing all queued messages
     let _ = worker_handle.join();

@@ -21,7 +21,7 @@ $(HOME)/.cargo/bin/sqlx:
 	env OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli
 
 boot.db:
-	sqlite3 boot.db < migrations/001_initial.sql
+	cat migrations/*.sql|sqlite3 boot.db
 
 assets: static/datatables.css static/simple-datatables.js target/debug/rtemboz
 
@@ -39,6 +39,9 @@ release target/release/rtemboz:
 
 build run check clippy fmt: .sqlx assets
 	$(CARGO) $@
+
+rebuild: target/debug/rtemboz
+	target/debug/rtemboz rebuild
 
 clippy-fix: .sqlx assets
 	$(CARGO) clippy --fix

@@ -14,8 +14,10 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 pub mod add;
+pub mod auth;
 pub mod feed;
 pub mod feeds;
+pub mod login;
 pub mod menu;
 pub mod routes;
 pub mod rules;

@@ -165,6 +165,6 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
         }
     }
     if let Some(channel) = reply {
-        channel.send((added, filtered));
+        let _ = channel.send((added, filtered));
     }
 }

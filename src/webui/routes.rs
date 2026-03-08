@@ -23,6 +23,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
     let generated = generate();
     cfg.service(web::redirect("/", "/view"))
         .service(ResourceFiles::new("/static", generated))
+        .service(webui::login::login)
         .service(webui::view::view)
         .service(webui::feeds::feeds)
         .service(webui::feed::feed)

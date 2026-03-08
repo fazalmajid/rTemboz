@@ -37,6 +37,9 @@ unicode-normalization = "0.1"
 clap = { version = "4.5.60", features = ["derive"] }
 time = { version = "0.3.47", features = ["formatting"] }
 thiserror = "2.0.18"
+futures-util = "0.3.32"
+rust-argon2 = "3.0.0"
+uuid = { version = "1.22.0", features = ["v4"] }
 
 [build-dependencies]
 static-files = "0.3.1"
