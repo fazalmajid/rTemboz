@@ -61,4 +61,7 @@ RUN apk add --no-cache \
 
 COPY --from=builder /build/target/release/rtemboz /usr/local/bin/rtemboz
 
+VOLUME ["/data"]
+WORKDIR /data
+
 ENTRYPOINT ["/usr/local/bin/rtemboz"]

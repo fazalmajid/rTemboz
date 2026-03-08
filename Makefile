@@ -60,7 +60,11 @@ test: .venv/bin/pytest
 docker:
 	docker build . -t fazalmajid/rtemboz:latest
 	docker build . -t fazalmajid/rtemboz:alpine
+
+docker-ubuntu:
 	docker build -f Dockerfile.ubuntu . -t fazalmajid/rtemboz:ubuntu
+
+push-docker docker-push: docker docker-ubuntu
 	docker push fazalmajid/rtemboz:latest
 	docker push fazalmajid/rtemboz:alpine
 	docker push fazalmajid/rtemboz:ubuntu

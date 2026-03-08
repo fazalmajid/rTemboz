@@ -56,4 +56,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /build/target/release/rtemboz /usr/local/bin/rtemboz
 
+VOLUME ["/data"]
+WORKDIR /data
+
 ENTRYPOINT ["/usr/local/bin/rtemboz"]

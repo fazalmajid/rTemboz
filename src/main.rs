@@ -63,6 +63,9 @@ async fn main() -> std::io::Result<()> {
 async fn serve() -> std::io::Result<()> {
     info!("setting up database");
     let db = db::create_db().await;
+    // rebuild materialized views
+    info!("rebuilding materialized views");
+    db::views::rebuild(&db).await.unwrap();
     // DB worker
     let (work_q, _) = db::worker::spawn(&db);
     // Feeds worker
