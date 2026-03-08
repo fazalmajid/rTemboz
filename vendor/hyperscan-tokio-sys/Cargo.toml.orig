@@ -1,0 +1,38 @@
+[package]
+name = "hyperscan-tokio-sys"
+version = "0.1.0"
+edition = "2021"
+authors = ["Mikey Saxton <mikey@mikeyasaservice.com>"]
+license = "Apache-2.0"
+description = "Low-level FFI bindings to VectorScan (Hyperscan fork)"
+repository = "https://github.com/mikeyasaservice/hyperscan-tokio"
+homepage = "https://github.com/mikeyasaservice/hyperscan-tokio"
+documentation = "https://docs.rs/hyperscan-tokio-sys"
+readme = "../README.md"
+keywords = ["vectorscan", "hyperscan", "ffi", "regex", "simd"]
+categories = ["external-ffi-bindings", "no-std"]
+rust-version = "1.70"
+links = "hs"
+
+[dependencies]
+libc = "0.2"
+bitflags = "2.4"
+
+[build-dependencies]
+bindgen = "0.72.0"
+cc = "1.0"
+cmake = "0.1"
+pkg-config = "0.3"
+
+[features]
+default = ["system"]
+# Build VectorScan from source (recommended for crates.io)
+vendored = []
+# Link against system VectorScan (requires user to install it)
+system = []
+# Use original Intel Hyperscan (x86_64 only)
+hyperscan = []
+# Enable Chimera support (requires VectorScan built with Chimera)
+chimera = []
+# Enable MIRI testing
+miri-test = []
