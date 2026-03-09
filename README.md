@@ -44,7 +44,8 @@ once after the migration.
 ## TODO
 
 - [X] Authentication!
-- [ ] Tool to set the password
+- [ ] Tool to set the password and initial settings
+- [ ] The interface to add filtering rules doesn't actually save them to the DB yet
 - [ ] Better build process
 - [ ] Settings page, including overload threshold
 - [ ] OPML import/export
