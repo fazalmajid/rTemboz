@@ -15,7 +15,9 @@
 ///
 use crate::db::auth::check_password;
 use actix_web::cookie::Cookie;
-use actix_web::{http::header, routes, web, HttpResponse, Responder};
+use actix_web::{
+    http::header, http::header::USER_AGENT, routes, web, HttpRequest, HttpResponse, Responder,
+};
 use askama::Template;
 use serde::Deserialize;
 
@@ -43,22 +45,35 @@ pub async fn login(
     db: web::Data<sqlx::sqlite::SqlitePool>,
     form: Option<web::Form<Credentials>>,
     where_from: Option<web::Query<WhereFrom>>,
+    req: HttpRequest,
 ) -> impl Responder {
     let error_message = match form {
-        Some(c) => match check_password(&db, &c.login, &c.password, "N/A").await {
-            Ok(Some(session_uuid)) => {
-                let redir = match where_from {
-                    None => "/view",
-                    Some(w) => &w.back.clone(),
-                };
-                return HttpResponse::Found()
-                    .cookie(Cookie::new("auth", session_uuid))
-                    .insert_header((header::LOCATION, redir))
-                    .finish();
+        Some(c) => {
+            match check_password(
+                &db,
+                &c.login,
+                &c.password,
+                req.headers()
+                    .get(USER_AGENT)
+                    .and_then(|val| val.to_str().ok())
+                    .unwrap_or("Unknown"),
+            )
+            .await
+            {
+                Ok(Some(session_uuid)) => {
+                    let redir = match where_from {
+                        None => "/view",
+                        Some(w) => &w.back.clone(),
+                    };
+                    return HttpResponse::Found()
+                        .cookie(Cookie::new("auth", session_uuid))
+                        .insert_header((header::LOCATION, redir))
+                        .finish();
+                }
+                Ok(None) => "invalid login and/or password".to_string(),
+                Err(_) => "internal error".to_string(),
             }
-            Ok(None) => "invalid login and/or password".to_string(),
-            Err(_) => "internal error".to_string(),
-        },
+        }
         None => String::new(),
     };
     let template = FeedTemplate {
