@@ -47,14 +47,13 @@ once after the migration.
 
 ## TODO
 
-- [X] Authentication!
-- [X] Tool to set the password and initial settings
-- [ ] The interface to add filtering rules doesn't actually save them to the DB yet
-- [ ] Better build process
-- [ ] Settings page, including overload threshold
-- [ ] OPML import/export
+- [x] Authentication!
+- [x] Tool to set the password and initial settings
+- [x] Actually save the rules to the DB
 - [ ] Stemmer endpoint for the "Add Rules" dialog
-- [ ] More test cases
 - [ ] Feed autodiscovery
+- [ ] Settings page, including overload threshold
 - [ ] Ad-blocking
-
+- [ ] OPML import/export
+- [ ] More test cases
+- [ ] Better build process
