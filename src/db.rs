@@ -23,6 +23,7 @@ pub mod feeds;
 pub mod fts5;
 pub mod items;
 pub mod rules;
+pub mod setting;
 pub mod views;
 pub mod worker;
 

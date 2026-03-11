@@ -40,6 +40,8 @@ thiserror = "2.0.18"
 futures-util = "0.3.32"
 rust-argon2 = "3.0.0"
 uuid = { version = "1.22.0", features = ["v4"] }
+rand = "0.10.0"
+rpassword = "7.4.0"
 
 [build-dependencies]
 static-files = "0.3.1"

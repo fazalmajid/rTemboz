@@ -27,7 +27,11 @@ then run:
 docker run -v /home/majid/temboz:/data -p 9998:9998 \
     --user `id -u`:`id -g` \
     --restart=unless-stopped -d --name rtemboz fazalmajid/rtemboz:latest
+docker exec -it rtemboz /usr/local/bin/rtemboz change-password majid
 ```
+
+(change majid to your preferred login and /home/majid/temboz to some existing
+directory where the rTemboz database will be kept)
 
 ## Migrating from Temboz
 
@@ -44,11 +48,13 @@ once after the migration.
 ## TODO
 
 - [X] Authentication!
-- [ ] Tool to set the password and initial settings
+- [X] Tool to set the password and initial settings
 - [ ] The interface to add filtering rules doesn't actually save them to the DB yet
 - [ ] Better build process
 - [ ] Settings page, including overload threshold
 - [ ] OPML import/export
 - [ ] Stemmer endpoint for the "Add Rules" dialog
 - [ ] More test cases
+- [ ] Feed autodiscovery
+- [ ] Ad-blocking
 

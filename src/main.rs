@@ -13,11 +13,13 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
+use crate::db::auth::change_password;
 use crate::feeds::worker::{feed_worker_setup, spawn_worker};
 use crate::webui::auth::Authentication;
 use actix_web::{web, App, HttpServer};
 use clap::{Parser, Subcommand};
 use log::{error, info};
+use rpassword::prompt_password;
 
 mod db;
 mod feeds;
@@ -38,6 +40,7 @@ enum Commands {
     Dump { url: String },
     Refresh,
     Rebuild,
+    ChangePassword { login: String },
 }
 
 #[tokio::main]
@@ -57,6 +60,16 @@ async fn main() -> std::io::Result<()> {
         Commands::Dump { url } => dump(url).await,
         Commands::Refresh => refresh().await,
         Commands::Rebuild => rebuild().await,
+        Commands::ChangePassword { login } => {
+            let db = db::create_db().await;
+            let password = prompt_password("Enter password: ").expect("Failed to read password");
+            let password2 = prompt_password("Confirm password: ").expect("Failed to read password");
+            if password != password2 {
+                return Err(std::io::Error::other("The passwords do not match!"));
+            }
+            change_password(&db, login, password).await.unwrap();
+            Ok(())
+        }
     }
 }
 

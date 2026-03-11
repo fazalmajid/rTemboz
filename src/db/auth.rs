@@ -13,7 +13,8 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use argon2::verify_encoded;
+use crate::db::setting::set_setting;
+use argon2::{self, verify_encoded, Config};
 use sqlx::error::Error;
 use sqlx::sqlite::SqlitePool;
 use uuid::Uuid;
@@ -65,4 +66,18 @@ VALUES (?, ?, ?)
         }
         _ => Ok(None),
     }
+}
+
+pub async fn change_password(
+    db: &SqlitePool,
+    login: String,
+    password: String,
+) -> Result<(), Error> {
+    let salt: [u8; 16] = rand::random();
+    let config = Config::default();
+    let password_hash = argon2::hash_encoded(password.as_bytes(), &salt, &config).unwrap();
+    let _ = set_setting(db, "login".to_string(), login).await;
+    let _ = set_setting(db, "passwd".to_string(), password_hash).await;
+    let _ = sqlx::query!("DELETE FROM session").execute(db).await?;
+    Ok(())
 }
