@@ -82,12 +82,12 @@ input#stem {
     $.get("/stem", {"q": kw}, function(data) {
       $('.ui-dialog-content input[name="stem"]').val($.trim(data));
     });
-    $('.ui-dialog-content select[name="match"]').change(function() {
+    $('.ui-dialog-content select[name="match_type"]').change(function() {
       var context = $(this).val();
       set_context(context);
     })
     if(kw.search(/[\s-_.,/?;:'"[\]\\|!@#$%&*()=+\^]/) != -1) {
-      $('.ui-dialog-content select[name="match"]').val('phrase_lc');
+      $('.ui-dialog-content select[name="match_type"]').val('phrase_lc');
       set_context("phrase_lc");
     } else {
       if (!context) {
@@ -101,7 +101,7 @@ input#stem {
       $('.ui-dialog-content :checkbox').prop("checked", true);
     }
     if(context) {
-      $('.ui-dialog-content select[name="match"]').val(context.toLowerCase());
+      $('.ui-dialog-content select[name="match_type"]').val(context.toLowerCase());
       $('.ui-dialog-content select[name="target"]').hide();
       $('.ui-dialog-content :checkbox').val(["feed_only"]);
       $('.ui-dialog-content :checkbox').prop("checked", true);
@@ -285,7 +285,7 @@ input#stem {
           <input name="stem" id="stem" autocomplete="off" autocorrect="off"
                  autocapitalize="off" spellcheck="false" size="30">
         </td></tr>
-      <tr><td>Match type</td><td><select name="match">
+      <tr><td>Match type</td><td><select name="match_type">
       <option value="word" selected>Any words</option>
       <option value="exactword">Any words (exact match)</option>
       <option value="all">All words</option>

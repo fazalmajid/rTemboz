@@ -86,6 +86,16 @@ def wait_for_port(port, host="127.0.0.1", timeout=30):
     return False
 
 
+def insert_auth_settings(conn):
+    """Insert test authentication credentials into the setting table."""
+    conn.execute("INSERT INTO setting (name, value) VALUES (?, ?)", ("login", "test"))
+    conn.execute(
+        "INSERT INTO setting (name, value) VALUES (?, ?)",
+        ("passwd", "$argon2i$v=19$m=65536,t=3,p=4$eDWHxN3NBDVqtLkQiYMg2g$1tm/H4ZA0WsfZXkVRVbktpT/RRiA93XKeHbsw2wuBsw"),
+    )
+    conn.commit()
+
+
 def init_db(work_dir, db_path, feed_url, env):
     """Create a fresh database using rtemboz rebuild, add a feed, and return the connection."""
     if os.path.exists(db_path):
@@ -103,6 +113,7 @@ def init_db(work_dir, db_path, feed_url, env):
         f"rtemboz rebuild failed:\nstdout: {result.stdout}\nstderr: {result.stderr}"
     )
     conn = sqlite3.connect(db_path)
+    insert_auth_settings(conn)
     # Insert the test feed
     conn.execute(
         "INSERT INTO feed (xml, html, title, status) VALUES (?, ?, ?, 0)",
@@ -230,6 +241,10 @@ def serve_env(feed_server, build_binary):
         f"rtemboz rebuild failed:\nstdout: {result.stdout}\nstderr: {result.stderr}"
     )
 
+    # Insert auth credentials before starting server
+    with sqlite3.connect(db_path) as setup_conn:
+        insert_auth_settings(setup_conn)
+
     # Start the server
     proc = subprocess.Popen(
         [BINARY, "serve"],
@@ -256,21 +271,37 @@ def serve_env(feed_server, build_binary):
         os.remove(db_path)
 
 
+def login_session(base_url):
+    """Create a requests.Session with a valid auth cookie."""
+    session = requests.Session()
+    resp = session.post(
+        f"{base_url}/login",
+        data={"login": "test", "password": "test"},
+        timeout=10,
+        allow_redirects=False,
+    )
+    assert resp.status_code in (200, 302), f"Login failed with status {resp.status_code}"
+    return session
+
+
 class TestAddFeed:
     """Test adding a feed via the /add endpoint."""
 
     def test_add_feed_via_web(self, serve_env):
         conn = serve_env["conn"]
         feed_url = f"http://127.0.0.1:{FEED_SERVER_PORT}/fazal"
+        base_url = f"http://127.0.0.1:{RTEMBOZ_PORT}"
+
+        session = login_session(base_url)
 
         # POST to /add with the feed URL
-        resp = requests.post(
-            f"http://127.0.0.1:{RTEMBOZ_PORT}/add",
+        resp = session.post(
+            f"{base_url}/add",
             data={"feed_xml": feed_url},
             timeout=60,
         )
         assert resp.status_code == 200, (
-            f"/add returned status {resp.status_code}: {resp.text[:500]}"
+            f"/add returned status {resp.status_code} (base_url={base_url}): {resp.text[:500]}"
         )
 
         # Verify the feed was inserted into the database
@@ -362,9 +393,12 @@ class TestFilterUnionAll:
         # Start the web server
         proc = start_serve(test_env)
         try:
+            base_url = f"http://127.0.0.1:{RTEMBOZ_PORT}"
+            session = login_session(base_url)
+
             # Check filtered view
-            resp = requests.get(
-                f"http://127.0.0.1:{RTEMBOZ_PORT}/view",
+            resp = session.get(
+                f"{base_url}/view",
                 params={"show": "filtered"},
             )
             assert resp.status_code == 200
@@ -373,8 +407,8 @@ class TestFilterUnionAll:
             )
 
             # Check unread view should NOT contain the Dardenne article
-            resp = requests.get(
-                f"http://127.0.0.1:{RTEMBOZ_PORT}/view",
+            resp = session.get(
+                f"{base_url}/view",
                 params={"show": "unread"},
             )
             assert resp.status_code == 200
@@ -383,3 +417,150 @@ class TestFilterUnionAll:
             )
         finally:
             stop_serve(proc)
+
+
+class TestRuleAdd:
+    """Test adding rules via POST /rule/add for all match_type and target combinations."""
+
+    BASE_URL = f"http://127.0.0.1:{RTEMBOZ_PORT}"
+
+    # match types that derive their text from the `stem` field
+    STEM_MATCH_TYPES = ["word", "exactword", "all"]
+    # match types that derive their text from the `kw` field
+    KW_MATCH_TYPES = ["phrase_lc", "phrase"]
+    # match types that ignore target entirely
+    GLOBAL_MATCH_TYPES = ["author", "tag"]
+    TARGETS = ["title", "union", "content"]
+
+    def _post_rule(self, session, **fields):
+        resp = session.post(
+            f"{self.BASE_URL}/rule/add",
+            data=fields,
+            timeout=10,
+        )
+        assert resp.status_code == 200, (
+            f"/rule/add returned {resp.status_code}: {resp.text[:500]}"
+        )
+        assert resp.json().get("status") == "ok", (
+            f"Unexpected response body: {resp.text[:500]}"
+        )
+
+    def _rule_exists(self, conn, rule_type, text):
+        row = conn.execute(
+            "SELECT uid FROM rule WHERE type=? AND text=?", (rule_type, text)
+        ).fetchone()
+        return row is not None
+
+    @pytest.mark.parametrize("match_type", STEM_MATCH_TYPES)
+    @pytest.mark.parametrize("target", TARGETS)
+    def test_stem_match_types(self, serve_env, match_type, target):
+        """word/exactword/all rules use the stem field and combine with target."""
+        conn = serve_env["conn"]
+        session = login_session(self.BASE_URL)
+        stem = f"pytest {match_type} {target}"
+        self._post_rule(
+            session,
+            kw="ignored kw",
+            stem=stem,
+            match_type=match_type,
+            target=target,
+            item_uid=0,
+        )
+        expected_type = f"{target}_{match_type}"
+        assert self._rule_exists(conn, expected_type, stem), (
+            f"Rule type={expected_type!r} text={stem!r} not found in DB"
+        )
+
+    @pytest.mark.parametrize("match_type", KW_MATCH_TYPES)
+    @pytest.mark.parametrize("target", TARGETS)
+    def test_kw_match_types(self, serve_env, match_type, target):
+        """phrase_lc/phrase rules use the kw field and combine with target."""
+        conn = serve_env["conn"]
+        session = login_session(self.BASE_URL)
+        kw = f"pytest {match_type} {target}"
+        self._post_rule(
+            session,
+            kw=kw,
+            stem="ignored stem",
+            match_type=match_type,
+            target=target,
+            item_uid=0,
+        )
+        expected_type = f"{target}_{match_type}"
+        assert self._rule_exists(conn, expected_type, kw), (
+            f"Rule type={expected_type!r} text={kw!r} not found in DB"
+        )
+
+    @pytest.mark.parametrize("match_type", GLOBAL_MATCH_TYPES)
+    def test_global_match_types(self, serve_env, match_type):
+        """author/tag rules use the kw field and ignore target."""
+        conn = serve_env["conn"]
+        session = login_session(self.BASE_URL)
+        kw = f"pytest {match_type}"
+        self._post_rule(
+            session,
+            kw=kw,
+            stem="ignored stem",
+            match_type=match_type,
+            target="title",
+            item_uid=0,
+        )
+        assert self._rule_exists(conn, match_type, kw), (
+            f"Rule type={match_type!r} text={kw!r} not found in DB"
+        )
+
+    def test_feed_only(self, serve_env):
+        """feed_only=yes scopes the rule to the feed of the given item."""
+        conn = serve_env["conn"]
+        session = login_session(self.BASE_URL)
+
+        # Insert a minimal feed and item so item_uid resolves to a feed
+        conn.execute(
+            "INSERT INTO feed (uid, xml, html, title, status) VALUES (999, 'http://example.com/feed', 'http://example.com', 'Test Feed', 0)"
+        )
+        conn.execute(
+            "INSERT INTO item (uid, feed, title, link, guid, content, rating, loaded) "
+            "VALUES (888, 999, 'Test Item', 'http://example.com/1', 'guid-888', 'content', 0, strftime('%s','now'))"
+        )
+        conn.commit()
+
+        kw = "pytest feed_only"
+        self._post_rule(
+            session,
+            kw=kw,
+            stem="",
+            match_type="phrase_lc",
+            target="title",
+            feed_only="yes",
+            item_uid=888,
+        )
+
+        row = conn.execute(
+            "SELECT type, text, feed FROM rule WHERE text=?", (kw,)
+        ).fetchone()
+        assert row is not None, f"Rule with text={kw!r} not found in DB"
+        rule_type, text, feed = row
+        assert rule_type == "title_phrase_lc"
+        assert feed == 999, f"Expected feed=999 (feed_only), got {feed}"
+
+    def test_feed_only_unchecked(self, serve_env):
+        """Omitting feed_only creates a global rule (feed=NULL)."""
+        conn = serve_env["conn"]
+        session = login_session(self.BASE_URL)
+
+        kw = "pytest feed_only_off"
+        self._post_rule(
+            session,
+            kw=kw,
+            stem="",
+            match_type="phrase_lc",
+            target="title",
+            item_uid=0,
+        )
+
+        row = conn.execute(
+            "SELECT type, text, feed FROM rule WHERE text=?", (kw,)
+        ).fetchone()
+        assert row is not None, f"Rule with text={kw!r} not found in DB"
+        _, _, feed = row
+        assert feed is None, f"Expected feed=NULL for global rule, got {feed}"

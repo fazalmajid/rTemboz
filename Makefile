@@ -1,14 +1,14 @@
 #SSL_HOME=	/usr/local/ssl
 #SSL_HOME=	$$HOME/local/ssl
 PREFIX=		/home/majid/local
-PREFIX=		/usr/local
+#PREFIX=		/usr/local
 SSL_HOME=	$(shell openssl version -a | grep OPENSSLDIR | cut -d " " -f 2|tr -d '"')
 ENV=		env CARGO_BACKTRACE=1 OPENSSL_DIR=$(SSL_HOME) \
 		HYPERSCAN_DIR=$(PREFIX) \
 		HYPERSCAN_INCLUDE_PATH=$(PREFIX)/include \
 		HYPERSCAN_LIB_PATH=$(PREFIX)/lib \
 		BINDGEN_EXTRA_CLANG_ARGS=-I$(PREFIX)/include \
-		LIBCLANG_PATH=/usr/lib/llvm20/lib \
+		LIBCLANG_PATH=$(PREFIX)/lib \
 		RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PREFIX)/lib"
 
 CARGO=		$(ENV) cargo
@@ -51,7 +51,7 @@ clippy-fix: .sqlx assets
 
 test: .venv/bin/pytest
 	$(CARGO) build
-	.venv/bin/pytest tests/test.py -v
+	$(ENV) .venv/bin/pytest tests/test.py -v
 
 .venv/bin/pytest:
 	uv venv

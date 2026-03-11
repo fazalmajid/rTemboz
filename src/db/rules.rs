@@ -13,10 +13,13 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::filter::{FilterError, Filters, Rule, new_filters, rule_from_string};
-use log::error;
+use crate::filter::{new_filters, rule_from_string, FilterError, Filters, Rule};
+use anyhow::{anyhow, Error as AnyhowError};
+use log::{error, info};
+use serde::{Deserialize, Serialize};
 use sqlx::error::Error;
 use sqlx::sqlite::SqlitePool;
+use thiserror::Error as ThisError;
 
 pub async fn get_top_rules(db: &SqlitePool, feed: u32) -> Result<Vec<(Rule, u32)>, Error> {
     let rows = sqlx::query!(
@@ -95,4 +98,79 @@ LEFT OUTER JOIN feed ON rule.feed=feed.uid
         })
         .collect();
     Ok(rules)
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct RuleData {
+    kw: Option<String>,
+    stem: Option<String>,
+    match_type: String,
+    target: String,
+    feed_only: Option<String>,
+    item_uid: u64,
+}
+
+#[derive(ThisError, Debug)]
+pub enum SaveError {
+    #[error("Database error")]
+    DB(#[from] Error),
+    #[error("FeedError")]
+    Anyhow(#[from] AnyhowError),
+}
+
+pub async fn save_rule(db: &SqlitePool, data: &RuleData) -> Result<i64, SaveError> {
+    let (rule_type, text) = match data.match_type.as_str() {
+        "word" => (
+            format!("{}_{}", data.target, data.match_type),
+            data.stem.clone().unwrap_or("".to_string()),
+        ),
+        "exactword" => (
+            format!("{}_{}", data.target, data.match_type),
+            data.stem.clone().unwrap_or("".to_string()),
+        ),
+        "all" => (
+            format!("{}_{}", data.target, data.match_type),
+            data.stem.clone().unwrap_or("".to_string()),
+        ),
+        "phrase_lc" => (
+            format!("{}_{}", data.target, data.match_type),
+            data.kw.clone().unwrap_or("".to_string()),
+        ),
+        "phrase" => (
+            format!("{}_{}", data.target, data.match_type),
+            data.kw.clone().unwrap_or("".to_string()),
+        ),
+        "author" | "tag" => (
+            data.match_type.clone(),
+            data.kw.clone().unwrap_or("".to_string()),
+        ),
+        _ => {
+            return Err(SaveError::Anyhow(anyhow!(
+                "unrecognized rule type: {}",
+                data.match_type
+            )))
+        }
+    };
+    let uid: Option<i64> = match &data.feed_only {
+        None => None,
+        Some(s) => match s.as_str() {
+            "yes" | "on" | "true" => Some(data.item_uid as i64),
+            _ => None,
+        },
+    };
+    info!("recording rule {} {} {}", rule_type, uid.unwrap_or(0), text);
+    let row = sqlx::query!(
+        r###"
+INSERT INTO rule (type, feed, text)
+VALUES (?, (SELECT feed FROM item WHERE uid=?), ?)
+RETURNING uid
+"###,
+        rule_type,
+        uid,
+        text
+    )
+    .fetch_one(db)
+    .await?;
+    info!("rule uid = {}", row.uid);
+    Ok(row.uid)
 }

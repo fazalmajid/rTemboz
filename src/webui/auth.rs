@@ -74,9 +74,8 @@ where
             }
             if let Some((session_id, db)) = cookie_data {
                 let pool: &SqlitePool = db.get_ref();
-                match check_cookie(pool, &session_id).await {
-                    Ok(()) => return fut.await,
-                    Err(_) => {}
+                if let Ok(()) = check_cookie(pool, &session_id).await {
+                    return fut.await;
                 }
             }
             let encoded = serde_urlencoded::to_string([("back", &path)]).unwrap_or_default();

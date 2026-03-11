@@ -200,20 +200,17 @@ INSERT INTO feed (
     .await?;
     // refresh feed
     let (tx, rx) = tokio::sync::oneshot::channel();
-    match work_q
+    if let Err(e) = work_q
         .send(FeedOp::AlreadyFetched {
             feed_uid: row.uid as u32,
-            parsed,
+            parsed: Box::new(parsed),
             reply: tx,
         })
         .await
     {
-        Err(e) => {
-            error!("error enqueuing new feed to be refreshed: {}", e);
-            return Err(AddError::Send(Box::new(e)));
-        }
-        _ => (),
-    }
+        error!("error enqueuing new feed to be refreshed: {}", e);
+        return Err(AddError::Send(Box::new(e)));
+    };
     let (added, filtered) = match rx.await {
         Ok(tup) => tup,
         Err(e) => {

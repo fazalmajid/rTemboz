@@ -35,6 +35,7 @@ use std::time::Duration;
 use thiserror::Error as ThisError;
 use time;
 use tokio::task;
+
 // XXX make this configurable
 const DEFAULT_TIMEOUT: u64 = 10;
 const MY_USER_AGENT: &str = "rTemboz (https://github.com/fazalmajid/rTemboz)";
@@ -222,18 +223,15 @@ pub async fn refresh_one(
     feed: Feed,
 ) -> Result<(u32, u32), FetchError> {
     let (tx, rx) = tokio::sync::oneshot::channel();
-    match work_q
+    if let Err(e) = work_q
         .send(FeedOp::RefreshOne {
-            feed: feed,
+            feed: Box::new(feed),
             reply: tx,
         })
         .await
     {
-        Err(e) => {
-            error!("error enqueuing new feed to be refreshed: {}", e);
-            return Err(FetchError::Send(Box::new(e)));
-        }
-        _ => (),
+        error!("error enqueuing new feed to be refreshed: {}", e);
+        return Err(FetchError::Send(Box::new(e)));
     }
     let (added, filtered) = match rx.await {
         Ok(tup) => tup,
@@ -263,7 +261,9 @@ async fn fetch_one(
     let task = task::spawn(async move {
         match fetch(feed, db_q, bf.clone(), filters.clone()).await {
             Some(work) => process_rss(work, Some(reply)).await,
-            None => { let _ = reply.send((0, 0)); }
+            None => {
+                let _ = reply.send((0, 0));
+            }
         }
     });
     if let Err(e) = task.await {
@@ -325,14 +325,15 @@ pub async fn feed_worker_setup(db: &SqlitePool) -> (Arc<AtomicBloomFilter>, Arc<
 
 pub enum FeedOp {
     RefreshOne {
-        feed: Feed,
+        feed: Box<Feed>,
         reply: tokio::sync::oneshot::Sender<(u32, u32)>,
     },
     AlreadyFetched {
         feed_uid: u32,
-        parsed: ParsedFeed,
+        parsed: Box<ParsedFeed>,
         reply: tokio::sync::oneshot::Sender<(u32, u32)>,
     },
+    InvalidateFilters,
 }
 
 pub fn spawn_worker(
@@ -341,7 +342,7 @@ pub fn spawn_worker(
 ) -> (tokio::sync::mpsc::Sender<FeedOp>, task::JoinHandle<()>) {
     let (sender, mut receiver) = tokio::sync::mpsc::channel::<FeedOp>(1);
     let join_handle = task::spawn(async move {
-        let (bf, filters) = feed_worker_setup(&db).await;
+        let (mut bf, mut filters) = feed_worker_setup(&db).await;
         let mut interval = tokio::time::interval(tokio::time::Duration::from_secs(15 * 60));
         loop {
             tokio::select! {
@@ -352,14 +353,19 @@ pub fn spawn_worker(
                         //     interval.reset()
                         // },
                         FeedOp::RefreshOne{feed, reply} => {
-                            if let Err(e) = fetch_one(work_q.clone(), bf.clone(), filters.clone(), feed, reply).await {
+                            if let Err(e) = fetch_one(work_q.clone(), bf.clone(), filters.clone(), *feed, reply).await {
                                 error!("error in RefreshOne: {}", e);
                             }
                         },
                         FeedOp::AlreadyFetched{feed_uid, parsed, reply} => {
-                            if let Err(e) = record_one_already_fetched(work_q.clone(), bf.clone(), filters.clone(), feed_uid, parsed, Some(reply)).await {
+                            if let Err(e) = record_one_already_fetched(work_q.clone(), bf.clone(), filters.clone(), feed_uid, *parsed, Some(reply)).await {
                                 error!("error in AlreadyFetched: {}", e);
                             }
+                        },
+                        FeedOp::InvalidateFilters => {
+                            info!("reloading filtering rules");
+                            (bf, filters) = feed_worker_setup(&db).await;
+
                         }
                     }
                 }

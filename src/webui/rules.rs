@@ -13,11 +13,14 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::rules::get_rules;
+use crate::db::rules::{get_rules, save_rule, RuleData};
+use crate::feeds::worker::FeedOp;
 use crate::filter::Rule;
-use crate::webui::menu::{MenuItem, menus};
-use actix_web::{HttpResponse, Responder, get, web};
+use crate::webui::menu::{menus, MenuItem};
+use actix_web::{get, post, web, HttpResponse, Responder};
 use askama::Template;
+use log::error;
+use std::ops::Deref;
 
 #[derive(Template)]
 #[template(path = "rules.html")]
@@ -43,4 +46,29 @@ pub async fn rules(db: web::Data<sqlx::sqlite::SqlitePool>) -> impl Responder {
     HttpResponse::Ok()
         .content_type("text/html")
         .body(template.render().unwrap())
+}
+
+#[post("/rule/add")]
+pub async fn rule_add(
+    db: web::Data<sqlx::sqlite::SqlitePool>,
+    form: Option<web::Form<RuleData>>,
+    feed_worker_q: web::Data<tokio::sync::mpsc::Sender<FeedOp>>,
+) -> impl Responder {
+    // log::info!("/rule/add {:#?}", form);
+    match form {
+        Some(ref f) => match save_rule(&db, f.deref()).await {
+            Ok(uid) => {
+                let _ = feed_worker_q.send(FeedOp::InvalidateFilters).await;
+                uid
+            }
+            Err(e) => {
+                error!("could not save rule {:#?}: {}", form, e);
+                0
+            }
+        },
+        _ => 0,
+    };
+    HttpResponse::Ok()
+        .content_type("application/json")
+        .body(r###"{"status": "ok"}"###)
 }

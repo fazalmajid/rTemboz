@@ -153,7 +153,7 @@ pub async fn feed(
     };
     let template = FeedTemplate {
         // show: true,
-        feed_uid: feed_uid,
+        feed_uid,
         feed,
         // info,
         notices: vec![],
