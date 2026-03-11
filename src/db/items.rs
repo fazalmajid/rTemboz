@@ -16,7 +16,9 @@
 use crate::db::fts5::fts5_term;
 use crate::db::{safe_truncate, since, unix_ts};
 use crate::feeds::normalize::Item as RssItem;
-use crate::filter::{Rule, rule_from_string};
+use crate::filter::{rule_from_string, Rule};
+use crate::utils::{clean_text, clean_url};
+use ammonia::clean;
 use chrono::prelude::*;
 use fastbloom::AtomicBloomFilter;
 use futures::TryStreamExt;
@@ -26,6 +28,8 @@ use sqlx::sqlite::{SqliteConnection, SqlitePool};
 use std::fmt;
 use std::hash::Hash;
 use std::str::FromStr;
+use thiserror::Error as ThisError;
+use url_normalize::NormalizeUrlError;
 
 #[derive(Copy, Clone)]
 pub enum ItemStatus {
@@ -170,6 +174,14 @@ struct ItemRow {
     tags: String,
 }
 
+#[derive(ThisError, Debug)]
+pub enum GetError {
+    #[error("Database error")]
+    DB(#[from] Error),
+    #[error("Sanitize Error")]
+    Sanitize(#[from] NormalizeUrlError),
+}
+
 pub async fn get_items(
     db: &SqlitePool,
     show: ItemStatus,
@@ -177,7 +189,7 @@ pub async fn get_items(
     search: Option<String>,
     search_in: Option<String>,
     order: ItemOrder,
-) -> Result<Vec<Item>, Error> {
+) -> Result<Vec<Item>, GetError> {
     let mut bind_index = 1;
     let show_clause = match show {
         ItemStatus::All => String::new(),
@@ -249,10 +261,17 @@ ORDER BY {} limit 200"###,
     let mut result = Vec::with_capacity(rows.len());
     for row in rows {
         let tag_str = row.tags.as_str();
+        if row.item_uid == 8835079 {
+            info!("XXXXXXXXXXX {}", row.tags);
+        }
         let tags: Vec<String> = if row.tags == "[null]" {
             vec![]
         } else {
-            serde_json::from_str(tag_str).unwrap()
+            serde_json::from_str::<Vec<String>>(tag_str)
+                .unwrap()
+                .into_iter()
+                .map(|tag| clean_text(&tag))
+                .collect()
         };
         let rule = match row.rule_uid {
             Some(uid) => Some(Rule {
@@ -269,13 +288,31 @@ ORDER BY {} limit 200"###,
             uid: row.item_uid,
             feed_uid: row.feed_uid,
             since_when: since(row.delta_published),
-            creator: row.creator,
+            creator: clean_text(&row.creator),
             loaded: unix_ts(Some(row.loaded)),
             title: row.item_title,
-            feed_html: row.html,
-            content: ammonia::clean(row.content.as_str()).to_string(),
+            feed_html: match clean_url(&row.html) {
+                Err(e) => {
+                    error!(
+                        "FEED-{} item {} invalid feed URL \"{}\": {}",
+                        row.feed_uid, row.item_uid, row.html, e
+                    );
+                    "about:blank".to_string()
+                }
+                Ok(s) => s,
+            },
+            content: clean(row.content.as_str()).to_string(),
             tags,
-            redirect: row.link,
+            redirect: match clean_url(&row.link) {
+                Err(e) => {
+                    error!(
+                        "FEED-{} item {} invalid item URL \"{}\": {}",
+                        row.feed_uid, row.item_uid, row.link, e
+                    );
+                    "about:blank".to_string()
+                }
+                Ok(s) => s,
+            },
             feed_title: row.feed_title,
             //rating: row.rating.unwrap_or(0) as i8,
             feed_exempt: row.exempt != 0,

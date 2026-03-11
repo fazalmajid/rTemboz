@@ -16,6 +16,7 @@
 use crate::db::items::UniqueItem;
 use crate::db::worker::DbOp;
 use crate::feeds::work::Work;
+use crate::utils::{clean_text, clean_url};
 use ammonia::clean;
 use anyhow::{bail, Result};
 use chrono::{DateTime, Utc};
@@ -57,15 +58,15 @@ fn sha256(s: String) -> String {
 }
 
 pub fn extract(e: &Entry) -> Result<Item> {
-    let author = first_author_name(e);
-    let title = e.title.clone().unwrap_or_else(|| "Untitled".to_string());
+    let author = clean_text(&first_author_name(e));
+    let title = clean_text(&e.title.clone().unwrap_or_else(|| "Untitled".to_string()));
     let tags: Vec<String> = e
         .tags
         .iter()
-        .map(|cat| cat.term.clone().into_string().to_owned())
+        .map(|cat| clean_text(&cat.term.clone().into_string().to_owned()))
         .collect();
     let url = match e.links.first() {
-        Some(l) => l.href.as_str().to_string(),
+        Some(l) => clean_url(&l.href)?,
         _ => bail!("no link for {}", title),
     };
     let no_content = "no content".to_string();

@@ -51,7 +51,11 @@ clippy-fix: .sqlx assets
 
 test: .venv/bin/pytest
 	$(CARGO) build
+	$(CARGO) test
 	$(ENV) .venv/bin/pytest tests/test.py -v
+
+cargo-test:
+	$(CARGO) test
 
 .venv/bin/pytest:
 	uv venv

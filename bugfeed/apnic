@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>APNIC Blog</title>
+	<atom:link href="https://blog.apnic.net/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.apnic.net</link>
+	<description>Regional Internet Registry for the Asia Pacific</description>
+	<lastBuildDate>Tue, 10 Mar 2026 22:45:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.8.3</generator>
+<site xmlns="com-wordpress:feed-additions:1">73396298</site>	<item>
+		<title>How to talk about the trust in your devices: An IRTF draft</title>
+		<link>https://blog.apnic.net/2026/03/11/how-to-talk-about-the-trust-in-your-devices-an-irtf-draft/</link>
+					<comments>https://blog.apnic.net/2026/03/11/how-to-talk-about-the-trust-in-your-devices-an-irtf-draft/#respond</comments>
+		
+		<dc:creator><![CDATA[George Michaelson]]></dc:creator>
+		<pubDate>Tue, 10 Mar 2026 22:45:21 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=97335</guid>
+
+					<description><![CDATA[A review of Michael Richardson's IRTF draft, a taxonomy of operational security considerations for manufacturer installed keys and trust anchors.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/11/how-to-talk-about-the-trust-in-your-devices-an-irtf-draft/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">97335</post-id>	</item>
+		<item>
+		<title>Securing NTP</title>
+		<link>https://blog.apnic.net/2026/03/10/securing-ntp/</link>
+					<comments>https://blog.apnic.net/2026/03/10/securing-ntp/#respond</comments>
+		
+		<dc:creator><![CDATA[Geoff Huston]]></dc:creator>
+		<pubDate>Mon, 09 Mar 2026 23:38:43 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99669</guid>
+
+					<description><![CDATA[A look at how a consistent time standard is spread across the Internet, and the recent efforts to add an aspect of security to Network Time Protocol (NTP).]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/10/securing-ntp/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99669</post-id>	</item>
+		<item>
+		<title>NIR updates at APRICOT 2026: IPv6 progress, RPKI plans, and strengthening coordination</title>
+		<link>https://blog.apnic.net/2026/03/06/nir-updates-at-apricot-2026-ipv6-progress-rpki-plans-and-strengthening-coordination/</link>
+					<comments>https://blog.apnic.net/2026/03/06/nir-updates-at-apricot-2026-ipv6-progress-rpki-plans-and-strengthening-coordination/#respond</comments>
+		
+		<dc:creator><![CDATA[Dan Fidler]]></dc:creator>
+		<pubDate>Fri, 06 Mar 2026 03:13:18 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/development/">Development</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99399</guid>
+
+					<description><![CDATA[All seven NIRs reflected an active and collaborative NIR community across the Asia Pacific region.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/06/nir-updates-at-apricot-2026-ipv6-progress-rpki-plans-and-strengthening-coordination/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99399</post-id>	</item>
+		<item>
+		<title>Shape the next generation of Internet leaders as part of the 2026 APNIC Fellowship team</title>
+		<link>https://blog.apnic.net/2026/03/05/shape-the-next-generation-of-internet-leaders-as-part-of-the-2026-apnic-fellowship-team/</link>
+					<comments>https://blog.apnic.net/2026/03/05/shape-the-next-generation-of-internet-leaders-as-part-of-the-2026-apnic-fellowship-team/#respond</comments>
+		
+		<dc:creator><![CDATA[Thy Boskovic]]></dc:creator>
+		<pubDate>Thu, 05 Mar 2026 04:11:38 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99228</guid>
+
+					<description><![CDATA[APNIC is seeking community volunteers from across the Asia Pacific region to join the 2026 APNIC Fellowship Committee. Express your interest by 16 March.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/05/shape-the-next-generation-of-internet-leaders-as-part-of-the-2026-apnic-fellowship-team/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99228</post-id>	</item>
+		<item>
+		<title>[Podcast] Measuring the use of DNS over IPv6</title>
+		<link>https://blog.apnic.net/2026/03/05/podcast-measuring-the-use-of-dns-over-ipv6/</link>
+					<comments>https://blog.apnic.net/2026/03/05/podcast-measuring-the-use-of-dns-over-ipv6/#respond</comments>
+		
+		<dc:creator><![CDATA[George Michaelson]]></dc:creator>
+		<pubDate>Wed, 04 Mar 2026 21:58:14 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99494</guid>
+
+					<description><![CDATA[Geoff Huston explores how DNS operates over IPv6 and the challenges of measuring it. His findings reveal interesting variances by geographic region and network, raising questions about whether IPv6-only DNS is reliable enough to guide future operational practices.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/05/podcast-measuring-the-use-of-dns-over-ipv6/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99494</post-id>	</item>
+		<item>
+		<title>DNS blocking in practice: PDNS in a Research and Education Network</title>
+		<link>https://blog.apnic.net/2026/03/04/dns-blocking-in-practice-pdns-in-a-research-and-education-network/</link>
+					<comments>https://blog.apnic.net/2026/03/04/dns-blocking-in-practice-pdns-in-a-research-and-education-network/#respond</comments>
+		
+		<dc:creator><![CDATA[Branden Palacio]]></dc:creator>
+		<pubDate>Wed, 04 Mar 2026 03:10:23 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98698</guid>
+
+					<description><![CDATA[Guest Post: Despite their relative simplicity, Protective DNS blocklists are not a catch-all security solution; blocklists differ in their goals, threat categorization, maintenance frequency, and community support.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/04/dns-blocking-in-practice-pdns-in-a-research-and-education-network/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98698</post-id>	</item>
+		<item>
+		<title>Network Management session at APRICOT 2026: DNS logs, enterprise open source, and configuration management</title>
+		<link>https://blog.apnic.net/2026/03/03/network-management-session-at-apricot-2026-dns-logs-enterprise-open-source-and-configuration-management/</link>
+					<comments>https://blog.apnic.net/2026/03/03/network-management-session-at-apricot-2026-dns-logs-enterprise-open-source-and-configuration-management/#comments</comments>
+		
+		<dc:creator><![CDATA[George Michaelson]]></dc:creator>
+		<pubDate>Tue, 03 Mar 2026 03:50:33 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/events/">Events</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98811</guid>
+
+					<description><![CDATA[The Network Management session at APRICOT 2026 brought together four presenters to share practical, data‑driven insights into how operators can better understand and optimize their networks.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/03/network-management-session-at-apricot-2026-dns-logs-enterprise-open-source-and-configuration-management/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98811</post-id>	</item>
+		<item>
+		<title>Measuring the use of DNS over IPv6</title>
+		<link>https://blog.apnic.net/2026/03/02/measuring-the-use-of-dns-over-ipv6/</link>
+					<comments>https://blog.apnic.net/2026/03/02/measuring-the-use-of-dns-over-ipv6/#respond</comments>
+		
+		<dc:creator><![CDATA[Geoff Huston]]></dc:creator>
+		<pubDate>Mon, 02 Mar 2026 07:28:12 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99448</guid>
+
+					<description><![CDATA[How much of the Internet user base can reliably access a DNS server where the only form of access is via IPv6?]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/02/measuring-the-use-of-dns-over-ipv6/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99448</post-id>	</item>
+		<item>
+		<title>APRICOT 2026 keynotes: Agency, memory, and getting IPv6 done</title>
+		<link>https://blog.apnic.net/2026/03/02/apricot-2026-keynotes-agency-memory-and-getting-ipv6-done/</link>
+					<comments>https://blog.apnic.net/2026/03/02/apricot-2026-keynotes-agency-memory-and-getting-ipv6-done/#respond</comments>
+		
+		<dc:creator><![CDATA[Timothy Hildred]]></dc:creator>
+		<pubDate>Sun, 01 Mar 2026 23:54:37 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/events/">Events</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99154</guid>
+
+					<description><![CDATA[The APRICOT 2026 keynotes set three complementary challenges for the Internet community — use automation without losing agency, preserve the operational record that explains how we got here, and finish the work of IPv6 where it still lags.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/03/02/apricot-2026-keynotes-agency-memory-and-getting-ipv6-done/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99154</post-id>	</item>
+		<item>
+		<title>Apply now for the 2026 APNIC Fellowship program</title>
+		<link>https://blog.apnic.net/2026/02/27/apply-now-for-the-2026-apnic-fellowship-program/</link>
+					<comments>https://blog.apnic.net/2026/02/27/apply-now-for-the-2026-apnic-fellowship-program/#comments</comments>
+		
+		<dc:creator><![CDATA[Thy Boskovic]]></dc:creator>
+		<pubDate>Fri, 27 Feb 2026 05:19:33 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99223</guid>
+
+					<description><![CDATA[Applications for the 2026 APNIC Fellowship and Policy Fellowship programs are open now until 13 March 2026 at 23:59 (UTC +10).]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/27/apply-now-for-the-2026-apnic-fellowship-program/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99223</post-id>	</item>
+		<item>
+		<title>Internet routing as supply chain risk</title>
+		<link>https://blog.apnic.net/2026/02/26/internet-routing-as-supply-chain-risk/</link>
+					<comments>https://blog.apnic.net/2026/02/26/internet-routing-as-supply-chain-risk/#respond</comments>
+		
+		<dc:creator><![CDATA[Dan Fidler]]></dc:creator>
+		<pubDate>Wed, 25 Feb 2026 23:36:29 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/development/">Development</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99170</guid>
+
+					<description><![CDATA[A new paper from MANRS suggests enterprise demand may be the missing driver for stronger routing security.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/26/internet-routing-as-supply-chain-risk/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99170</post-id>	</item>
+		<item>
+		<title>Towards an industry best practice for DNSSEC automation</title>
+		<link>https://blog.apnic.net/2026/02/25/towards-an-industry-best-practice-for-dnssec-automation/</link>
+					<comments>https://blog.apnic.net/2026/02/25/towards-an-industry-best-practice-for-dnssec-automation/#comments</comments>
+		
+		<dc:creator><![CDATA[Barbara Jantzen]]></dc:creator>
+		<pubDate>Wed, 25 Feb 2026 02:41:01 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=97738</guid>
+
+					<description><![CDATA[Guest Post: DNSSEC adoption, while steadily rising, is still low after 20 years. Why care about DNSSEC adoption anyway?]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/25/towards-an-industry-best-practice-for-dnssec-automation/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">97738</post-id>	</item>
+		<item>
+		<title>Balancing growth and efficiency — APNIC 61 Policy SIG deliberations on IPv6 and IPv4 allocation</title>
+		<link>https://blog.apnic.net/2026/02/24/balancing-growth-and-efficiency-apnic-61-policy-sig-deliberations-on-ipv6-and-ipv4-allocation/</link>
+					<comments>https://blog.apnic.net/2026/02/24/balancing-growth-and-efficiency-apnic-61-policy-sig-deliberations-on-ipv6-and-ipv4-allocation/#respond</comments>
+		
+		<dc:creator><![CDATA[Dave Phelan]]></dc:creator>
+		<pubDate>Tue, 24 Feb 2026 05:14:50 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/policy/">Policy</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99277</guid>
+
+					<description><![CDATA[At APNIC 61 in Jakarta, the Policy SIG discussed proposals to reduce minimum IPv6 and increase maximum IPv4 delegations, highlighting tradeoffs between efficiency, record-keeping, and network planning. A Policy 101 session also introduced newcomers to APNIC’s consensus-driven policy process.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/24/balancing-growth-and-efficiency-apnic-61-policy-sig-deliberations-on-ipv6-and-ipv4-allocation/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99277</post-id>	</item>
+		<item>
+		<title>Reflections on a transforming interconnection ecosystem</title>
+		<link>https://blog.apnic.net/2026/02/23/reflections-on-a-transforming-interconnection-ecosystem/</link>
+					<comments>https://blog.apnic.net/2026/02/23/reflections-on-a-transforming-interconnection-ecosystem/#respond</comments>
+		
+		<dc:creator><![CDATA[Flavio Luciani]]></dc:creator>
+		<pubDate>Mon, 23 Feb 2026 04:58:50 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/development/">Development</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99186</guid>
+
+					<description><![CDATA[Guest Post: Is the peering market in decline? A closer look at global data and operator experience suggests otherwise.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/23/reflections-on-a-transforming-interconnection-ecosystem/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99186</post-id>	</item>
+		<item>
+		<title>RPKI&#8217;s 2025 year in review</title>
+		<link>https://blog.apnic.net/2026/02/20/rpkis-2025-year-in-review/</link>
+					<comments>https://blog.apnic.net/2026/02/20/rpkis-2025-year-in-review/#respond</comments>
+		
+		<dc:creator><![CDATA[Job Snijders]]></dc:creator>
+		<pubDate>Thu, 19 Feb 2026 22:50:45 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98430</guid>
+
+					<description><![CDATA[Guest Post: Job Snijders explores how the use of RPKI to secure Internet routing grew and evolved over 2025. ]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/20/rpkis-2025-year-in-review/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98430</post-id>	</item>
+		<item>
+		<title>DNSSEC and PQC: The practical impact of increased TCP in DNS</title>
+		<link>https://blog.apnic.net/2026/02/19/dnssec-and-pqc-the-practical-impact-of-increased-tcp-in-dns/</link>
+					<comments>https://blog.apnic.net/2026/02/19/dnssec-and-pqc-the-practical-impact-of-increased-tcp-in-dns/#respond</comments>
+		
+		<dc:creator><![CDATA[Eline Stehouwer]]></dc:creator>
+		<pubDate>Thu, 19 Feb 2026 00:23:39 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98535</guid>
+
+					<description><![CDATA[Guest Post: Evaluating the performance implications of increased TCP usage on authoritative nameservers.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/19/dnssec-and-pqc-the-practical-impact-of-increased-tcp-in-dns/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98535</post-id>	</item>
+		<item>
+		<title>[Podcast] Measuring for quality of life in Thailand</title>
+		<link>https://blog.apnic.net/2026/02/19/podcast-measuring-for-quality-of-life-in-thailand/</link>
+					<comments>https://blog.apnic.net/2026/02/19/podcast-measuring-for-quality-of-life-in-thailand/#respond</comments>
+		
+		<dc:creator><![CDATA[George Michaelson]]></dc:creator>
+		<pubDate>Wed, 18 Feb 2026 23:01:18 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=99096</guid>
+
+					<description><![CDATA[How Thai researchers are using practical measurement to inform policy, protect health, and respond to real-world challenges.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/19/podcast-measuring-for-quality-of-life-in-thailand/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99096</post-id>	</item>
+		<item>
+		<title>Unveiling IPv6 scanning dynamics: The largest telescope reveals a surging, diverse ecosystem</title>
+		<link>https://blog.apnic.net/2026/02/18/unveiling-ipv6-scanning-dynamics-the-largest-telescope-reveals-a-surging-diverse-ecosystem/</link>
+					<comments>https://blog.apnic.net/2026/02/18/unveiling-ipv6-scanning-dynamics-the-largest-telescope-reveals-a-surging-diverse-ecosystem/#respond</comments>
+		
+		<dc:creator><![CDATA[Hammas Bin Tanveer]]></dc:creator>
+		<pubDate>Wed, 18 Feb 2026 06:58:54 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=97733</guid>
+
+					<description><![CDATA[Guest Post: What can data from the largest ever IPv6 network telescope tell us about IPv6 scanning behaviour? Quite a lot!]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/18/unveiling-ipv6-scanning-dynamics-the-largest-telescope-reveals-a-surging-diverse-ecosystem/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">97733</post-id>	</item>
+		<item>
+		<title>Notes from NANOG 96</title>
+		<link>https://blog.apnic.net/2026/02/16/notes-from-nanog-96/</link>
+					<comments>https://blog.apnic.net/2026/02/16/notes-from-nanog-96/#respond</comments>
+		
+		<dc:creator><![CDATA[Geoff Huston]]></dc:creator>
+		<pubDate>Mon, 16 Feb 2026 04:51:45 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/events/">Events</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98997</guid>
+
+					<description><![CDATA[Geoff Huston shares his notes from attending NANOG 96.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/16/notes-from-nanog-96/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98997</post-id>	</item>
+		<item>
+		<title>Ten years of Let&#8217;s Encrypt</title>
+		<link>https://blog.apnic.net/2026/02/16/ten-years-of-lets-encrypt/</link>
+					<comments>https://blog.apnic.net/2026/02/16/ten-years-of-lets-encrypt/#respond</comments>
+		
+		<dc:creator><![CDATA[George Michaelson]]></dc:creator>
+		<pubDate>Sun, 15 Feb 2026 23:26:12 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/policy/">Policy</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=97557</guid>
+
+					<description><![CDATA[A review of Christophe Brocas' history of Let's Encrypt, published on his website.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/16/ten-years-of-lets-encrypt/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">97557</post-id>	</item>
+		<item>
+		<title>Updates on APNIC 64 and APRICOT 2027</title>
+		<link>https://blog.apnic.net/2026/02/13/updates-on-apnic-64-and-apricot-2027/</link>
+					<comments>https://blog.apnic.net/2026/02/13/updates-on-apnic-64-and-apricot-2027/#respond</comments>
+		
+		<dc:creator><![CDATA[Timothy Hildred]]></dc:creator>
+		<pubDate>Fri, 13 Feb 2026 03:43:11 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/events/">Events</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98792</guid>
+
+					<description><![CDATA[APRICOT 2027 will be hosted in Hong Kong, China, and APNIC 64 in Ulaanbaatar, Mongolia.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/13/updates-on-apnic-64-and-apricot-2027/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98792</post-id>	</item>
+		<item>
+		<title>Thanks for participating in APRICOT 2026</title>
+		<link>https://blog.apnic.net/2026/02/12/thanks-for-participating-in-apricot-2026/</link>
+					<comments>https://blog.apnic.net/2026/02/12/thanks-for-participating-in-apricot-2026/#comments</comments>
+		
+		<dc:creator><![CDATA[Timothy Hildred]]></dc:creator>
+		<pubDate>Thu, 12 Feb 2026 09:30:00 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/events/">Events</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98782</guid>
+
+					<description><![CDATA[Thanks for participating in APRICOT 2026, held with APNIC 61 in Jakarta, Indonesia. We look forward to seeing you at APNIC 62!]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/12/thanks-for-participating-in-apricot-2026/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98782</post-id>	</item>
+		<item>
+		<title>On misusing transparent DNS forwarders For amplification attacks</title>
+		<link>https://blog.apnic.net/2026/02/12/forward-to-hell-on-misusing-transparent-dns-forwarders-for-amplification-attacks/</link>
+					<comments>https://blog.apnic.net/2026/02/12/forward-to-hell-on-misusing-transparent-dns-forwarders-for-amplification-attacks/#respond</comments>
+		
+		<dc:creator><![CDATA[Maynard Koch]]></dc:creator>
+		<pubDate>Thu, 12 Feb 2026 04:35:00 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98531</guid>
+
+					<description><![CDATA[Guest Post: Research shows the threat vector introduced by transparent DNS forwarders that enable access to shielded recursive resolvers, and scale better in terms of potential attack volume.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/12/forward-to-hell-on-misusing-transparent-dns-forwarders-for-amplification-attacks/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98531</post-id>	</item>
+		<item>
+		<title>The current state of RDAP</title>
+		<link>https://blog.apnic.net/2026/02/10/the-current-state-of-rdap/</link>
+					<comments>https://blog.apnic.net/2026/02/10/the-current-state-of-rdap/#respond</comments>
+		
+		<dc:creator><![CDATA[Andy Newton]]></dc:creator>
+		<pubDate>Tue, 10 Feb 2026 01:06:18 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=97753</guid>
+
+					<description><![CDATA[Guest Post: RDAP, the more modern replacement for whois, has matured, and adoption is growing rapidly.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/10/the-current-state-of-rdap/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">97753</post-id>	</item>
+		<item>
+		<title>From the stupid DNS tricks department: ipasn.net</title>
+		<link>https://blog.apnic.net/2026/02/09/from-the-stupid-dns-tricks-department-ipasn-net/</link>
+					<comments>https://blog.apnic.net/2026/02/09/from-the-stupid-dns-tricks-department-ipasn-net/#respond</comments>
+		
+		<dc:creator><![CDATA[Geoff Huston]]></dc:creator>
+		<pubDate>Mon, 09 Feb 2026 04:40:06 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98762</guid>
+
+					<description><![CDATA[A trick that lets you map an IP address to an ASN without preprocessing any data. ]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/09/from-the-stupid-dns-tricks-department-ipasn-net/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98762</post-id>	</item>
+		<item>
+		<title>Welcome to APRICOT 2026</title>
+		<link>https://blog.apnic.net/2026/02/09/welcome-to-apricot-2026/</link>
+					<comments>https://blog.apnic.net/2026/02/09/welcome-to-apricot-2026/#respond</comments>
+		
+		<dc:creator><![CDATA[Timothy Hildred]]></dc:creator>
+		<pubDate>Mon, 09 Feb 2026 01:30:44 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/events/">Events</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98582</guid>
+
+					<description><![CDATA[APRICOT 2026 starts today in Jakarta, Indonesia! Here are some highlights.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/09/welcome-to-apricot-2026/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98582</post-id>	</item>
+		<item>
+		<title>2025 Annual Report now available</title>
+		<link>https://blog.apnic.net/2026/02/08/2025-annual-report-now-available/</link>
+					<comments>https://blog.apnic.net/2026/02/08/2025-annual-report-now-available/#respond</comments>
+		
+		<dc:creator><![CDATA[Tony Smith]]></dc:creator>
+		<pubDate>Sun, 08 Feb 2026 03:01:19 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98752</guid>
+
+					<description><![CDATA[The 2025 Annual Report is available.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/08/2025-annual-report-now-available/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98752</post-id>	</item>
+		<item>
+		<title>RIR Governance Document Version 2: Status Report Q1 2026</title>
+		<link>https://blog.apnic.net/2026/02/06/rir-governance-document-version-2-status-report-q1-2026/</link>
+					<comments>https://blog.apnic.net/2026/02/06/rir-governance-document-version-2-status-report-q1-2026/#respond</comments>
+		
+		<dc:creator><![CDATA[Hervé Clément]]></dc:creator>
+		<pubDate>Fri, 06 Feb 2026 04:04:49 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98725</guid>
+
+					<description><![CDATA[The NRO NC has compiled a status report related to comments received during  the consultation on the second version of the RIR Governance Document.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/06/rir-governance-document-version-2-status-report-q1-2026/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98725</post-id>	</item>
+		<item>
+		<title>From roots to reach: Network resilience in natural disasters</title>
+		<link>https://blog.apnic.net/2026/02/06/from-roots-to-reach-network-resilience-in-natural-disasters/</link>
+					<comments>https://blog.apnic.net/2026/02/06/from-roots-to-reach-network-resilience-in-natural-disasters/#respond</comments>
+		
+		<dc:creator><![CDATA[Md Main Uddin Hasan]]></dc:creator>
+		<pubDate>Fri, 06 Feb 2026 04:04:10 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/tech-matters/">Tech matters</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=97758</guid>
+
+					<description><![CDATA[Guest Post: AZIZA demonstrates how networking research can build systems that remain meaningful when continuity disappears.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/06/from-roots-to-reach-network-resilience-in-natural-disasters/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">97758</post-id>	</item>
+		<item>
+		<title>Connecting an archipelago: Exploring Indonesia’s Internet ahead of APRICOT 2026</title>
+		<link>https://blog.apnic.net/2026/02/06/connecting-an-archipelago-exploring-indonesias-internet-ahead-of-apricot-2026/</link>
+					<comments>https://blog.apnic.net/2026/02/06/connecting-an-archipelago-exploring-indonesias-internet-ahead-of-apricot-2026/#respond</comments>
+		
+		<dc:creator><![CDATA[Subha Shamarukh]]></dc:creator>
+		<pubDate>Thu, 05 Feb 2026 22:30:00 +0000</pubDate>
+		<category><![CDATA[<a href="https://blog.apnic.net/category/community/">Community</a>]]></category><category><![CDATA[<a href="https://blog.apnic.net/category/development/">Development</a>]]></category>		<guid isPermaLink="false">https://blog.apnic.net/?p=98646</guid>
+
+					<description><![CDATA[Exploring how Indonesia’s unique geography, policy direction, and technical community are shaping one of the Asia Pacific’s most significant Internet ecosystems. Rapid digital expansion, growing infrastructure investment, and an increasingly active operator community are driving progress, even as challenges remain.]]></description>
+		
+					<wfw:commentRss>https://blog.apnic.net/2026/02/06/connecting-an-archipelago-exploring-indonesias-internet-ahead-of-apricot-2026/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">98646</post-id>	</item>
+	</channel>
+</rss>

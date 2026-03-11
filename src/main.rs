@@ -24,6 +24,7 @@ use rpassword::prompt_password;
 mod db;
 mod feeds;
 mod filter;
+mod utils;
 mod webui;
 
 const BIND_ADDRESS: &str = "0.0.0.0:9998";
