@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link type="text/html" rel="alternate" href="http://ln.ht/"/>
+  <link type="application/atom+xml" rel="self" href="http://ln.ht/_/feed/"/>
+  <id>http://ln.ht/_/feed/</id>
+  <title>Recent bookmarks</title>
+  <updated>2026-03-11T15:08:47.398146Z</updated>
+  <entry>
+    <category label="scripting" term="scripting"/>
+    <category label="script" term="script"/>
+    <category label="bash" term="bash"/>
+    <category label="sh" term="sh"/>
+    <category label="shell" term="shell"/>
+    <category label="programming" term="programming"/>
+    <category label="technology" term="technology"/>
+    <category label="linux" term="linux"/>
+    <author>
+      <name>SergeantBiggs</name>
+      <uri>https://ln.ht/~SergeantBiggs</uri>
+    </author>
+    <content>A tool for glamorous shell scripts 🎀</content>
+    <link rel="alternate" href="https://github.com/charmbracelet/gum"/>
+    <id>https://github.com/charmbracelet/gum</id>
+    <title>charmbracelet/gum: A tool for glamorous shell scripts 🎀</title>
+    <updated>2026-03-11T14:24:54Z</updated>
+  </entry>
+  <entry>
+    <category label="engineering" term="engineering"/>
+    <category label="lego" term="lego"/>
+    <author>
+      <name>mlb</name>
+      <uri>https://ln.ht/~mlb</uri>
+    </author>
+    <content>A fascinating overview of how Lego bricks are designed and manufactured:
+
+&gt; LEGO demonstrates that micron-level precision is achievable in mass production, but only if the entire system - material, mold, process, quality control - is designed around that requirement from day one.</content>
+    <link rel="alternate" href="https://www.thewave.engineer/articles.html/productivity/legos-0002mm-specification-and-its-implications-for-manufacturing-r120/"/>
+    <id>https://www.thewave.engineer/articles.html/productivity/legos-0002mm-specification-and-its-implications-for-manufacturing-r120/</id>
+    <title>LEGO&apos;s 0.002mm Specification and It</title>
+    <updated>2026-03-11T13:51:51Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>dystiv</name>
+      <uri>https://ln.ht/~dystiv</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://vi.stackexchange.com/questions/4919/exit-from-terminal-mode-in-neovim-vim-8"/>
+    <id>https://vi.stackexchange.com/questions/4919/exit-from-terminal-mode-in-neovim-vim-8</id>
+    <title>Exit from Terminal mode in Neovim/Vim 8</title>
+    <updated>2026-03-11T12:53:59Z</updated>
+  </entry>
+  <entry>
+    <category label="home" term="home"/>
+    <category label="guix" term="guix"/>
+    <author>
+      <name>gunnargrop</name>
+      <uri>https://ln.ht/~gunnargrop</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://systemcrafters.net/craft-your-system-with-guix/how-to-organize-your-config/"/>
+    <id>https://systemcrafters.net/craft-your-system-with-guix/how-to-organize-your-config/</id>
+    <title>How to Organize Your Guix Configuration - System Crafters</title>
+    <updated>2026-03-11T10:37:29Z</updated>
+  </entry>
+  <entry>
+    <category label="scheme" term="scheme"/>
+    <category label="guile" term="guile"/>
+    <category label="emacs" term="emacs"/>
+    <category label="guix" term="guix"/>
+    <category label="forum" term="forum"/>
+    <author>
+      <name>gunnargrop</name>
+      <uri>https://ln.ht/~gunnargrop</uri>
+    </author>
+    <content>The home for computer configuration enthusiasts!</content>
+    <link rel="alternate" href="https://forum.systemcrafters.net/"/>
+    <id>https://forum.systemcrafters.net/</id>
+    <title>System Crafters - System Crafters Forum</title>
+    <updated>2026-03-11T10:32:15Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>tmfnk</name>
+      <uri>https://ln.ht/~tmfnk</uri>
+    </author>
+    <content>Coding agents hallucinate APIs and forget what they learn in a session. Context Hub gives them curated, versioned docs, plus the ability to get smarter with every task. All content is open and maintained as markdown in this repo — you can inspect exactly what your agent reads, and contribute back.</content>
+    <link rel="alternate" href="https://github.com/andrewyng/context-hub"/>
+    <id>https://github.com/andrewyng/context-hub</id>
+    <title>andrewyng/context-hub</title>
+    <updated>2026-03-11T08:35:11Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>dystiv</name>
+      <uri>https://ln.ht/~dystiv</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://www.reddit.com/r/FirefoxCSS/comments/1r1emid/firefox_became_too_round_can_you_please_help_me/"/>
+    <id>https://www.reddit.com/r/FirefoxCSS/comments/1r1emid/firefox_became_too_round_can_you_please_help_me/</id>
+    <title>firefox_became_too_round_can_you_please_help_me</title>
+    <updated>2026-03-11T08:34:52Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>tmfnk</name>
+      <uri>https://ln.ht/~tmfnk</uri>
+    </author>
+    <content>Just kidding.</content>
+    <link rel="alternate" href="https://geohot.github.io//blog/jekyll/update/2026/03/11/running-69-agents.html"/>
+    <id>https://geohot.github.io//blog/jekyll/update/2026/03/11/running-69-agents.html</id>
+    <title>Every minute you aren’t running 69 agents, you are falling behind | the singularity is nearer</title>
+    <updated>2026-03-11T08:16:55Z</updated>
+  </entry>
+  <entry>
+    <category label="go" term="go"/>
+    <category label="docker-compose" term="docker-compose"/>
+    <category label="docker" term="docker"/>
+    <author>
+      <name>stefankuehnel</name>
+      <uri>https://ln.ht/~stefankuehnel</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://docs.docker.com/compose/compose-sdk"/>
+    <id>https://docs.docker.com/compose/compose-sdk</id>
+    <title>Docker Compose SDK</title>
+    <updated>2026-03-11T00:38:32Z</updated>
+  </entry>
+  <entry>
+    <category label="scraping" term="scraping"/>
+    <category label="cloudflare" term="cloudflare"/>
+    <author>
+      <name>stefankuehnel</name>
+      <uri>https://ln.ht/~stefankuehnel</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://developers.cloudflare.com/changelog/post/2026-03-10-br-crawl-endpoint/"/>
+    <id>https://developers.cloudflare.com/changelog/post/2026-03-10-br-crawl-endpoint/</id>
+    <title>Crawl Entire Websites with a Single API Call Using Browser Rendering</title>
+    <updated>2026-03-11T00:34:35Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>sheyway</name>
+      <uri>https://ln.ht/~sheyway</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://taylor.town/finger-moon"/>
+    <id>https://taylor.town/finger-moon</id>
+    <title>The Finger and the Moon</title>
+    <updated>2026-03-11T00:10:13Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>sheyway</name>
+      <uri>https://ln.ht/~sheyway</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://wigglypaint.com/"/>
+    <id>https://wigglypaint.com/</id>
+    <title>WigglyPaint - Free Animated Drawing Tool &amp; GIF Creator</title>
+    <updated>2026-03-11T00:09:20Z</updated>
+  </entry>
+  <entry>
+    <category label="common-lisp" term="common-lisp"/>
+    <category label="lisp" term="lisp"/>
+    <category label="clos" term="clos"/>
+    <category label="ecs" term="ecs"/>
+    <category label="gamedev" term="gamedev"/>
+    <author>
+      <name>zyd</name>
+      <uri>https://ln.ht/~zyd</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://edoput.it/2023/11/19/data-oriented-clos.html"/>
+    <id>https://edoput.it/2023/11/19/data-oriented-clos.html</id>
+    <title>Put some CLOS in your ECS</title>
+    <updated>2026-03-10T18:54:34Z</updated>
+  </entry>
+  <entry>
+    <category label="backtracking" term="backtracking"/>
+    <category label="algorithm" term="algorithm"/>
+    <category label="procedural-generation" term="procedural-generation"/>
+    <category label="gamedev" term="gamedev"/>
+    <author>
+      <name>zyd</name>
+      <uri>https://ln.ht/~zyd</uri>
+    </author>
+    <content>See also https://news.ycombinator.com/item?id=47311815</content>
+    <link rel="alternate" href="https://felixturner.github.io/hex-map-wfc/article/"/>
+    <id>https://felixturner.github.io/hex-map-wfc/article/</id>
+    <title>Building a Procedural Hex Map with Wave Function Collapse</title>
+    <updated>2026-03-10T17:26:09Z</updated>
+  </entry>
+  <entry>
+    <category label="bot" term="bot"/>
+    <category label="irc" term="irc"/>
+    <category label="phrik" term="phrik"/>
+    <author>
+      <name>tkna</name>
+      <uri>https://ln.ht/~tkna</uri>
+    </author>
+    <content>A robust, full-featured, and user/programmer-friendly Python IRC bot, with many existing plugins. - progval/Limnoria</content>
+    <link rel="alternate" href="https://github.com/progval/Limnoria"/>
+    <id>https://github.com/progval/Limnoria</id>
+    <title>progval/Limnoria: A robust, full-featured, and user/programmer-friendly Python IRC bot, with many existing plugins.</title>
+    <updated>2026-03-10T14:06:11Z</updated>
+  </entry>
+  <entry>
+    <category label="rpi" term="rpi"/>
+    <author>
+      <name>2097</name>
+      <uri>https://ln.ht/~2097</uri>
+    </author>
+    <content>I&apos;m looking into how to build their app image from scratch; at least that way I&apos;m sudoing something that&apos;s free software and not a random binary.</content>
+    <link rel="alternate" href="https://github.com/raspberrypi/rpi-imager/blob/main/CONTRIBUTING.md"/>
+    <id>https://github.com/raspberrypi/rpi-imager/blob/main/CONTRIBUTING.md</id>
+    <title>CONTRIBUTING.md at Github</title>
+    <updated>2026-03-10T13:35:16Z</updated>
+  </entry>
+  <entry>
+    <category label="rpi" term="rpi"/>
+    <author>
+      <name>2097</name>
+      <uri>https://ln.ht/~2097</uri>
+    </author>
+    <content>I later found that this issue is known but marked as a WontFix on their issue tracker.</content>
+    <link rel="alternate" href="https://github.com/raspberrypi/rpi-imager/issues/1336"/>
+    <id>https://github.com/raspberrypi/rpi-imager/issues/1336</id>
+    <title>[BUG]: cannot run appimage as non-root user on debian ( wayland ) · Issue #1336 · raspberrypi/rpi-imager · GitHub</title>
+    <updated>2026-03-10T13:35:14Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>tmfnk</name>
+      <uri>https://ln.ht/~tmfnk</uri>
+    </author>
+    <content></content>
+    <link rel="alternate" href="https://wyattsell.com/experiments/word-graph/"/>
+    <id>https://wyattsell.com/experiments/word-graph/</id>
+    <title>Word graph</title>
+    <updated>2026-03-10T12:39:58Z</updated>
+  </entry>
+  <entry>
+    <category label="actor:shawnhatosy" term="actor:shawnhatosy"/>
+    <category label="type:interview" term="type:interview"/>
+    <author>
+      <name>siria</name>
+      <uri>https://ln.ht/~siria</uri>
+    </author>
+    <content>Shawn Hatosy, who plays Dr. Jack on The Pitt Abbott, breaks down the biggest moments of season two so far.</content>
+    <link rel="alternate" href="https://www.hollywoodreporter.com/tv/tv-features/shawn-hatosy-the-pitt-directorial-debut-interview-1236525649/"/>
+    <id>https://www.hollywoodreporter.com/tv/tv-features/shawn-hatosy-the-pitt-directorial-debut-interview-1236525649/</id>
+    <title>Shawn Hatosy on His &apos;The Pitt&apos; Directorial Debut</title>
+    <updated>2026-03-10T12:33:34Z</updated>
+  </entry>
+  <entry>
+    <category label="formal-methods" term="formal-methods"/>
+    <category label="performance" term="performance"/>
+    <category label="plt" term="plt"/>
+    <author>
+      <name>kawcco</name>
+      <uri>https://ln.ht/~kawcco</uri>
+    </author>
+    <content>&gt; By presenting in detail a sampling of examples, we propose a defense of the thesis: Performance bottlenecks in proof automation almost always result from inefficiencies in parts of the system which are conceptually distant from the theorem being proven. Said another way, debugging, understanding, and fixing performance bottlenecks in automated proofs almost always requires extensive knowledge of the proof engine, and almost never requires any domain-specific knowledge of the theorem being proven. Further, there is no clear direction of improvement: We know of no systematic proposal, nor even folklore among experts, of what primitives and performance characteristics are sufficient for a performant proof engine.
+
+via: https://jasongross.github.io/</content>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=m-iGCCuHBvY"/>
+    <id>https://www.youtube.com/watch?v=m-iGCCuHBvY</id>
+    <title>10 Years of Superlinear Slowness in Coq</title>
+    <updated>2026-03-10T12:24:51Z</updated>
+  </entry>
+</feed>

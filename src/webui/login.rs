@@ -14,7 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::auth::check_password;
-use actix_web::cookie::Cookie;
+use actix_web::cookie::{time::Duration, Cookie};
 use actix_web::{
     http::header, http::header::USER_AGENT, routes, web, HttpRequest, HttpResponse, Responder,
 };
@@ -65,8 +65,10 @@ pub async fn login(
                         None => "/view",
                         Some(w) => &w.back.clone(),
                     };
+                    let mut auth_cookie = Cookie::new("auth", session_uuid);
+                    auth_cookie.set_max_age(Duration::days(14));
                     return HttpResponse::Found()
-                        .cookie(Cookie::new("auth", session_uuid))
+                        .cookie(auth_cookie)
                         .insert_header((header::LOCATION, redir))
                         .finish();
                 }
