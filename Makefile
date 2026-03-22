@@ -9,6 +9,7 @@ ENV=		env CARGO_BACKTRACE=1 OPENSSL_DIR=$(SSL_HOME) \
 		HYPERSCAN_LIB_PATH=$(PREFIX)/lib \
 		BINDGEN_EXTRA_CLANG_ARGS=-I$(PREFIX)/include \
 		LIBCLANG_PATH=$(PREFIX)/lib \
+		PKG_CONFIG_PATH=$(PREFIX)/lib/pkgconfig:/usr/lib/pkgconfig \
 		RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PREFIX)/lib"
 
 CARGO=		$(ENV) cargo

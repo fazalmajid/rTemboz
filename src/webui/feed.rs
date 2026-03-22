@@ -13,7 +13,10 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::feed::{catchup, dedupe, get_feed_details, reload};
+use crate::db::feed::{
+    catchup, dedupe, get_feed_details, reload, update_feed_details, update_feed_dupcheck,
+    update_feed_exempt, update_feed_privacy, update_feed_status,
+};
 use crate::db::feeds::{Feed, FeedStatus};
 use crate::db::rules::get_top_rules;
 use crate::feeds::worker::{refresh_one, FeedOp};
@@ -21,8 +24,8 @@ use crate::filter::Rule;
 use crate::webui::menu::{menus, MenuItem};
 use actix_web::{routes, web, HttpResponse, Responder};
 use askama::Template;
-use log::error;
-use std::collections::HashMap;
+use log::{error, info};
+use serde::Deserialize;
 use std::error::Error;
 
 #[derive(Template, Debug)]
@@ -41,6 +44,8 @@ struct FeedTemplate<'a> {
     exempt_text: String,
     private_change_op: String,
     private_text: String,
+    dupcheck_change_op: String,
+    dupcheck_text: String,
     top_rules: Vec<(Rule, u32)>,
 
     feed_uid: u32,
@@ -58,6 +63,22 @@ struct FeedTemplate<'a> {
     refresh_msg: String,
 }
 
+#[derive(Debug, Deserialize)]
+struct FeedDetails {
+    feed_title: String,
+    feed_html: String,
+    feed_xml: String,
+    feed_pubxml: String,
+    feed_desc: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum Params {
+    Details(FeedDetails),
+    Confirm { confirm: String },
+}
+
 #[routes]
 #[get("/feed/{uid}{op:/?.*}")]
 #[post("/feed/{uid}{op:/?.*}")]
@@ -65,14 +86,21 @@ pub async fn feed(
     db: web::Data<sqlx::sqlite::SqlitePool>,
     uid: web::Path<(u32, Option<String>)>,
     feed_worker_q: web::Data<tokio::sync::mpsc::Sender<FeedOp>>,
-    form: Option<web::Form<HashMap<String, String>>>,
+    form: Option<web::Form<Params>>,
 ) -> impl Responder {
     let (uid, op) = uid.into_inner();
-    let confirm = match form {
-        Some(h) => h.contains_key("confirm"),
+    let confirm = match &form {
+        Some(f) => match &f.0 {
+            Params::Confirm { confirm: h } => *h == "yes".to_string(),
+            _ => false,
+        },
         _ => false,
     };
     let op = op.clone().unwrap_or_default();
+    info!(
+        "Got /feed request op={} confirm={} details={:#?}",
+        op, confirm, form
+    );
     let deduped = match op == "/dedupe" && confirm {
         true => match dedupe(db.get_ref(), uid).await {
             Ok(rowcount) => rowcount,
@@ -105,14 +133,77 @@ pub async fn feed(
         }
         _ => 0,
     };
-    let feed = get_feed_details(db.get_ref(), uid).await.unwrap();
+    // operations that don't require confirmation
+    let dbop_result = match op.as_str() {
+        "/suspend" => update_feed_status(db.get_ref(), uid, 1).await,
+        "/activate" => update_feed_status(db.get_ref(), uid, 0).await,
+        "/private" => update_feed_privacy(db.get_ref(), uid, 1).await,
+        "/public" => update_feed_privacy(db.get_ref(), uid, 0).await,
+        "/exempt" => update_feed_exempt(db.get_ref(), uid, 1).await,
+        "/reinstate" => update_feed_exempt(db.get_ref(), uid, 0).await,
+        "/dupcheck" => update_feed_dupcheck(db.get_ref(), uid, 1).await,
+        "/nodupcheck" => update_feed_dupcheck(db.get_ref(), uid, 0).await,
+        _ => Ok(()),
+    };
+    match dbop_result {
+        Ok(()) => (),
+        Err(e) => {
+            error!("FEED-{} error applying op={}: {}", uid, op, e);
+        }
+    }
+    let mut feed = get_feed_details(db.get_ref(), uid).await.unwrap();
     let feed_uid = feed.uid;
-    let refresh_msg = match op == "/refresh" {
+    let refresh_needed = match form {
+        None => false,
+        Some(f) => match &f.0 {
+            Params::Details(fields) => {
+                let changed = fields.feed_xml != feed.xml;
+                if fields.feed_title != feed.title
+                    || fields.feed_html != feed.html
+                    || fields.feed_xml != feed.xml
+                    || fields.feed_pubxml != feed.pubxml
+                    || fields.feed_desc != feed.description
+                {
+                    match update_feed_details(
+                        db.get_ref(),
+                        feed_uid,
+                        fields.feed_title.clone(),
+                        fields.feed_html.clone(),
+                        fields.feed_xml.clone(),
+                        fields.feed_pubxml.clone(),
+                        fields.feed_desc.clone(),
+                    )
+                    .await
+                    {
+                        Ok(()) => {
+                            info!(
+                                "FEED-{} updated details to {:#?}, refresh_needed: {}",
+                                feed_uid, fields, changed
+                            );
+                            feed = get_feed_details(db.get_ref(), uid).await.unwrap();
+                            changed
+                        }
+                        Err(e) => {
+                            error!("FEED-{} error updating details: {}", feed_uid, e);
+                            false
+                        }
+                    }
+                } else {
+                    false
+                }
+            }
+            _ => false,
+        },
+    };
+    let refresh_msg = match refresh_needed || op == "/refresh" {
         true => match refresh_one(feed_worker_q.as_ref(), feed.clone()).await {
-            Ok((added, filtered)) => format!(
-                "<p>Successfully refreshed, {} new items, {} filtered.</p>",
-                added, filtered
-            ),
+            Ok((added, filtered)) => {
+                feed = get_feed_details(db.get_ref(), uid).await.unwrap();
+                format!(
+                    "<p>Successfully refreshed, {} new items, {} filtered.</p>",
+                    added, filtered
+                )
+            }
             Err(e) => {
                 let source = match e.source() {
                     Some(src) => src.to_string(),
@@ -151,6 +242,14 @@ pub async fn feed(
         true => "Private".to_string(),
         _ => "Public".to_string(),
     };
+    let dupcheck_change_op = match feed.dupcheck {
+        true => "nodupcheck".to_string(),
+        _ => "dupcheck".to_string(),
+    };
+    let dupcheck_text = match feed.dupcheck {
+        true => "Duplicate checking in effect".to_string(),
+        _ => "No duplicate checking".to_string(),
+    };
     let template = FeedTemplate {
         // show: true,
         feed_uid,
@@ -166,6 +265,8 @@ pub async fn feed(
         exempt_text,
         private_change_op,
         private_text,
+        dupcheck_change_op,
+        dupcheck_text,
         top_rules,
         // ratings_list: String::new(),
         // sort_desc: false,

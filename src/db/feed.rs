@@ -70,6 +70,75 @@ WHERE f.uid=?
     Ok(feed)
 }
 
+pub async fn update_feed_details(
+    conn: &SqlitePool,
+    uid: u32,
+    feed_title: String,
+    feed_html: String,
+    feed_xml: String,
+    feed_pubxml: String,
+    feed_desc: String,
+) -> Result<(), Error> {
+    sqlx::query!(
+        r###"
+UPDATE feed
+SET
+   title = ?,
+   html = ?,
+   xml = ?,
+   pubxml = CASE WHEN ? = '' THEN NULL ELSE ? END,
+   description = ?
+WHERE uid=?
+"###,
+        feed_title,
+        feed_html,
+        feed_xml,
+        feed_pubxml,
+        feed_pubxml,
+        feed_desc,
+        uid,
+    )
+    .execute(conn)
+    .await?;
+    Ok(())
+}
+
+pub async fn update_feed_status(conn: &SqlitePool, uid: u32, status: i64) -> Result<(), Error> {
+    sqlx::query!(r###"UPDATE feed SET status=? WHERE uid=?"###, status, uid)
+        .execute(conn)
+        .await?;
+    Ok(())
+}
+
+pub async fn update_feed_privacy(conn: &SqlitePool, uid: u32, privacy: i64) -> Result<(), Error> {
+    sqlx::query!(r###"UPDATE feed SET private=? WHERE uid=?"###, privacy, uid)
+        .execute(conn)
+        .await?;
+    Ok(())
+}
+
+pub async fn update_feed_exempt(conn: &SqlitePool, uid: u32, exemption: i64) -> Result<(), Error> {
+    sqlx::query!(
+        r###"UPDATE feed SET exempt=? WHERE uid=?"###,
+        exemption,
+        uid
+    )
+    .execute(conn)
+    .await?;
+    Ok(())
+}
+
+pub async fn update_feed_dupcheck(conn: &SqlitePool, uid: u32, dupcheck: i64) -> Result<(), Error> {
+    sqlx::query!(
+        r###"UPDATE feed SET dupcheck=? WHERE uid=?"###,
+        dupcheck,
+        uid
+    )
+    .execute(conn)
+    .await?;
+    Ok(())
+}
+
 pub async fn update_feed(conn: &mut SqliteConnection, uid: u32, etag: String) -> Result<(), Error> {
     sqlx::query!(
         r###"

@@ -59,11 +59,11 @@
   <tr><td><a href="{{ feed.xml }}">Feed</a></td>
     <td>
       <input name="feed_xml" size="80" value="{{ feed.xml }}"></td></tr>
-  <tr><td>Public feed</a></td>
+  <tr>
+    <td>Shareable feed URL</td>
     <td>
-      {{ !feed.private|safe }}
       <input name="feed_pubxml" size="80" value="{{ feed.pubxml }}">
-      (if the Feed XML is not shareable)</td></tr>
+      (if the Feed URL is private and not shareable)</td></tr>
   <tr><td>Desc</td><td><textarea cols="80"
                                  rows="{{ feed.desc_rows() }}"
                                  name="feed_desc">{{ feed.description }}</textarea>
@@ -88,12 +88,8 @@
   <tr><td>Status</td><td>{{ feed.status }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ status_change_op }}">{{ status_change_op }}</a></td></tr>
   <tr><td>Privacy</td><td>{{ private_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ private_change_op}}">{{ private_change_op }}</a></td></tr>
   <tr><td>Filtering exemption</td><td>{{ exempt_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ exempt_change_op }}">{{ exempt_change_op }}</a> (exempt feeds are still subject to feed-specific filtering rules).</td></tr>
+  <tr><td>Duplicate checking</td><td>{{ dupcheck_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ dupcheck_change_op}}">{{ dupcheck_change_op }}</a></td></tr>
 {########################################################################}
-{% if !feed.dupcheck %}
-  <tr><td>Duplicate<br>title<br>checking</td><td>No duplicate checks&nbsp;<a href="/feed/{{ feed.uid }}/Dupcheck">check for duplicate titles</a></td></tr>
-{% else %}
-  <tr><td>Duplicate<br>title<br>checking</td><td>Duplicate checking in effect&nbsp;<a href="/feed/{{ feed.uid }}/NoDupcheck">disable duplicate checking</a></td></tr>
-{% endif %}
   <tr><td>Refresh</td><td><a href="/feed/{{ feed.uid }}/refresh">Manually refresh</a> feed</td></tr>
   <tr><td>Catch-up</td><td><a href="/feed/{{ feed.uid }}/catchup">Mark as read</a> {{ feed.unread }} unread articles</td></tr>
   <tr><td>Purge</td><td><a href="/feed/{{ feed.uid }}/reload">Purge and reload</a> {{ feed.unread }} unread articles</td></tr>
