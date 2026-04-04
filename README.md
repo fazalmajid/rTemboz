@@ -50,6 +50,7 @@ once after the migration.
 - [x] Authentication!
 - [x] Tool to set the password and initial settings
 - [x] Actually save the rules to the DB
+- [ ] Exempt feeds shuld actually be exempt
 - [ ] Stemmer endpoint for the "Add Rules" dialog
 - [ ] Link to list all articles filtered by a rule in the Filters Actions
       column

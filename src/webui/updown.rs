@@ -15,7 +15,7 @@
 ///
 use crate::db::items::ItemStatus;
 use crate::db::worker::DbOp;
-use actix_web::{HttpResponse, Responder, get, web};
+use actix_web::{get, web, HttpResponse, Responder};
 use log::error;
 use std::sync::mpsc::Sender;
 
@@ -25,26 +25,26 @@ pub async fn enqueue(
     path: web::Path<(String, u64, u64)>,
 ) -> impl Responder {
     let (operation, rand, uid) = path.into_inner();
-    match operation.as_str() {
-        "promote" => work_q
-            .send(DbOp::UpDown {
-                new_status: ItemStatus::Interesting,
-                uid,
-            })
-            .unwrap(),
-        "demote" => work_q
-            .send(DbOp::UpDown {
-                new_status: ItemStatus::Uninteresting,
-                uid,
-            })
-            .unwrap(),
-        "basic" => work_q
-            .send(DbOp::UpDown {
-                new_status: ItemStatus::Unread,
-                uid,
-            })
-            .unwrap(),
-        _ => error!("unexpected op: {} {} {}", operation, rand, uid),
+    let result = match operation.as_str() {
+        "promote" => work_q.send(DbOp::UpDown {
+            new_status: ItemStatus::Interesting,
+            uid,
+        }),
+        "demote" => work_q.send(DbOp::UpDown {
+            new_status: ItemStatus::Uninteresting,
+            uid,
+        }),
+        "basic" => work_q.send(DbOp::UpDown {
+            new_status: ItemStatus::Unread,
+            uid,
+        }),
+        _ => {
+            error!("unexpected op: {} {} {}", operation, rand, uid);
+            Ok(())
+        }
+    };
+    if let Err(e) = result {
+        error!("{} op failed: {}", operation, e);
     }
     HttpResponse::Ok()
         .content_type("text/xml")
