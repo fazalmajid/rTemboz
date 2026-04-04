@@ -103,6 +103,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
     // };
     let Work {
         feed_uid,
+        exempt,
         rss,
         bloom,
         filters,
@@ -140,7 +141,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
             bloom.insert(&key);
             added += 1;
         }
-        let result = match filters.apply_filter(feed_uid, &item).await {
+        let result = match filters.apply_filter(feed_uid, exempt, &item).await {
             Ok(rule_uid) => {
                 if let Some(uid) = rule_uid {
                     info!(

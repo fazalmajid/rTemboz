@@ -174,6 +174,7 @@ async fn fetch(
     };
     Some(Work {
         feed_uid: f.uid,
+        exempt: f.exempt,
         rss: parsed,
         // etag: r.etag,
         bloom: bf,
@@ -201,12 +202,14 @@ async fn record_one_already_fetched(
     bf: Arc<AtomicBloomFilter>,
     filters: Arc<Filters>,
     feed_uid: u32,
+    exempt: bool,
     parsed: ParsedFeed,
     reply: Option<tokio::sync::oneshot::Sender<(u32, u32)>>,
 ) -> Result<(), sqlx::error::Error> {
     let _: () = process_rss(
         Work {
             feed_uid,
+            exempt,
             rss: parsed,
             bloom: bf.clone(),
             filters: filters.clone(),
@@ -330,6 +333,7 @@ pub enum FeedOp {
     },
     AlreadyFetched {
         feed_uid: u32,
+        exempt: bool,
         parsed: Box<ParsedFeed>,
         reply: tokio::sync::oneshot::Sender<(u32, u32)>,
     },
@@ -357,8 +361,8 @@ pub fn spawn_worker(
                                 error!("error in RefreshOne: {}", e);
                             }
                         },
-                        FeedOp::AlreadyFetched{feed_uid, parsed, reply} => {
-                            if let Err(e) = record_one_already_fetched(work_q.clone(), bf.clone(), filters.clone(), feed_uid, *parsed, Some(reply)).await {
+                        FeedOp::AlreadyFetched{feed_uid, exempt, parsed, reply} => {
+                            if let Err(e) = record_one_already_fetched(work_q.clone(), bf.clone(), filters.clone(), feed_uid, exempt, *parsed, Some(reply)).await {
                                 error!("error in AlreadyFetched: {}", e);
                             }
                         },

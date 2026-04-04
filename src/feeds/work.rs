@@ -21,6 +21,7 @@ use std::sync::Arc;
 
 pub struct Work {
     pub feed_uid: u32,
+    pub exempt: bool,
     pub rss: ParsedFeed,
     // pub etag: String,
     pub bloom: Arc<AtomicBloomFilter>,

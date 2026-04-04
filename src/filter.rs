@@ -418,6 +418,7 @@ impl Filters {
     pub async fn apply_filter(
         &self,
         feed_uid: u32,
+        exempt: bool,
         item: &Item,
     ) -> std::result::Result<Option<u32>, FilterError> {
         // Start with feed-specific filters
@@ -426,6 +427,9 @@ impl Filters {
         {
             return Ok(Some(uid));
         }
-        self.global.apply(item).await
+        match exempt {
+            false =>         self.global.apply(item).await,
+            true => Ok(None)
+        }
     }
 }

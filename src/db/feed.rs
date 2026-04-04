@@ -272,6 +272,7 @@ INSERT INTO feed (
     if let Err(e) = work_q
         .send(FeedOp::AlreadyFetched {
             feed_uid: row.uid as u32,
+            exempt: false, // a newly added feed won't be exempt
             parsed: Box::new(parsed),
             reply: tx,
         })
