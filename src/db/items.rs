@@ -331,7 +331,7 @@ pub async fn update_status(
     let _ = sqlx::query!(
         r###"
 UPDATE item
-SET rating=?, rated=julianday('now')
+SET rating=?, rule=NULL, rated=julianday('now')
 WHERE uid=?"###,
         status_numeric,
         uid,
