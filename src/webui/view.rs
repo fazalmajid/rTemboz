@@ -13,10 +13,10 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::items::{Item, ItemOrder, ItemStatus, get_items};
+use crate::db::items::{get_items, Item, ItemOrder, ItemStatus};
 use crate::filter::RuleType;
-use crate::webui::menu::{MenuItem, menus};
-use actix_web::{HttpRequest, HttpResponse, Responder, get, web};
+use crate::webui::menu::{menus, MenuItem};
+use actix_web::{get, web, HttpRequest, HttpResponse, Responder};
 use askama::Template;
 use itertools::Itertools; // for sorted() and join()
 use log::info;
@@ -31,7 +31,7 @@ struct ViewTemplate<'a> {
     order: ItemOrder,
     order_menu: Vec<(String, String)>,
     //name: &'a str,
-    item_desc: &'a str,
+    item_desc: String,
     feed_uid: u32, // feed we are filtering on, 0 means no filtering
     items: &'a Vec<Item>,
     overload_threshold: u32,
@@ -150,7 +150,7 @@ pub async fn view(
         show_menu,
         order,
         order_menu,
-        item_desc: "DESC",
+        item_desc: format!("{}", show),
         feed_uid,
         items: &items,
         overload_threshold: 200,
