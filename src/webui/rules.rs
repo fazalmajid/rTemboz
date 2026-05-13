@@ -19,6 +19,7 @@ use crate::filter::Rule;
 use crate::webui::menu::{menus, MenuItem};
 use actix_web::{get, post, web, HttpResponse, Responder};
 use askama::Template;
+use diacritics::remove_diacritics;
 use itertools::join;
 use log::error;
 use rust_stemmers::{Algorithm, Stemmer};
@@ -101,8 +102,7 @@ pub async fn stem(params: web::Query<Term>) -> impl Responder {
     let en_stemmer: Stemmer = Stemmer::create(Algorithm::English);
     let stop_words = stop_words::get(stop_words::LANGUAGE::English);
     // strip punctuation
-    let cleaned: String = params
-        .q
+    let cleaned: String = remove_diacritics(params.q.as_str())
         .chars()
         .filter(|c| c.is_alphanumeric() || c.is_whitespace())
         .collect();

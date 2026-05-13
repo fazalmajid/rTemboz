@@ -21,6 +21,7 @@ use rust_stemmers::{Algorithm, Stemmer};
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fmt;
+use diacritics::remove_diacritics;
 
 #[repr(u8)]
 #[derive(Clone, Debug)]
@@ -172,7 +173,7 @@ impl Matcher {
                         .take()
                         .expect("uninitialized regex_db")
                         .add_pattern(
-                            escape_plain(rule_text.to_lowercase())
+                            escape_plain(remove_diacritics(rule_text.as_str()).to_lowercase())
                                 .flags(Flags::CASELESS)
                                 .id(rule_uid)
                                 .build()?,
@@ -257,8 +258,7 @@ impl RuleSet {
             .split_whitespace()
             .map(|w| w.to_string())
             .collect();
-        let title_stem = item
-            .title
+        let title_stem = remove_diacritics(item.title.as_str())
             .to_lowercase()
             .split_whitespace()
             .map(|w| en_stemmer.stem(w).into_owned())
@@ -275,8 +275,8 @@ impl RuleSet {
             .split_whitespace()
             .map(|w| w.to_string())
             .collect();
-        let content_stem = item
-            .content
+        let content_stem = 
+            remove_diacritics(item.content.as_str())
             .to_lowercase()
             .split_whitespace()
             .map(|w| en_stemmer.stem(w).into_owned())
@@ -346,7 +346,7 @@ impl Filters {
             RuleType::TitlePhraseLowerCase => f.title.add_pattern(rule.text, rule.uid, false)?,
             RuleType::TitleWord => {
                 f.title.word_stem.insert(
-                    en_stemmer.stem(&rule.text.to_lowercase()).to_string(),
+                    en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
                     rule.uid,
                 );
             }
@@ -373,11 +373,11 @@ impl Filters {
             }
             RuleType::UnionWord => {
                 f.title.word_stem.insert(
-                    en_stemmer.stem(&rule.text.to_lowercase()).to_string(),
+                    en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
                     rule.uid,
                 );
                 f.content.word_stem.insert(
-                    en_stemmer.stem(&rule.text.to_lowercase()).to_string(),
+                    en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
                     rule.uid,
                 );
             }
