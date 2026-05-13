@@ -44,6 +44,7 @@ rand = "0.10.0"
 rpassword = "7.4.0"
 scraper = "0.25.0"
 url-normalize = "0.1.1"
+stop-words = "0.10.0"
 
 [build-dependencies]
 static-files = "0.3.1"

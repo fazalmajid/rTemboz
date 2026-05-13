@@ -19,7 +19,10 @@ use crate::filter::Rule;
 use crate::webui::menu::{menus, MenuItem};
 use actix_web::{get, post, web, HttpResponse, Responder};
 use askama::Template;
+use itertools::join;
 use log::error;
+use rust_stemmers::{Algorithm, Stemmer};
+use serde::Deserialize;
 use std::ops::Deref;
 
 #[derive(Template)]
@@ -71,4 +74,39 @@ pub async fn rule_add(
     HttpResponse::Ok()
         .content_type("application/json")
         .body(r###"{"status": "ok"}"###)
+}
+
+#[derive(Deserialize)]
+struct Term {
+    q: String,
+}
+
+// @app.route("/stem")
+// def stem():
+//   term = flask.request.args.get('q', '')
+//   stem = ' '.join(normalize.stem(normalize.get_words(term)))
+// strip_tags_re = re.compile('<[^>]*>')
+// def get_words(s):
+//   return set([
+//     word for word
+//     in lower(str(strip_tags_re.sub('', str(s)))
+//              ).translate(punct_map).split()
+//     if word not in stop_words])
+// def stem(words):
+//   return {porter2.stem(word) for word in words}
+//   return (stem, 200, {'Content-Type': 'text/plain'})
+
+#[get("/stem")]
+pub async fn stem(params: web::Query<Term>) -> impl Responder {
+    let en_stemmer: Stemmer = Stemmer::create(Algorithm::English);
+    let stop_words = stop_words::get(stop_words::LANGUAGE::English);
+    HttpResponse::Ok().content_type("text/plain").body(join(
+        params
+            .q
+            .as_str()
+            .split_whitespace()
+            .filter(|w| !&stop_words.contains(&w.to_lowercase().as_str()))
+            .map(|w| en_stemmer.stem(w).into_owned()),
+        " ",
+    ))
 }
