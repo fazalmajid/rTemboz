@@ -100,9 +100,14 @@ struct Term {
 pub async fn stem(params: web::Query<Term>) -> impl Responder {
     let en_stemmer: Stemmer = Stemmer::create(Algorithm::English);
     let stop_words = stop_words::get(stop_words::LANGUAGE::English);
+    // strip punctuation
+    let cleaned: String = params
+        .q
+        .chars()
+        .filter(|c| c.is_alphanumeric() || c.is_whitespace())
+        .collect();
     HttpResponse::Ok().content_type("text/plain").body(join(
-        params
-            .q
+        cleaned
             .as_str()
             .split_whitespace()
             .filter(|w| !&stop_words.contains(&w.to_lowercase().as_str()))
