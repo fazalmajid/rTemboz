@@ -56,6 +56,8 @@ once after the migration.
       column
 - [ ] Delete a rule in the Filters Actions column
 - [ ] Feed autodiscovery
+- [ ] When more than one item is fetched, sort them in chronological order
+      before inserting them in the database
 - [ ] Feed duplicate title checking
 - [ ] Reimplement editor
 - [ ] Duplicate URL filtering
@@ -64,3 +66,4 @@ once after the migration.
 - [ ] OPML import/export
 - [ ] More test cases
 - [ ] Better build process
+- [ ] Measure async loop contention using tokio-metrics

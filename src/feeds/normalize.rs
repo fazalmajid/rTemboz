@@ -65,10 +65,11 @@ pub fn extract(e: &Entry) -> Result<Item> {
         .iter()
         .map(|cat| clean_text(&cat.term.clone().into_string().to_owned()))
         .collect();
-    let url = match e.links.first() {
+
+    let url = e.link.clone().unwrap_or(match e.links.first() {
         Some(l) => clean_url(&l.href)?,
         _ => bail!("no link for {}", title),
-    };
+    });
     let no_content = "no content".to_string();
     let content = clean(match e.content.first() {
         Some(Content { value: s, .. }) => s,
