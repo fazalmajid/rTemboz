@@ -72,6 +72,9 @@ where
             if path.as_str() == "/login" {
                 return fut.await;
             }
+            if path.as_str() == "/blogroll.json" {
+                return fut.await;
+            }
             if let Some((session_id, db)) = cookie_data {
                 let pool: &SqlitePool = db.get_ref();
                 if let Ok(()) = check_cookie(pool, &session_id).await {

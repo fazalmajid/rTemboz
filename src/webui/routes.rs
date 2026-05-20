@@ -25,6 +25,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
         .service(ResourceFiles::new("/static", generated))
         .service(webui::login::login)
         .service(webui::view::view)
+        .service(webui::feeds::blogroll)
         .service(webui::feeds::feeds)
         .service(webui::feed::feed)
         .service(webui::updown::enqueue)

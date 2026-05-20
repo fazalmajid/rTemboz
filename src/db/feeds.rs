@@ -109,3 +109,37 @@ ORDER BY (unread > 0) DESC, snr DESC"###
     }
     Ok(result)
 }
+
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct PublicFeed {
+    pub uid: u32,
+    pub title: String,
+    pub description: String,
+    pub html: String,
+    pub xml: String,
+    pub snr: f64,
+}
+
+pub async fn get_opml(db: &SqlitePool) -> Result<Vec<PublicFeed>, Error> {
+    let rows = sqlx::query!(
+        r###"
+SELECT uid, title, description, html, coalesce(pubxml, xml) as xml, snr
+FROM v_feeds_snr
+WHERE status=0 AND private=0
+ORDER BY snr DESC, LOWER(title)"###
+    )
+    .fetch_all(db)
+    .await?;
+    let mut result = Vec::with_capacity(rows.len());
+    for row in rows {
+        result.push(PublicFeed {
+            uid: row.uid.unwrap() as u32,
+            title: row.title,
+            description: row.description.unwrap_or("".to_string()),
+            html: row.html,
+            xml: row.xml,
+            snr: row.snr,
+        });
+    }
+    Ok(result)
+}

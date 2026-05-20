@@ -13,9 +13,9 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::feeds::{Feed, get_feeds};
-use crate::webui::menu::{MenuItem, menus};
-use actix_web::{HttpResponse, Responder, get, web};
+use crate::db::feeds::{get_feeds, get_opml, Feed};
+use crate::webui::menu::{menus, MenuItem};
+use actix_web::{get, web, HttpResponse, Responder};
 use askama::Template;
 
 #[derive(Template)]
@@ -54,4 +54,10 @@ pub async fn feeds(db: web::Data<sqlx::sqlite::SqlitePool>) -> impl Responder {
     HttpResponse::Ok()
         .content_type("text/html")
         .body(template.render().unwrap())
+}
+
+#[get("/blogroll.json")]
+pub async fn blogroll(db: web::Data<sqlx::sqlite::SqlitePool>) -> impl Responder {
+    let body = get_opml(db.get_ref()).await.unwrap();
+    HttpResponse::Ok().json(body)
 }
