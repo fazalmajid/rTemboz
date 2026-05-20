@@ -125,6 +125,18 @@ pub async fn update_feed_exempt(conn: &SqlitePool, uid: u32, exemption: i64) -> 
     )
     .execute(conn)
     .await?;
+    // retroactively clear filtered status
+    if exemption == 1 {
+        sqlx::query!(
+            r###"
+UPDATE item SET rating=0, rule=NULL
+WHERE rating=-2 AND feed=?
+"###,
+            uid
+        )
+        .execute(conn)
+        .await?;
+    }
     Ok(())
 }
 
