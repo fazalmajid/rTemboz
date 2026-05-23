@@ -334,7 +334,7 @@ impl Filters {
             }
             RuleType::ContentPhrase => f.content.add_pattern(rule.text, rule.uid, true)?,
             RuleType::ContentPhraseLowerCase => {
-                f.content.add_pattern(rule.text, rule.uid, false)?
+                f.content.add_pattern(rule.text.to_lowercase(), rule.uid, false)?
             }
             RuleType::Tag => {
                 f.tag.insert(rule.text.clone(), rule.uid);
@@ -343,7 +343,7 @@ impl Filters {
                 f.title.word_exact.insert(rule.text.clone(), rule.uid);
             }
             RuleType::TitlePhrase => f.title.add_pattern(rule.text, rule.uid, true)?,
-            RuleType::TitlePhraseLowerCase => f.title.add_pattern(rule.text, rule.uid, false)?,
+            RuleType::TitlePhraseLowerCase => f.title.add_pattern(rule.text.to_lowercase(), rule.uid, false)?,
             RuleType::TitleWord => {
                 f.title.word_stem.insert(
                     en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
@@ -368,8 +368,8 @@ impl Filters {
                 f.content.add_pattern(rule.text.clone(), rule.uid, true)?
             }
             RuleType::UnionPhraseLowerCase => {
-                f.title.add_pattern(rule.text.clone(), rule.uid, true)?;
-                f.content.add_pattern(rule.text.clone(), rule.uid, true)?
+                f.title.add_pattern(rule.text.clone().to_lowercase(), rule.uid, false)?;
+                f.content.add_pattern(rule.text.clone().to_lowercase(), rule.uid, false)?
             }
             RuleType::UnionWord => {
                 f.title.word_stem.insert(

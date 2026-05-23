@@ -10,18 +10,19 @@ ENV=		env CARGO_BACKTRACE=1 OPENSSL_DIR=$(SSL_HOME) \
 		BINDGEN_EXTRA_CLANG_ARGS=-I$(PREFIX)/include \
 		LIBCLANG_PATH=$(PREFIX)/lib \
 		PKG_CONFIG_PATH=$(PREFIX)/lib/pkgconfig:/usr/lib/pkgconfig \
-		RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PREFIX)/lib"
+		RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PREFIX)/lib -C link-arg=-Wl,-rpath,$(SSL_HOME)/lib"
 
 CARGO=		$(ENV) cargo
+CARGO_SQLX=	$(HOME)/.cargo/bin/cargo-sqlx
 
 all: run
 
-.sqlx: boot.db $(HOME)/.cargo/bin/sqlx
+.sqlx: boot.db $(CARGO_SQLX)
 	clear
 	$(ENV) DATABASE_URL=sqlite://boot.db cargo sqlx prepare
 
-$(HOME)/.cargo/bin/sqlx:
-	env OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli
+$(CARGO_SQLX):
+	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli
 
 boot.db:
 	cat migrations/*.sql|sqlite3 boot.db
@@ -86,6 +87,8 @@ clean:
 	-rm -f static/datatables.css
 	-rm -f static/simple-datatables.js
 	-rm -rf target
+	-rm -f $(CARGO_SQLX)
+	-rm -f $(HOME)/.cargo/bin/*sqlx
 
 realclean: clean
 	-cargo clean

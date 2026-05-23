@@ -91,7 +91,10 @@ def insert_auth_settings(conn):
     conn.execute("INSERT INTO setting (name, value) VALUES (?, ?)", ("login", "test"))
     conn.execute(
         "INSERT INTO setting (name, value) VALUES (?, ?)",
-        ("passwd", "$argon2i$v=19$m=65536,t=3,p=4$eDWHxN3NBDVqtLkQiYMg2g$1tm/H4ZA0WsfZXkVRVbktpT/RRiA93XKeHbsw2wuBsw"),
+        (
+            "passwd",
+            "$argon2i$v=19$m=65536,t=3,p=4$eDWHxN3NBDVqtLkQiYMg2g$1tm/H4ZA0WsfZXkVRVbktpT/RRiA93XKeHbsw2wuBsw",
+        ),
     )
     conn.commit()
 
@@ -280,7 +283,9 @@ def login_session(base_url):
         timeout=10,
         allow_redirects=False,
     )
-    assert resp.status_code in (200, 302), f"Login failed with status {resp.status_code}"
+    assert resp.status_code in (200, 302), (
+        f"Login failed with status {resp.status_code}"
+    )
     return session
 
 
@@ -360,6 +365,50 @@ class TestFilterUnionAll:
         ).fetchall()
         assert len(non_chocolate) > 0, "Expected some non-chocolate articles"
         for title, rating in non_chocolate:
+            assert rating != -2, (
+                f"Article '{title}' should not be filtered by 'milk chocolate' rule"
+            )
+
+
+class TestFilterUnionAllLc:
+    """Test that a UnionAll rule for 'milk chocolate' filters the Dardenne article."""
+
+    def test_union_phrase_lc(self, test_env):
+        conn = test_env["conn"]
+
+        conn.execute(
+            "INSERT INTO rule (type, text) VALUES (?, ?)",
+            ("union_phrase_lc", "apple PlAtFoRm"),
+        )
+        conn.commit()
+
+        # Run refresh to fetch the feed and apply filters
+        result = run_refresh(test_env)
+        assert result.returncode == 0, (
+            f"refresh failed:\nstdout: {result.stdout}\nstderr: {result.stderr}"
+        )
+
+        # Verify the Dardenne article was fetched
+        row = conn.execute(
+            "SELECT uid, title, rating, rule FROM item WHERE title LIKE '%Moving away from Apple platform%'"
+        ).fetchone()
+        assert row is not None, "Apple article was not fetched"
+
+        item_uid, title, rating, rule_uid = row
+        assert "Apple" in title
+        # rating=-2 means filtered
+        assert rating == -2, (
+            f"Expected rating=-2 (filtered), got {rating} for '{title}'"
+        )
+        # Should be linked to the rule
+        assert rule_uid is not None, "Expected item to be linked to a filtering rule"
+
+        # Verify non-matching articles are NOT filtered
+        non_apple = conn.execute(
+            "SELECT title, rating FROM item WHERE lower(title) NOT LIKE '%apple platform%'"
+        ).fetchall()
+        assert len(non_apple) > 0, "Expected some non-chocolate articles"
+        for title, rating in non_apple:
             assert rating != -2, (
                 f"Article '{title}' should not be filtered by 'milk chocolate' rule"
             )
