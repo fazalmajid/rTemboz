@@ -46,6 +46,7 @@ scraper = "0.25.0"
 url-normalize = "0.1.1"
 stop-words = "0.10.0"
 diacritics = "0.2.2"
+html-escape = "0.2.13"
 
 [build-dependencies]
 static-files = "0.3.1"

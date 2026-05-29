@@ -21,6 +21,7 @@ use ammonia::clean;
 use anyhow::{bail, Result};
 use chrono::{DateTime, Utc};
 use feedparser_rs::types::{Content, Entry, Person};
+use html_escape::encode_text;
 use log::{error, info};
 use sha2::{Digest, Sha256};
 use std::fmt;
@@ -59,7 +60,9 @@ fn sha256(s: String) -> String {
 
 pub fn extract(e: &Entry) -> Result<Item> {
     let author = clean_text(&first_author_name(e));
-    let title = clean_text(&e.title.clone().unwrap_or_else(|| "Untitled".to_string()));
+    // sometimes a title will reference a tag, so escape it rather than
+    // strip out the tags entirely
+    let title = encode_text(&e.title.clone().unwrap_or_else(|| "Untitled".to_string())).to_string();
     let tags: Vec<String> = e
         .tags
         .iter()

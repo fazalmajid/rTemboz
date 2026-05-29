@@ -13,15 +13,28 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-pub mod add;
-pub mod auth;
-pub mod feed;
-pub mod feeds;
-pub mod login;
-pub mod menu;
-pub mod routes;
-pub mod rules;
-pub mod updown;
-pub mod util;
-pub mod view;
-pub mod view_llm;
+use crate::db::worker::DbOp;
+use actix_web::{get, web, HttpResponse, Responder};
+use log::error;
+use serde::Serialize;
+use std::sync::mpsc::Sender;
+use tokio::sync::oneshot;
+
+#[derive(Serialize)]
+struct Status {
+    status: &'static str,
+}
+
+#[get("/sync")]
+pub async fn sync(work_q: web::Data<Sender<DbOp>>) -> impl Responder {
+    let (callback, response) = oneshot::channel();
+    let result = work_q.send(DbOp::Sync { callback });
+    if let Err(e) = result {
+        error!("sync op failed: {}", e);
+    }
+    let ack = response.await;
+    if let Err(e) = ack {
+        error!("sync ack failed: {}", e);
+    }
+    HttpResponse::Ok().json(Status { status: "ok" })
+}

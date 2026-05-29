@@ -613,3 +613,44 @@ class TestRuleAdd:
         assert row is not None, f"Rule with text={kw!r} not found in DB"
         _, _, feed = row
         assert feed is None, f"Expected feed=NULL for global rule, got {feed}"
+
+
+class TestEscapeTitle:
+    """Test escaping of titles with HTML tags."""
+
+    def test_titles_are_escaped(self, serve_env):
+        conn = serve_env["conn"]
+        feed_url = f"http://127.0.0.1:{FEED_SERVER_PORT}/title-escaping"
+        base_url = f"http://127.0.0.1:{RTEMBOZ_PORT}"
+
+        session = login_session(base_url)
+
+        # POST to /add with the feed URL
+        resp = session.post(
+            f"{base_url}/add",
+            data={"feed_xml": feed_url},
+            timeout=60,
+        )
+
+        # Verify the feed was inserted into the database
+        row = conn.execute(
+            "SELECT uid, title, xml FROM feed WHERE xml=?", (feed_url,)
+        ).fetchone()
+        assert row is not None, "Feed was not inserted into the database"
+        feed_uid = row[0]
+
+        resp = session.get(
+            f"{base_url}/sync",
+        )
+        assert resp.status_code == 200
+
+        # Verify that items were loaded
+        item_count = conn.execute(
+            """SELECT COUNT(*) FROM item
+            WHERE feed=?
+              AND title='Avoid using "&lt;![CDATA[ ... ]]&gt;" in RSS'""",
+            (feed_uid,),
+        ).fetchone()[0]
+        assert item_count > 0, (
+            f"Expected item with escaped title to be loaded for feed {feed_uid}, got {item_count}"
+        )

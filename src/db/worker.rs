@@ -14,13 +14,14 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::feed::{update_feed, update_feed_error};
-use crate::db::items::{ItemStatus, save_item, update_status};
+use crate::db::items::{save_item, update_status, ItemStatus};
 use crate::feeds::normalize::Item;
 use log::{error, info};
 use sqlx::sqlite::{SqliteConnection, SqlitePool};
 use std::fmt;
 use std::sync::mpsc;
 use std::thread;
+use tokio::sync::oneshot;
 
 pub enum DbOp {
     Quit,
@@ -42,6 +43,10 @@ pub enum DbOp {
         feed_uid: u32,
         rule_uid: Option<u32>,
         item: Item,
+    },
+    // used by tests to verify the DB worker has cleared its queue
+    Sync {
+        callback: oneshot::Sender<()>,
     },
 }
 
@@ -67,6 +72,9 @@ impl fmt::Display for DbOp {
                 rule_uid.unwrap_or(0),
                 item.title
             ),
+            DbOp::Sync { callback: _ } => {
+                write!(f, "Sync")
+            }
         }
     }
 }
@@ -105,6 +113,10 @@ async fn work(conn: &mut SqliteConnection, work_q: mpsc::Receiver<DbOp>) {
             } => match save_item(conn, feed_uid, rule_uid, &item).await {
                 Ok(uid) => info!("FEED-{} saved {} as uid {}", feed_uid, item.title, uid),
                 Err(e) => error!("error saving NewItem: {}", e),
+            },
+            DbOp::Sync { callback } => match callback.send(()) {
+                Ok(()) => info!("Worker Sync ack"),
+                Err(()) => error!("error acking Sync"),
             },
         }
     }
