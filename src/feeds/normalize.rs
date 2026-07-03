@@ -55,7 +55,11 @@ fn first_author_name(entry: &Entry) -> String {
 fn sha256(s: String) -> String {
     let mut hasher = Sha256::new();
     hasher.update(s.as_bytes());
-    format!("{:x}", hasher.finalize())
+    hasher
+        .finalize()
+        .iter()
+        .map(|b| format!("{:02x}", b))
+        .collect()
 }
 
 pub fn extract(e: &Entry) -> Result<Item> {
@@ -107,6 +111,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
     // };
     let Work {
         feed_uid,
+        aggregator,
         exempt,
         rss,
         bloom,
@@ -156,6 +161,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
                 }
                 db_q.send(DbOp::NewItem {
                     feed_uid,
+                    aggregator,
                     rule_uid,
                     item,
                 })
@@ -164,6 +170,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
                 error!("item filtering error {e}");
                 db_q.send(DbOp::NewItem {
                     feed_uid,
+                    aggregator,
                     rule_uid: None,
                     item,
                 })

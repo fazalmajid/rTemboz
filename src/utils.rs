@@ -14,7 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use scraper::Html;
-use url_normalize::{normalize_url, NormalizeUrlError, Options};
+use url_normalize::{NormalizeUrlError, Options, normalize_url};
 
 // strip all tags completely rather than escaping them as ammonia::clean_text
 pub fn clean_text(html: &str) -> String {

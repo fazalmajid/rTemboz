@@ -56,6 +56,7 @@ pub struct Feed {
     pub dupcheck: bool,
     pub etag: String,
     pub last_fetched: NaiveDateTime,
+    pub aggregator: bool,
 }
 
 impl Feed {
@@ -70,7 +71,7 @@ pub async fn get_feeds(db: &SqlitePool) -> Result<Vec<Feed>, Error> {
 SELECT
   uid, title, html, xml, last_modified, interesting, unread, uninteresting,
   filtered, total, snr, status, private, exempt, errors, dupcheck, etag,
-  last_fetched, last_parsed, last_error
+  last_fetched, last_parsed, last_error, aggregator
 FROM v_feeds_snr
 ORDER BY (unread > 0) DESC, snr DESC"###
     )
@@ -79,7 +80,7 @@ ORDER BY (unread > 0) DESC, snr DESC"###
     let mut result = Vec::with_capacity(rows.len());
     for row in rows {
         result.push(Feed {
-            uid: row.uid.unwrap() as u32,
+            uid: row.uid as u32,
             title: row.title,
             description: "".to_string(),
             html: row.html,
@@ -105,6 +106,10 @@ ORDER BY (unread > 0) DESC, snr DESC"###
             last_fetched: row
                 .last_fetched
                 .unwrap_or(chrono::DateTime::UNIX_EPOCH.naive_utc()),
+            aggregator: match row.aggregator {
+                Some(agg) => agg != 0,
+                None => false,
+            },
         });
     }
     Ok(result)
@@ -133,7 +138,7 @@ ORDER BY snr DESC, LOWER(title)"###
     let mut result = Vec::with_capacity(rows.len());
     for row in rows {
         result.push(PublicFeed {
-            uid: row.uid.unwrap() as u32,
+            uid: row.uid as u32,
             title: row.title,
             description: row.description.unwrap_or("".to_string()),
             html: row.html,

@@ -25,6 +25,7 @@ use futures::TryStreamExt;
 use log::{error, info};
 use sqlx::error::Error;
 use sqlx::sqlite::{SqliteConnection, SqlitePool};
+use sqlx::AssertSqlSafe;
 use std::fmt;
 use std::hash::Hash;
 use std::str::FromStr;
@@ -220,7 +221,7 @@ pub async fn get_items(
         }
         _ => String::new(),
     };
-    let sql = format!(
+    let sql = AssertSqlSafe::<String>(format!(
         r###"
 SELECT
   item.uid AS item_uid, feed.uid AS feed_uid, creator,
@@ -242,9 +243,9 @@ ORDER BY {} limit 200"###,
         feed_clause,
         search_clause,
         order.where_clause()
-    );
+    ));
     // XXX this is clunky
-    let query = sqlx::query_as::<_, ItemRow>(sql.as_str());
+    let query = sqlx::query_as::<_, ItemRow>(sql);
     let query = match show {
         ItemStatus::All => query,
         _ => query.bind(show as i8),
@@ -373,6 +374,7 @@ pub async fn get_bloom(db: &SqlitePool) -> Result<AtomicBloomFilter, Error> {
 pub async fn save_item(
     conn: &mut SqliteConnection,
     feed_uid: u32,
+    aggregator: bool,
     rule_uid: Option<u32>,
     item: &RssItem,
 ) -> Result<u64, Error> {
@@ -380,6 +382,17 @@ pub async fn save_item(
         Some(_) => -2,
         None => 0,
     };
+    let ancestors = sqlx::query!(
+        r###"
+SELECT item.uid, rating, aggregator
+FROM item JOIN feed ON item.feed=feed.uid
+WHERE normalize_url(link)=normalize_url(?)
+ORDER BY item.uid"###,
+        &item.url
+    )
+    .fetch_all()
+    .await?;
+
     let row = sqlx::query!(
         r###"
 INSERT INTO item (

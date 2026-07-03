@@ -13,10 +13,10 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::items::{get_items, Item, ItemOrder, ItemStatus};
+use crate::db::items::{Item, ItemOrder, ItemStatus, get_items};
 use crate::filter::RuleType;
-use crate::webui::menu::{menus, MenuItem};
-use actix_web::{get, web, HttpRequest, HttpResponse, Responder};
+use crate::webui::menu::{MenuItem, menus};
+use actix_web::{HttpRequest, HttpResponse, Responder, get, web};
 use askama::Template;
 use itertools::Itertools; // for sorted() and join()
 use log::info;

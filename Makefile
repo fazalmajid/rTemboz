@@ -22,10 +22,10 @@ all: run
 	$(ENV) DATABASE_URL=sqlite://boot.db cargo sqlx prepare
 
 $(CARGO_SQLX):
-	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli
+	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli --no-default-features --features sqlite
 
 boot.db:
-	cat migrations/*.sql|sqlite3 boot.db
+	cat migrations/*.sql | sed -e 's/normalize_url[(]\([^)]*\)[)]/\1/g' | sqlite3 boot.db
 
 assets: static/datatables.css static/simple-datatables.js target/debug/rtemboz
 

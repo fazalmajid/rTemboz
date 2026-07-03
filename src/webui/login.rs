@@ -19,6 +19,7 @@ use actix_web::{
     http::header, http::header::USER_AGENT, routes, web, HttpRequest, HttpResponse, Responder,
 };
 use askama::Template;
+use log::error;
 use serde::Deserialize;
 
 #[derive(Template, Debug)]
@@ -73,7 +74,10 @@ pub async fn login(
                         .finish();
                 }
                 Ok(None) => "invalid login and/or password".to_string(),
-                Err(_) => "internal error".to_string(),
+                Err(e) => {
+                    error!("unexpected error when logging in {}", e);
+                    "internal error".to_string()
+                }
             }
         }
         None => String::new(),

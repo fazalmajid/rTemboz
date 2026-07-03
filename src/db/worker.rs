@@ -41,6 +41,7 @@ pub enum DbOp {
     },
     NewItem {
         feed_uid: u32,
+        aggregator: bool,
         rule_uid: Option<u32>,
         item: Item,
     },
@@ -63,12 +64,14 @@ impl fmt::Display for DbOp {
             }
             DbOp::NewItem {
                 feed_uid,
+                aggregator,
                 rule_uid,
                 item,
             } => write!(
                 f,
-                "NewItem feed={} rule={} title={}",
+                "NewItem feed={} aggregator={} rule={} title={}",
                 feed_uid,
+                aggregator,
                 rule_uid.unwrap_or(0),
                 item.title
             ),
@@ -108,9 +111,10 @@ async fn work(conn: &mut SqliteConnection, work_q: mpsc::Receiver<DbOp>) {
             },
             DbOp::NewItem {
                 feed_uid,
+                aggregator,
                 rule_uid,
                 item,
-            } => match save_item(conn, feed_uid, rule_uid, &item).await {
+            } => match save_item(conn, feed_uid, aggregator, rule_uid, &item).await {
                 Ok(uid) => info!("FEED-{} saved {} as uid {}", feed_uid, item.title, uid),
                 Err(e) => error!("error saving NewItem: {}", e),
             },

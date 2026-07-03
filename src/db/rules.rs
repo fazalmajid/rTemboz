@@ -13,8 +13,8 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::filter::{new_filters, rule_from_string, FilterError, Filters, Rule};
-use anyhow::{anyhow, Error as AnyhowError};
+use crate::filter::{FilterError, Filters, Rule, new_filters, rule_from_string};
+use anyhow::{Error as AnyhowError, anyhow};
 use log::{error, info};
 use serde::{Deserialize, Serialize};
 use sqlx::error::Error;
@@ -148,7 +148,7 @@ pub async fn save_rule(db: &SqlitePool, data: &RuleData) -> Result<i64, SaveErro
             return Err(SaveError::Anyhow(anyhow!(
                 "unrecognized rule type: {}",
                 data.match_type
-            )))
+            )));
         }
     };
     let uid: Option<i64> = match &data.feed_only {

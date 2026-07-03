@@ -16,7 +16,7 @@
 use crate::db::auth::change_password;
 use crate::feeds::worker::{feed_worker_setup, spawn_worker};
 use crate::webui::auth::Authentication;
-use actix_web::{web, App, HttpServer};
+use actix_web::{App, HttpServer, web};
 use clap::{Parser, Subcommand};
 use log::{error, info};
 use rpassword::prompt_password;
