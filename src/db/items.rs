@@ -382,16 +382,6 @@ pub async fn save_item(
         Some(_) => -2,
         None => 0,
     };
-    let ancestors = sqlx::query!(
-        r###"
-SELECT item.uid, rating, aggregator
-FROM item JOIN feed ON item.feed=feed.uid
-WHERE normalize_url(link)=normalize_url(?)
-ORDER BY item.uid"###,
-        &item.url
-    )
-    .fetch_all()
-    .await?;
 
     let row = sqlx::query!(
         r###"
@@ -409,7 +399,7 @@ INSERT INTO item (
   rule
 ) VALUES (
   ?, ?,julianday('now'), ?, ?, ?, ?, ?, ?, ?, ?
-) RETURNING uid"###,
+) RETURNING uid, normalized_link"###,
         feed_uid,
         item.guid,
         item.published,
@@ -424,6 +414,8 @@ INSERT INTO item (
     .fetch_one(&mut *conn)
     .await?;
     let item_uid = row.uid.unwrap();
+    let normalized_link = row.normalized_link.unwrap();
+
     for tag in &item.tags {
         let tag = safe_truncate(tag.to_string(), 64);
         if let Err(e) = sqlx::query!(
@@ -437,5 +429,17 @@ INSERT INTO item (
             error!("error setting tag: {}", e)
         }
     }
+
+    let ancestors = sqlx::query!(
+        r###"
+SELECT item.uid, rating, aggregator
+FROM item JOIN feed ON item.feed=feed.uid
+WHERE normalized_link=?
+ORDER BY item.uid"###,
+        &normalized_link
+    )
+    .fetch_all(conn)
+    .await?;
+
     Ok(item_uid as u64)
 }
