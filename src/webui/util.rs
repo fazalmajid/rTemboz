@@ -14,7 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::worker::DbOp;
-use actix_web::{get, web, HttpResponse, Responder};
+use actix_web::{HttpResponse, Responder, get, web};
 use log::error;
 use serde::Serialize;
 use std::sync::mpsc::Sender;

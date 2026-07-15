@@ -14,6 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::feeds::normalize::Item;
+use diacritics::remove_diacritics;
 use hyperscan_tokio::prelude::*;
 use log::warn;
 use regex::escape;
@@ -21,7 +22,6 @@ use rust_stemmers::{Algorithm, Stemmer};
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fmt;
-use diacritics::remove_diacritics;
 
 #[repr(u8)]
 #[derive(Clone, Debug)]
@@ -275,8 +275,7 @@ impl RuleSet {
             .split_whitespace()
             .map(|w| w.to_string())
             .collect();
-        let content_stem = 
-            remove_diacritics(item.content.as_str())
+        let content_stem = remove_diacritics(item.content.as_str())
             .to_lowercase()
             .split_whitespace()
             .map(|w| en_stemmer.stem(w).into_owned())
@@ -334,7 +333,8 @@ impl Filters {
             }
             RuleType::ContentPhrase => f.content.add_pattern(rule.text, rule.uid, true)?,
             RuleType::ContentPhraseLowerCase => {
-                f.content.add_pattern(rule.text.to_lowercase(), rule.uid, false)?
+                f.content
+                    .add_pattern(rule.text.to_lowercase(), rule.uid, false)?
             }
             RuleType::Tag => {
                 f.tag.insert(rule.text.clone(), rule.uid);
@@ -343,10 +343,15 @@ impl Filters {
                 f.title.word_exact.insert(rule.text.clone(), rule.uid);
             }
             RuleType::TitlePhrase => f.title.add_pattern(rule.text, rule.uid, true)?,
-            RuleType::TitlePhraseLowerCase => f.title.add_pattern(rule.text.to_lowercase(), rule.uid, false)?,
+            RuleType::TitlePhraseLowerCase => {
+                f.title
+                    .add_pattern(rule.text.to_lowercase(), rule.uid, false)?
+            }
             RuleType::TitleWord => {
                 f.title.word_stem.insert(
-                    en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
+                    en_stemmer
+                        .stem(remove_diacritics(&rule.text).to_lowercase().as_str())
+                        .to_string(),
                     rule.uid,
                 );
             }
@@ -368,16 +373,22 @@ impl Filters {
                 f.content.add_pattern(rule.text.clone(), rule.uid, true)?
             }
             RuleType::UnionPhraseLowerCase => {
-                f.title.add_pattern(rule.text.clone().to_lowercase(), rule.uid, false)?;
-                f.content.add_pattern(rule.text.clone().to_lowercase(), rule.uid, false)?
+                f.title
+                    .add_pattern(rule.text.clone().to_lowercase(), rule.uid, false)?;
+                f.content
+                    .add_pattern(rule.text.clone().to_lowercase(), rule.uid, false)?
             }
             RuleType::UnionWord => {
                 f.title.word_stem.insert(
-                    en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
+                    en_stemmer
+                        .stem(remove_diacritics(&rule.text).to_lowercase().as_str())
+                        .to_string(),
                     rule.uid,
                 );
                 f.content.word_stem.insert(
-                    en_stemmer.stem(remove_diacritics(&rule.text).to_lowercase().as_str()).to_string(),
+                    en_stemmer
+                        .stem(remove_diacritics(&rule.text).to_lowercase().as_str())
+                        .to_string(),
                     rule.uid,
                 );
             }
@@ -428,8 +439,8 @@ impl Filters {
             return Ok(Some(uid));
         }
         match exempt {
-            false =>         self.global.apply(item).await,
-            true => Ok(None)
+            false => self.global.apply(item).await,
+            true => Ok(None),
         }
     }
 }

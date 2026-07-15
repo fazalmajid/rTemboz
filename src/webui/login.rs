@@ -14,11 +14,12 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::auth::check_password;
-use actix_web::cookie::{time::Duration, Cookie};
+use actix_web::cookie::{Cookie, time::Duration};
 use actix_web::{
-    http::header, http::header::USER_AGENT, routes, web, HttpRequest, HttpResponse, Responder,
+    HttpRequest, HttpResponse, Responder, http::header, http::header::USER_AGENT, routes, web,
 };
 use askama::Template;
+use log::error;
 use serde::Deserialize;
 
 #[derive(Template, Debug)]
@@ -73,7 +74,10 @@ pub async fn login(
                         .finish();
                 }
                 Ok(None) => "invalid login and/or password".to_string(),
-                Err(_) => "internal error".to_string(),
+                Err(e) => {
+                    error!("unexpected error when logging in {}", e);
+                    "internal error".to_string()
+                }
             }
         }
         None => String::new(),

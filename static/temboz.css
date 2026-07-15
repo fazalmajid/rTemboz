@@ -307,6 +307,17 @@ blockquote {
 .thumbsDown {
   display: none;
 }
+div.children {
+  margin: .5em 0 0 0;
+  padding: .25em;
+}
+div.children div.lead {
+  font-style: italic;
+  margin: .25em 0 .25em 0;
+}
+div.children dd {
+  margin-left: 2em;
+}
 
 /************************************************************************/
 /* colors and dark mode                                                 */
@@ -398,6 +409,9 @@ a.ff {
 .thumbsUp {
   background-color: yellow;
   color: black;
+}
+div.children {
+  background-color: #ded;
 }
 @media screen {
   span.buttons span.down {
@@ -533,6 +547,9 @@ a.ff {
   a.ff {
     border-bottom: 1px solid black;
     color: white;
+  }
+  div.children {
+    background-color: #232;
   }
   @media screen {
     span.buttons span.down {

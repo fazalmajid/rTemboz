@@ -18,7 +18,7 @@ use crate::db::worker::DbOp;
 use crate::feeds::work::Work;
 use crate::utils::{clean_text, clean_url};
 use ammonia::clean;
-use anyhow::{bail, Result};
+use anyhow::{Result, bail};
 use chrono::{DateTime, Utc};
 use feedparser_rs::types::{Content, Entry, Person};
 use html_escape::encode_text;
@@ -55,7 +55,11 @@ fn first_author_name(entry: &Entry) -> String {
 fn sha256(s: String) -> String {
     let mut hasher = Sha256::new();
     hasher.update(s.as_bytes());
-    format!("{:x}", hasher.finalize())
+    hasher
+        .finalize()
+        .iter()
+        .map(|b| format!("{:02x}", b))
+        .collect()
 }
 
 pub fn extract(e: &Entry) -> Result<Item> {
@@ -107,6 +111,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
     // };
     let Work {
         feed_uid,
+        aggregator,
         exempt,
         rss,
         bloom,
@@ -156,6 +161,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
                 }
                 db_q.send(DbOp::NewItem {
                     feed_uid,
+                    aggregator,
                     rule_uid,
                     item,
                 })
@@ -164,6 +170,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
                 error!("item filtering error {e}");
                 db_q.send(DbOp::NewItem {
                     feed_uid,
+                    aggregator,
                     rule_uid: None,
                     item,
                 })

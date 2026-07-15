@@ -13,24 +13,24 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::feeds::{get_feeds, Feed, FeedStatus};
+use crate::db::feeds::{Feed, FeedStatus, get_feeds};
 use crate::db::items::get_bloom;
 use crate::db::rules::get_filters;
 use crate::db::worker::DbOp;
 use crate::feeds::normalize::{extract, process_rss};
 use crate::feeds::work::Work;
 use crate::filter::Filters;
-use chrono::NaiveDateTime;
+use chrono::{DateTime, NaiveDateTime};
 use fastbloom::AtomicBloomFilter;
 use feedparser_rs::types::ParsedFeed;
-use feedparser_rs::{parse, FeedError};
+use feedparser_rs::{FeedError, parse};
 use log::{error, info};
-use reqwest::header::{ToStrError, ETAG, IF_MODIFIED_SINCE, IF_NONE_MATCH, USER_AGENT};
 use reqwest::Client;
+use reqwest::header::{ETAG, IF_MODIFIED_SINCE, IF_NONE_MATCH, ToStrError, USER_AGENT};
 use sqlx::sqlite::SqlitePool;
 use std::error::Error;
-use std::sync::mpsc;
 use std::sync::Arc;
+use std::sync::mpsc;
 use std::time::Duration;
 use thiserror::Error as ThisError;
 use time;
@@ -174,6 +174,7 @@ async fn fetch(
     };
     Some(Work {
         feed_uid: f.uid,
+        aggregator: f.aggregator,
         exempt: f.exempt,
         rss: parsed,
         // etag: r.etag,
@@ -209,6 +210,7 @@ async fn record_one_already_fetched(
     let _: () = process_rss(
         Work {
             feed_uid,
+            aggregator: false,
             exempt,
             rss: parsed,
             bloom: bf.clone(),
@@ -226,9 +228,12 @@ pub async fn refresh_one(
     feed: Feed,
 ) -> Result<(u32, u32), FetchError> {
     let (tx, rx) = tokio::sync::oneshot::channel();
+    let mut feed_no_etag = Box::new(feed);
+    feed_no_etag.etag = "".to_string();
+    feed_no_etag.last_fetched = DateTime::UNIX_EPOCH.naive_utc();
     if let Err(e) = work_q
         .send(FeedOp::RefreshOne {
-            feed: Box::new(feed),
+            feed: feed_no_etag,
             reply: tx,
         })
         .await

@@ -88,6 +88,7 @@
   <tr><td>Status</td><td>{{ feed.status }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ status_change_op }}">{{ status_change_op }}</a></td></tr>
   <tr><td>Privacy</td><td>{{ private_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ private_change_op}}">{{ private_change_op }}</a></td></tr>
   <tr><td>Filtering exemption</td><td>{{ exempt_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ exempt_change_op }}">{{ exempt_change_op }}</a> (exempt feeds are still subject to feed-specific filtering rules).</td></tr>
+  <tr><td>Aggregator</td><td>{{ aggregator_text }}.&nbsp;Make <a href="/feed/{{ feed.uid }}/{{ aggregator_change_op }}">{{ aggregator_change_op }}</a> (Articles from an aggregator feed like Lobste.rs or Hacker News are attached to the original whenever possible).</td></tr>
   <tr><td>Duplicate checking</td><td>{{ dupcheck_text }}&nbsp;<a href="/feed/{{ feed.uid }}/{{ dupcheck_change_op}}">{{ dupcheck_change_op }}</a></td></tr>
 {########################################################################}
   <tr><td>Refresh</td><td><a href="/feed/{{ feed.uid }}/refresh">Manually refresh</a> feed</td></tr>

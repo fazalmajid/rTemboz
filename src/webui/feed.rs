@@ -14,15 +14,15 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::feed::{
-    catchup, dedupe, get_feed_details, reload, update_feed_details, update_feed_dupcheck,
-    update_feed_exempt, update_feed_privacy, update_feed_status,
+    catchup, dedupe, get_feed_details, reload, update_feed_aggregator, update_feed_details,
+    update_feed_dupcheck, update_feed_exempt, update_feed_privacy, update_feed_status,
 };
 use crate::db::feeds::{Feed, FeedStatus};
 use crate::db::rules::get_top_rules;
-use crate::feeds::worker::{refresh_one, FeedOp};
+use crate::feeds::worker::{FeedOp, refresh_one};
 use crate::filter::Rule;
-use crate::webui::menu::{menus, MenuItem};
-use actix_web::{routes, web, HttpResponse, Responder};
+use crate::webui::menu::{MenuItem, menus};
+use actix_web::{HttpResponse, Responder, routes, web};
 use askama::Template;
 use log::{error, info};
 use serde::Deserialize;
@@ -42,6 +42,8 @@ struct FeedTemplate<'a> {
     status_change_op: String,
     exempt_change_op: String,
     exempt_text: String,
+    aggregator_change_op: String,
+    aggregator_text: String,
     private_change_op: String,
     private_text: String,
     dupcheck_change_op: String,
@@ -91,7 +93,7 @@ pub async fn feed(
     let (uid, op) = uid.into_inner();
     let confirm = match &form {
         Some(f) => match &f.0 {
-            Params::Confirm { confirm: h } => *h == "yes".to_string(),
+            Params::Confirm { confirm: h } => *h == "yes",
             _ => false,
         },
         _ => false,
@@ -141,6 +143,8 @@ pub async fn feed(
         "/public" => update_feed_privacy(db.get_ref(), uid, 0).await,
         "/exempt" => update_feed_exempt(db.get_ref(), uid, 1).await,
         "/reinstate" => update_feed_exempt(db.get_ref(), uid, 0).await,
+        "/aggregator" => update_feed_aggregator(db.get_ref(), uid, 1).await,
+        "/not-aggregator" => update_feed_aggregator(db.get_ref(), uid, 0).await,
         "/dupcheck" => update_feed_dupcheck(db.get_ref(), uid, 1).await,
         "/nodupcheck" => update_feed_dupcheck(db.get_ref(), uid, 0).await,
         _ => Ok(()),
@@ -234,6 +238,14 @@ pub async fn feed(
         true => "Exempt".to_string(),
         _ => "Not exempt".to_string(),
     };
+    let aggregator_change_op = match feed.aggregator {
+        true => "not-aggregator".to_string(),
+        _ => "aggregator".to_string(),
+    };
+    let aggregator_text = match feed.aggregator {
+        true => "Is an Aggregator".to_string(),
+        _ => "Is not an Aggregator".to_string(),
+    };
     let private_change_op = match feed.private {
         true => "public".to_string(),
         _ => "private".to_string(),
@@ -279,6 +291,8 @@ pub async fn feed(
         caught_up,
         purged,
         refresh_msg,
+        aggregator_change_op,
+        aggregator_text,
     };
     HttpResponse::Ok()
         .content_type("text/html")

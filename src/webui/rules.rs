@@ -13,11 +13,11 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::rules::{get_rules, save_rule, RuleData};
+use crate::db::rules::{RuleData, get_rules, save_rule};
 use crate::feeds::worker::FeedOp;
 use crate::filter::Rule;
-use crate::webui::menu::{menus, MenuItem};
-use actix_web::{get, post, web, HttpResponse, Responder};
+use crate::webui::menu::{MenuItem, menus};
+use actix_web::{HttpResponse, Responder, get, post, web};
 use askama::Template;
 use diacritics::remove_diacritics;
 use itertools::join;

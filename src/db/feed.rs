@@ -16,7 +16,7 @@
 use crate::db::feeds::{Feed, FeedStatus};
 use crate::db::since;
 use crate::feeds::worker::FeedOp;
-use crate::feeds::worker::{fetch_and_parse, FetchError};
+use crate::feeds::worker::{FetchError, fetch_and_parse};
 use feedparser_rs::FeedError;
 use log::error;
 use sqlx::error::Error;
@@ -30,7 +30,7 @@ SELECT
   f.uid, f.title, f.description, f.html, f.xml,
   COALESCE(f.pubxml, f.xml) AS pubxml, last_modified, interesting, unread,
   uninteresting, filtered, total, snr, f.status, f.private, f.exempt,
-  f.errors, f.dupcheck, f.etag, f.last_fetched
+  f.errors, f.dupcheck, f.etag, f.last_fetched, f.aggregator
 FROM feed f
 JOIN v_feeds_snr v ON f.uid=v.uid
 WHERE f.uid=?
@@ -66,6 +66,10 @@ WHERE f.uid=?
         last_fetched: row
             .last_fetched
             .unwrap_or(chrono::DateTime::UNIX_EPOCH.naive_utc()),
+        aggregator: match row.aggregator {
+            Some(agg) => agg != 0,
+            None => false,
+        },
     };
     Ok(feed)
 }
@@ -137,6 +141,21 @@ WHERE rating=-2 AND feed=?
         .execute(conn)
         .await?;
     }
+    Ok(())
+}
+
+pub async fn update_feed_aggregator(
+    conn: &SqlitePool,
+    uid: u32,
+    aggregator: i64,
+) -> Result<(), Error> {
+    sqlx::query!(
+        r###"UPDATE feed SET aggregator=? WHERE uid=?"###,
+        aggregator,
+        uid
+    )
+    .execute(conn)
+    .await?;
     Ok(())
 }
 

@@ -22,10 +22,10 @@ all: run
 	$(ENV) DATABASE_URL=sqlite://boot.db cargo sqlx prepare
 
 $(CARGO_SQLX):
-	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli
+	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli --no-default-features --features sqlite
 
 boot.db:
-	cat migrations/*.sql|sqlite3 boot.db
+	cat migrations/*.sql | sed -e '/-- sqlx skip/,/-- end sqlx skip/d' | sqlite3 boot.db
 
 assets: static/datatables.css static/simple-datatables.js target/debug/rtemboz
 
@@ -46,6 +46,9 @@ build run check clippy fmt: .sqlx assets
 
 rebuild: target/debug/rtemboz
 	target/debug/rtemboz rebuild
+
+help: target/debug/rtemboz
+	target/debug/rtemboz --help
 
 clippy-fix: .sqlx assets
 	$(CARGO) clippy --fix

@@ -16,12 +16,13 @@
 // based on https://actix.rs/docs/middleware
 use crate::db::auth::check_cookie;
 use actix_web::{
-    dev::{forward_ready, Service, ServiceRequest, ServiceResponse, Transform},
-    web, Error, HttpResponse,
+    Error, HttpResponse,
+    dev::{Service, ServiceRequest, ServiceResponse, Transform, forward_ready},
+    web,
 };
 use futures_util::future::LocalBoxFuture;
 use sqlx::sqlite::SqlitePool;
-use std::future::{ready, Ready};
+use std::future::{Ready, ready};
 
 pub struct Authentication;
 

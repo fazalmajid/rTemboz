@@ -2,7 +2,9 @@
 *~
 Cargo.lock
 *.db
+*.db-*
 .sqlx
 .dir-locals.el
 *.log
 tests/__pycache__
+minimal.sh

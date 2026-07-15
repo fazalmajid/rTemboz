@@ -14,7 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::setting::set_setting;
-use argon2::{self, verify_encoded, Config};
+use argon2::{self, Config, verify_encoded};
 use sqlx::error::Error;
 use sqlx::sqlite::SqlitePool;
 use uuid::Uuid;

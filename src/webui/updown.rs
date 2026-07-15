@@ -15,7 +15,7 @@
 ///
 use crate::db::items::ItemStatus;
 use crate::db::worker::DbOp;
-use actix_web::{get, web, HttpResponse, Responder};
+use actix_web::{HttpResponse, Responder, get, web};
 use log::error;
 use std::sync::mpsc::Sender;
 

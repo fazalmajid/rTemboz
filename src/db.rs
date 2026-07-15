@@ -14,8 +14,8 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use chrono::prelude::*;
-use sqlx::sqlite::{Sqlite, SqliteConnectOptions, SqlitePool};
 use sqlx::Pool;
+use sqlx::sqlite::{Sqlite, SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
 
 pub mod auth;
 pub mod feed;
@@ -24,19 +24,29 @@ pub mod fts5;
 pub mod items;
 pub mod rules;
 pub mod setting;
+pub mod udf;
 pub mod views;
 pub mod worker;
 
 const DB_FILENAME: &str = "temboz.db";
 
 pub async fn create_db() -> Pool<Sqlite> {
-    let db = SqlitePool::connect_with(
-        SqliteConnectOptions::new()
-            .filename(DB_FILENAME)
-            .create_if_missing(true),
-    )
-    .await
-    .unwrap();
+    let opts = SqliteConnectOptions::new()
+        .filename(DB_FILENAME)
+        .create_if_missing(true)
+        .journal_mode(SqliteJournalMode::Wal);
+
+    let db = SqlitePoolOptions::new()
+        .after_connect(|conn, _meta| {
+            Box::pin(async move {
+                crate::db::udf::register_udf(conn).await;
+                Ok(())
+            })
+        })
+        .connect_with(opts)
+        .await
+        .unwrap();
+
     sqlx::migrate!("./migrations").run(&db).await.unwrap();
     db
 }

@@ -14,6 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::fts5::fts5_term;
+use crate::db::udf::normalize_url;
 use crate::db::{safe_truncate, since, unix_ts};
 use crate::feeds::normalize::Item as RssItem;
 use crate::filter::{rule_from_string, Rule};
@@ -25,6 +26,7 @@ use futures::TryStreamExt;
 use log::{error, info};
 use sqlx::error::Error;
 use sqlx::sqlite::{SqliteConnection, SqlitePool};
+use sqlx::AssertSqlSafe;
 use std::fmt;
 use std::hash::Hash;
 use std::str::FromStr;
@@ -148,6 +150,7 @@ pub struct Item {
     //pub feed_snr: f32,
     //pub updated_ts: DateTime<Local>,
     pub rule: Option<Rule>,
+    pub children: Vec<Child>,
 }
 
 #[derive(sqlx::FromRow)]
@@ -172,6 +175,17 @@ struct ItemRow {
     // xml: String,
     exempt: u8,
     tags: String,
+    children: String,
+}
+
+#[derive(serde::Deserialize)]
+pub struct Child {
+    pub uid: u64,
+    pub title: String,
+    pub feed: String,
+    pub feed_uid: u32,
+    pub link: String,
+    pub content: String,
 }
 
 #[derive(ThisError, Debug)]
@@ -220,7 +234,8 @@ pub async fn get_items(
         }
         _ => String::new(),
     };
-    let sql = format!(
+    // XXX the 200 row limit should be configurable
+    let sql = AssertSqlSafe::<String>(format!(
         r###"
 SELECT
   item.uid AS item_uid, feed.uid AS feed_uid, creator,
@@ -229,22 +244,30 @@ SELECT
   rule.uid AS rule_uid, rule.type AS rule_type, rule.feed AS rule_feed,
   rule.text AS rule_text,
   feed.title AS feed_title, html, exempt,
-  COALESCE(json_group_array(tag.name), '[]') AS tags
+  COALESCE(json_group_array(tag.name), '[]') AS tags,
+  (SELECT json_group_array(
+     json_object(
+       'uid', child.uid, 'title', child.title, 'feed', feed.title,
+       'feed_uid', feed.uid, 'link', child.link, 'content', child.content
+     )
+   ) AS children
+   FROM item child JOIN feed ON child.feed=feed.uid
+   WHERE child.parent=item.uid) children
 FROM item
 JOIN feed ON item.feed=feed.uid
 LEFT OUTER JOIN tag ON tag.item=item.uid
 LEFT OUTER JOIN rule ON item.rule=rule.uid
 LEFT OUTER JOIN mv_feed_stats ON feed.uid=mv_feed_stats.feed
-WHERE item.feed=feed.uid{}{}{}
+WHERE item.parent IS NULL AND item.feed=feed.uid{}{}{}
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
 ORDER BY {} limit 200"###,
         show_clause,
         feed_clause,
         search_clause,
         order.where_clause()
-    );
+    ));
     // XXX this is clunky
-    let query = sqlx::query_as::<_, ItemRow>(sql.as_str());
+    let query = sqlx::query_as::<_, ItemRow>(sql);
     let query = match show {
         ItemStatus::All => query,
         _ => query.bind(show as i8),
@@ -261,9 +284,6 @@ ORDER BY {} limit 200"###,
     let mut result = Vec::with_capacity(rows.len());
     for row in rows {
         let tag_str = row.tags.as_str();
-        if row.item_uid == 8835079 {
-            info!("XXXXXXXXXXX {}", row.tags);
-        }
         let tags: Vec<String> = if row.tags == "[null]" {
             vec![]
         } else {
@@ -273,6 +293,14 @@ ORDER BY {} limit 200"###,
                 .map(|tag| clean_text(&tag))
                 .collect()
         };
+
+        let child_str = row.children.as_str();
+        let children: Vec<Child> = if row.children == "[null]" {
+            vec![]
+        } else {
+            serde_json::from_str::<Vec<Child>>(child_str).unwrap()
+        };
+
         let rule = match row.rule_uid {
             Some(uid) => Some(Rule {
                 uid,
@@ -317,6 +345,7 @@ ORDER BY {} limit 200"###,
             //rating: row.rating.unwrap_or(0) as i8,
             feed_exempt: row.exempt != 0,
             rule,
+            children,
         });
     }
     Ok(result)
@@ -373,6 +402,7 @@ pub async fn get_bloom(db: &SqlitePool) -> Result<AtomicBloomFilter, Error> {
 pub async fn save_item(
     conn: &mut SqliteConnection,
     feed_uid: u32,
+    aggregator: bool,
     rule_uid: Option<u32>,
     item: &RssItem,
 ) -> Result<u64, Error> {
@@ -380,6 +410,12 @@ pub async fn save_item(
         Some(_) => -2,
         None => 0,
     };
+
+    // computed here rather than left to the update_normalized_link trigger,
+    // since RETURNING reflects the row as written by this statement, before
+    // any AFTER INSERT trigger runs
+    let normalized_link = normalize_url(&item.url);
+
     let row = sqlx::query!(
         r###"
 INSERT INTO item (
@@ -393,9 +429,10 @@ INSERT INTO item (
   content,
   creator,
   rating,
-  rule
+  rule,
+  normalized_link
 ) VALUES (
-  ?, ?,julianday('now'), ?, ?, ?, ?, ?, ?, ?, ?
+  ?, ?,julianday('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?
 ) RETURNING uid"###,
         feed_uid,
         item.guid,
@@ -406,11 +443,13 @@ INSERT INTO item (
         item.content,
         item.author,
         rating,
-        rule_uid
+        rule_uid,
+        normalized_link
     )
     .fetch_one(&mut *conn)
     .await?;
     let item_uid = row.uid.unwrap();
+
     for tag in &item.tags {
         let tag = safe_truncate(tag.to_string(), 64);
         if let Err(e) = sqlx::query!(
@@ -424,5 +463,94 @@ INSERT INTO item (
             error!("error setting tag: {}", e)
         }
     }
+
+    if aggregator {
+        let ancestors_exact = sqlx::query!(
+            r###"
+SELECT item.uid, item.parent, rating, aggregator
+FROM item JOIN feed ON item.feed=feed.uid
+WHERE item.uid<>? AND link=? AND item.parent IS NULL
+ORDER BY aggregator, item.uid DESC"###,
+            item_uid,
+            &item.url
+        )
+        .fetch_all(&mut *conn)
+        .await?;
+        if ancestors_exact.is_empty() {
+            // no exact matches, try normalized matches
+            let ancestors_normalized = sqlx::query!(
+                r###"
+SELECT item.uid, item.parent, rating, aggregator
+FROM item JOIN feed ON item.feed=feed.uid
+WHERE item.uid<>? AND normalized_link=? AND item.parent IS NULL
+ORDER BY aggregator, item.uid DESC"###,
+                item_uid,
+                &normalized_link
+            )
+            .fetch_all(&mut *conn)
+            .await?;
+            match ancestors_normalized.len() {
+                0 => (),
+                1 => {
+                    sqlx::query!(
+                        r###"UPDATE item SET parent=? WHERE uid=?"###,
+                        ancestors_normalized[0].uid,
+                        item_uid as i64
+                    )
+                    .execute(&mut *conn)
+                    .await?;
+                }
+                // more than 1 normalized matches means a degenerate case
+                // like the Zig blog where all posts for a year have the
+                // same link, just different fragments, so do nothing
+                _ => (),
+            }
+        } else {
+            // we found an exact match
+            sqlx::query!(
+                r###"UPDATE item SET parent=? WHERE uid=?"###,
+                ancestors_exact[0].uid,
+                item_uid as i64
+            )
+            .execute(&mut *conn)
+            .await?;
+        }
+    } else {
+        // not an aggregator, find aggregator posts
+        let caught_exact = sqlx::query!(
+            r###"
+UPDATE item
+SET parent=?
+FROM feed
+WHERE item.feed=feed.uid AND feed.aggregator AND link=?
+RETURNING rating
+"###,
+            item_uid,
+            &item.url
+        )
+        .fetch_all(&mut *conn)
+        .await?;
+        if !caught_exact.is_empty() {
+            let max_rating = caught_exact
+                .into_iter()
+                .map(|x| match x.rating {
+                    -2 => 0,
+                    _ => x.rating,
+                })
+                .max();
+            sqlx::query!(
+                r###"UPDATE item SET rating=? WHERE uid=?"###,
+                max_rating,
+                item_uid as i64
+            )
+            .execute(&mut *conn)
+            .await?;
+        } else {
+            // too risky to match on normalized URLs as some feeds
+            // like Zig news have the same normalized URL for every post
+            // in a year
+        }
+    }
+
     Ok(item_uid as u64)
 }

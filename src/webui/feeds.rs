@@ -13,9 +13,9 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::feeds::{get_feeds, get_opml, Feed};
-use crate::webui::menu::{menus, MenuItem};
-use actix_web::{get, web, HttpResponse, Responder};
+use crate::db::feeds::{Feed, get_feeds, get_opml};
+use crate::webui::menu::{MenuItem, menus};
+use actix_web::{HttpResponse, Responder, get, web};
 use askama::Template;
 
 #[derive(Template)]

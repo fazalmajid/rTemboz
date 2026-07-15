@@ -13,10 +13,10 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::feed::{add_feed, Message};
+use crate::db::feed::{Message, add_feed};
 use crate::feeds::worker::FeedOp;
-use crate::webui::menu::{menus, MenuItem};
-use actix_web::{routes, web, HttpResponse, Responder};
+use crate::webui::menu::{MenuItem, menus};
+use actix_web::{HttpResponse, Responder, routes, web};
 use askama::Template;
 use log::error;
 use std::collections::HashMap;
