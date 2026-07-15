@@ -16,7 +16,7 @@
 use crate::db::feeds::{Feed, FeedStatus};
 use crate::db::since;
 use crate::feeds::worker::FeedOp;
-use crate::feeds::worker::{fetch_and_parse, FetchError};
+use crate::feeds::worker::{FetchError, fetch_and_parse};
 use feedparser_rs::FeedError;
 use log::error;
 use sqlx::error::Error;

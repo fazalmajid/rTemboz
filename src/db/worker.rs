@@ -14,7 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use crate::db::feed::{update_feed, update_feed_error};
-use crate::db::items::{save_item, update_status, ItemStatus};
+use crate::db::items::{ItemStatus, save_item, update_status};
 use crate::feeds::normalize::Item;
 use log::{error, info};
 use sqlx::sqlite::{SqliteConnection, SqlitePool};

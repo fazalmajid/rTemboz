@@ -21,7 +21,7 @@ use std::ffi::CString;
 use url::Url;
 
 pub fn normalize_url(url: &str) -> String {
-    let mut u = match Url::parse(&url) {
+    let mut u = match Url::parse(url) {
         Err(_) => return url.to_string(),
         Ok(some_url) => some_url,
     };
@@ -36,7 +36,6 @@ pub fn normalize_url(url: &str) -> String {
         0 => u.set_query(None),
         _ => {
             u.query_pairs_mut().clear().extend_pairs(pairs);
-            ()
         }
     };
     u.as_str().to_string()
@@ -63,7 +62,7 @@ pub async fn register_udf(conn: &mut SqliteConnection) {
             let norm = normalize_url(url);
             ffi::sqlite3_result_text(
                 ctx,
-                (&norm).as_ptr().cast(),
+                norm.as_ptr().cast(),
                 norm.len() as i32,
                 ffi::SQLITE_TRANSIENT(), // SQLite will copy the string
             );

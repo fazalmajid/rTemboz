@@ -14,8 +14,8 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use chrono::prelude::*;
-use sqlx::sqlite::{Sqlite, SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
 use sqlx::Pool;
+use sqlx::sqlite::{Sqlite, SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
 
 pub mod auth;
 pub mod feed;

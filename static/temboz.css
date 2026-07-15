@@ -311,8 +311,9 @@ div.children {
   margin: .5em 0 0 0;
   padding: .25em;
 }
-div.children p.lead {
+div.children div.lead {
   font-style: italic;
+  margin: .25em 0 .25em 0;
 }
 div.children dd {
   margin-left: 2em;

@@ -19,10 +19,10 @@ use crate::db::feed::{
 };
 use crate::db::feeds::{Feed, FeedStatus};
 use crate::db::rules::get_top_rules;
-use crate::feeds::worker::{refresh_one, FeedOp};
+use crate::feeds::worker::{FeedOp, refresh_one};
 use crate::filter::Rule;
-use crate::webui::menu::{menus, MenuItem};
-use actix_web::{routes, web, HttpResponse, Responder};
+use crate::webui::menu::{MenuItem, menus};
+use actix_web::{HttpResponse, Responder, routes, web};
 use askama::Template;
 use log::{error, info};
 use serde::Deserialize;

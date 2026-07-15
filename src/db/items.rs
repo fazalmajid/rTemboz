@@ -180,7 +180,7 @@ struct ItemRow {
 
 #[derive(serde::Deserialize)]
 pub struct Child {
-    uid: u64,
+    pub uid: u64,
     pub title: String,
     pub feed: String,
     pub feed_uid: u32,
@@ -476,7 +476,7 @@ ORDER BY aggregator, item.uid DESC"###,
         )
         .fetch_all(&mut *conn)
         .await?;
-        if ancestors_exact.len() == 0 {
+        if ancestors_exact.is_empty() {
             // no exact matches, try normalized matches
             let ancestors_normalized = sqlx::query!(
                 r###"
@@ -499,7 +499,6 @@ ORDER BY aggregator, item.uid DESC"###,
                     )
                     .execute(&mut *conn)
                     .await?;
-                    ()
                 }
                 // more than 1 normalized matches means a degenerate case
                 // like the Zig blog where all posts for a year have the
@@ -531,7 +530,7 @@ RETURNING rating
         )
         .fetch_all(&mut *conn)
         .await?;
-        if caught_exact.len() > 0 {
+        if !caught_exact.is_empty() {
             let max_rating = caught_exact
                 .into_iter()
                 .map(|x| match x.rating {

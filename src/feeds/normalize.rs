@@ -18,7 +18,7 @@ use crate::db::worker::DbOp;
 use crate::feeds::work::Work;
 use crate::utils::{clean_text, clean_url};
 use ammonia::clean;
-use anyhow::{bail, Result};
+use anyhow::{Result, bail};
 use chrono::{DateTime, Utc};
 use feedparser_rs::types::{Content, Entry, Person};
 use html_escape::encode_text;

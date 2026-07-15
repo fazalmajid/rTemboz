@@ -349,11 +349,16 @@ if($("body").width() < 760) {
     {{ i.content_highlighted()|safe }}
     {% if i.children.len() > 0 %}
     <div class="children">
-      <p class="lead"><center><b>Aggregator mentions:</b></center></p>
+      <div class="lead"><center><b>Aggregator mentions:</b></center></div>
       <dl clas="children">
         {% for c in i.children %}
-        <dt>{{ c.feed }}</dt>
-        <dd>{{ c.content|safe }}</dd>
+        <dt>
+          <a href="/feed/{{ c.feed_uid }}" id="dt{{ c.uid }}">{{ c.feed }}</a>:
+          <a href="{{ c.link }}">{{ c.title | safe }}</a>
+        </dt>
+        <dd id="dd{{ c.uid }}">
+          {{ c.content|safe }}
+        </dd>
         {% endfor %}
       </dl>
     </div>
