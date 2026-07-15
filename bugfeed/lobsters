@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lobsters</title>
+    <link>https://lobste.rs/</link>
+    <atom:link href="https://lobste.rs/rss/" rel="self"/>
+    <description></description>
+    <pubDate>Sun, 17 May 2026 22:06:03 -0500</pubDate>
+    <ttl>120</ttl>
+    <item>
+      <title>Researcher says Microsoft secretly built a backdoor into BitLocker</title>
+      <link>https://www.techspot.com/news/112410-security-researcher-microsoft-secretly-built-backdoor-bitlocker-releases.html</link>
+      <guid>https://lobste.rs/s/ynxkj6</guid>
+      <author>techspot.com via oceanhaiyang</author>
+      <pubDate>Sun, 17 May 2026 22:06:03 -0500</pubDate>
+      <comments>https://lobste.rs/s/ynxkj6/researcher_says_microsoft_secretly</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/ynxkj6/researcher_says_microsoft_secretly"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>security</category>
+      <category>windows</category>
+      <category>programming</category>
+    </item>
+    <item>
+      <title>De‐bloating Javascript</title>
+      <link>https://github.com/naver/lispe/wiki/6.23-De%E2%80%90bloating-Javascript</link>
+      <guid>https://lobste.rs/s/lynqdm</guid>
+      <author>github.com by Claudius</author>
+      <pubDate>Mon, 18 May 2026 08:55:20 -0500</pubDate>
+      <comments>https://lobste.rs/s/lynqdm/de_bloating_javascript</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/lynqdm/de_bloating_javascript"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>lisp</category>
+      <category>java</category>
+      <category>wasm</category>
+    </item>
+    <item>
+      <title>Don't answer the first question</title>
+      <link>https://lalitm.com/post/dont-answer-the-first-question/</link>
+      <guid>https://lobste.rs/s/dt92ad</guid>
+      <author>lalitm.com by lalitm</author>
+      <pubDate>Sun, 17 May 2026 11:28:54 -0500</pubDate>
+      <comments>https://lobste.rs/s/dt92ad/don_t_answer_first_question</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/dt92ad/don_t_answer_first_question"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>practices</category>
+    </item>
+    <item>
+      <title>New design for the FreeBSD website</title>
+      <link>https://www.freebsd.org/</link>
+      <guid>https://lobste.rs/s/03djyt</guid>
+      <author>freebsd.org via 0mp</author>
+      <pubDate>Sun, 17 May 2026 13:36:41 -0500</pubDate>
+      <comments>https://lobste.rs/s/03djyt/new_design_for_freebsd_website</comments>
+      <description>&lt;p&gt;The commit introducing the new design: &lt;a href="https://cgit.freebsd.org/doc/commit/?id=c9c518d9dbb70240c23810f300ce4a5ba60442c6" rel="ugc"&gt;https://cgit.freebsd.org/doc/commit/?id=c9c518d9dbb70240c23810f300ce4a5ba60442c6&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://lobste.rs/s/03djyt/new_design_for_freebsd_website"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>design</category>
+      <category>freebsd</category>
+    </item>
+    <item>
+      <title>The occasional `ECONNRESET`</title>
+      <link>https://movq.de/blog/postings/2026-05-05/1/POSTING-en.html</link>
+      <guid>https://lobste.rs/s/z306ya</guid>
+      <author>movq.de via vbernat</author>
+      <pubDate>Mon, 18 May 2026 01:42:29 -0500</pubDate>
+      <comments>https://lobste.rs/s/z306ya/occasional_econnreset</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/z306ya/occasional_econnreset"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>linux</category>
+      <category>networking</category>
+    </item>
+    <item>
+      <title>Fits on a Floppy - A Manifesto for Small Software</title>
+      <link>https://fitsonafloppy.com</link>
+      <guid>https://lobste.rs/s/sdylhl</guid>
+      <author>fitsonafloppy.com via msangi</author>
+      <pubDate>Sun, 17 May 2026 16:14:23 -0500</pubDate>
+      <comments>https://lobste.rs/s/sdylhl/fits_on_floppy_manifesto_for_small</comments>
+      <description>&lt;p&gt;In a world where application are getting bigger and bigger seeing application that do something useful while still fitting in a floppy disk is remarkable.&lt;/p&gt;
+&lt;p&gt;To be fair, the apps linked there heavily use the iOS and macOS SDK, so the application itself is small but it still depends on a potentially bug amount of code.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://lobste.rs/s/sdylhl/fits_on_floppy_manifesto_for_small"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>performance</category>
+    </item>
+    <item>
+      <title>What are you doing this week?</title>
+      <link>https://lobste.rs/s/wiwqnw/what_are_you_doing_this_week</link>
+      <guid>https://lobste.rs/s/wiwqnw</guid>
+      <author> by caius</author>
+      <pubDate>Mon, 18 May 2026 05:25:30 -0500</pubDate>
+      <comments>https://lobste.rs/s/wiwqnw/what_are_you_doing_this_week</comments>
+      <description>&lt;p&gt;What are you doing this week? Feel free to share!&lt;/p&gt;
+&lt;p&gt;Keep in mind it’s OK to do nothing at all, too.&lt;/p&gt;
+</description>
+      <category>programming</category>
+      <category>ask</category>
+    </item>
+    <item>
+      <title>Find bugs in YOUR code using OpenCode, Llama.cpp and Qwen3.6</title>
+      <link>http://wtarreau.blogspot.com/2026/05/find-bugs-in-your-code-using-opencode.html</link>
+      <guid>https://lobste.rs/s/ap9dum</guid>
+      <author>wtarreau.blogspot.com via vbernat</author>
+      <pubDate>Mon, 18 May 2026 04:51:24 -0500</pubDate>
+      <comments>https://lobste.rs/s/ap9dum/find_bugs_your_code_using_opencode_llama</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/ap9dum/find_bugs_your_code_using_opencode_llama"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>debugging</category>
+      <category>vibecoding</category>
+    </item>
+    <item>
+      <title>Native all the way, until you need text</title>
+      <link>https://justsitandgrin.im/posts/native-all-the-way-until-you-need-text/</link>
+      <guid>https://lobste.rs/s/neclbs</guid>
+      <author>justsitandgrin.im via diktomat</author>
+      <pubDate>Sun, 17 May 2026 07:57:07 -0500</pubDate>
+      <comments>https://lobste.rs/s/neclbs/native_all_way_until_you_need_text</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/neclbs/native_all_way_until_you_need_text"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>mac</category>
+      <category>swift</category>
+    </item>
+    <item>
+      <title>A Linux-like kernel in a browser tab - deep dive in the BrowserPod architecture</title>
+      <link>https://labs.leaningtech.com/blog/browserpod-deep-dive.html</link>
+      <guid>https://lobste.rs/s/s3wqhi</guid>
+      <author>labs.leaningtech.com by yuri91</author>
+      <pubDate>Mon, 18 May 2026 10:00:12 -0500</pubDate>
+      <comments>https://lobste.rs/s/s3wqhi/linux_like_kernel_browser_tab_deep_dive</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/s3wqhi/linux_like_kernel_browser_tab_deep_dive"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>linux</category>
+      <category>web</category>
+      <category>wasm</category>
+    </item>
+    <item>
+      <title>A 16-byte x86 demo: Matrix rain with sound</title>
+      <link>https://hellmood.111mb.de//wake_up_16b_writeup.html</link>
+      <guid>https://lobste.rs/s/akooh9</guid>
+      <author>hellmood.111mb.de via abareplace</author>
+      <pubDate>Mon, 18 May 2026 07:40:10 -0500</pubDate>
+      <comments>https://lobste.rs/s/akooh9/16_byte_x86_demo_matrix_rain_with_sound</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/akooh9/16_byte_x86_demo_matrix_rain_with_sound"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>graphics</category>
+      <category>performance</category>
+      <category>retrocomputing</category>
+    </item>
+    <item>
+      <title>May I recommend eww for Emacs’s innovative UI?</title>
+      <link>https://www.matem.unam.mx/~omar/apropos-emacs.html#may-i-recommend-eww-for-emacs-innovative-ui</link>
+      <guid>https://lobste.rs/s/96kz5p</guid>
+      <author>matem.unam.mx via confusedalex</author>
+      <pubDate>Sun, 17 May 2026 18:41:06 -0500</pubDate>
+      <comments>https://lobste.rs/s/96kz5p/may_i_recommend_eww_for_emacs_s_innovative</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/96kz5p/may_i_recommend_eww_for_emacs_s_innovative"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>emacs</category>
+    </item>
+    <item>
+      <title>Coding on Paper</title>
+      <link>https://wickstrom.tech/2026-05-16-coding-on-paper.html</link>
+      <guid>https://lobste.rs/s/huqdtj</guid>
+      <author>wickstrom.tech via ahelwer</author>
+      <pubDate>Sun, 17 May 2026 10:28:30 -0500</pubDate>
+      <comments>https://lobste.rs/s/huqdtj/coding_on_paper</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/huqdtj/coding_on_paper"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>hardware</category>
+    </item>
+    <item>
+      <title>AI Agent Security - MIT 6.566 guest lecture</title>
+      <link>https://github.com/anishathalye/ai-agent-security-lecture</link>
+      <guid>https://lobste.rs/s/evwqcs</guid>
+      <author>github.com by anishathalye</author>
+      <pubDate>Mon, 18 May 2026 10:41:09 -0500</pubDate>
+      <comments>https://lobste.rs/s/evwqcs/ai_agent_security_mit_6_566_guest_lecture</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/evwqcs/ai_agent_security_mit_6_566_guest_lecture"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>vibecoding</category>
+    </item>
+    <item>
+      <title>Reverse engineering Android malware with Claude Code</title>
+      <link>https://zanestjohn.com/blog/reing-with-claude-code</link>
+      <guid>https://lobste.rs/s/b5hrqb</guid>
+      <author>zanestjohn.com via jmillikin</author>
+      <pubDate>Sun, 17 May 2026 21:13:10 -0500</pubDate>
+      <comments>https://lobste.rs/s/b5hrqb/reverse_engineering_android_malware</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/b5hrqb/reverse_engineering_android_malware"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>android</category>
+      <category>reversing</category>
+      <category>vibecoding</category>
+    </item>
+    <item>
+      <title>FediMeteo, HAProxy, and the art of not wasting snac threads</title>
+      <link>https://it-notes.dragas.net/2026/05/18/fedimeteo-haproxy-and-the-art-of-not-wasting-snac-threads/</link>
+      <guid>https://lobste.rs/s/kpl98p</guid>
+      <author>it-notes.dragas.net via ema-pe</author>
+      <pubDate>Mon, 18 May 2026 04:30:30 -0500</pubDate>
+      <comments>https://lobste.rs/s/kpl98p/fedimeteo_haproxy_art_not_wasting_snac</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/kpl98p/fedimeteo_haproxy_art_not_wasting_snac"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>networking</category>
+      <category>performance</category>
+    </item>
+    <item>
+      <title>Reviewing so called Pull Requests at $dayjob</title>
+      <link>https://rkta.de/dayjob-pr-review.html</link>
+      <guid>https://lobste.rs/s/6fc7qu</guid>
+      <author>rkta.de via runxiyu</author>
+      <pubDate>Sun, 17 May 2026 10:40:32 -0500</pubDate>
+      <comments>https://lobste.rs/s/6fc7qu/reviewing_so_called_pull_requests_at</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/6fc7qu/reviewing_so_called_pull_requests_at"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>practices</category>
+      <category>vcs</category>
+    </item>
+    <item>
+      <title>Rust async and the ARM generic timer</title>
+      <link>https://thejpster.org.uk/blog/blog-2026-05-17/</link>
+      <guid>https://lobste.rs/s/eeqdfc</guid>
+      <author>thejpster.org.uk via jmillikin</author>
+      <pubDate>Sun, 17 May 2026 19:28:51 -0500</pubDate>
+      <comments>https://lobste.rs/s/eeqdfc/rust_async_arm_generic_timer</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/eeqdfc/rust_async_arm_generic_timer"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>hardware</category>
+      <category>rust</category>
+    </item>
+    <item>
+      <title>Review: Sylve on FreeBSD</title>
+      <link>https://distrowatch.com/weekly-mobile.php?issue=20260518#sylve</link>
+      <guid>https://lobste.rs/s/dvsuag</guid>
+      <author>distrowatch.com via raymii</author>
+      <pubDate>Sun, 17 May 2026 23:28:13 -0500</pubDate>
+      <comments>https://lobste.rs/s/dvsuag/review_sylve_on_freebsd</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/dvsuag/review_sylve_on_freebsd"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>security</category>
+      <category>freebsd</category>
+    </item>
+    <item>
+      <title>The implementation of select in Go</title>
+      <link>https://internals-for-interns.com/posts/go-runtime-select/</link>
+      <guid>https://lobste.rs/s/xc3bsr</guid>
+      <author>internals-for-interns.com via typesanitizer</author>
+      <pubDate>Mon, 18 May 2026 11:05:34 -0500</pubDate>
+      <comments>https://lobste.rs/s/xc3bsr/implementation_select_go</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/xc3bsr/implementation_select_go"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>go</category>
+    </item>
+    <item>
+      <title>spr: Stacked Pull Requests on GitHub</title>
+      <link>https://github.com/ejoffe/spr</link>
+      <guid>https://lobste.rs/s/txnyjt</guid>
+      <author>github.com via dominicm</author>
+      <pubDate>Sun, 17 May 2026 23:22:48 -0500</pubDate>
+      <comments>https://lobste.rs/s/txnyjt/spr_stacked_pull_requests_on_github</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/txnyjt/spr_stacked_pull_requests_on_github"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>vcs</category>
+    </item>
+    <item>
+      <title>Claude Code managed to get Adobe Lightroom working on Linux</title>
+      <link>https://github.com/sander110419/lightroom-cc-on-linux</link>
+      <guid>https://lobste.rs/s/l34yuj</guid>
+      <author>github.com via alemi</author>
+      <pubDate>Sun, 17 May 2026 07:58:13 -0500</pubDate>
+      <comments>https://lobste.rs/s/l34yuj/claude_code_managed_get_adobe_lightroom</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/l34yuj/claude_code_managed_get_adobe_lightroom"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>linux</category>
+      <category>vibecoding</category>
+    </item>
+    <item>
+      <title>Calvin - Determinism, Distributed ACID transactions (2020)</title>
+      <link>https://www.mydistributed.systems/2020/08/calvin.html</link>
+      <guid>https://lobste.rs/s/k6e1ma</guid>
+      <author>mydistributed.systems via typesanitizer</author>
+      <pubDate>Mon, 18 May 2026 01:35:14 -0500</pubDate>
+      <comments>https://lobste.rs/s/k6e1ma/calvin_determinism_distributed_acid</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/k6e1ma/calvin_determinism_distributed_acid"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>databases</category>
+      <category>distributed</category>
+    </item>
+    <item>
+      <title>How to select a mobile OS</title>
+      <link>https://blog.gridranger.dev/mobile-oses-featuring-fairphone-5/</link>
+      <guid>https://lobste.rs/s/fkoh4s</guid>
+      <author>blog.gridranger.dev via abnercoimbre</author>
+      <pubDate>Mon, 18 May 2026 11:33:33 -0500</pubDate>
+      <comments>https://lobste.rs/s/fkoh4s/how_select_mobile_os</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/fkoh4s/how_select_mobile_os"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>mobile</category>
+    </item>
+    <item>
+      <title>Cross-Document View Transitions: The Gotchas Nobody Mentions</title>
+      <link>https://css-tricks.com/cross-document-view-transitions-part-1/</link>
+      <guid>https://lobste.rs/s/4hnsdc</guid>
+      <author>css-tricks.com via LesleyLai</author>
+      <pubDate>Mon, 18 May 2026 10:34:43 -0500</pubDate>
+      <comments>https://lobste.rs/s/4hnsdc/cross_document_view_transitions_gotchas</comments>
+      <description>&lt;p&gt;&lt;a href="https://lobste.rs/s/4hnsdc/cross_document_view_transitions_gotchas"&gt;Comments&lt;/a&gt;&lt;/p&gt;</description>
+      <category>web</category>
+      <category>css</category>
+    </item>
+  </channel>
+</rss>

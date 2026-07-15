@@ -20,7 +20,7 @@ use crate::db::worker::DbOp;
 use crate::feeds::normalize::{extract, process_rss};
 use crate::feeds::work::Work;
 use crate::filter::Filters;
-use chrono::NaiveDateTime;
+use chrono::{DateTime, NaiveDateTime};
 use fastbloom::AtomicBloomFilter;
 use feedparser_rs::types::ParsedFeed;
 use feedparser_rs::{parse, FeedError};
@@ -228,9 +228,12 @@ pub async fn refresh_one(
     feed: Feed,
 ) -> Result<(u32, u32), FetchError> {
     let (tx, rx) = tokio::sync::oneshot::channel();
+    let mut feed_no_etag = Box::new(feed);
+    feed_no_etag.etag = "".to_string();
+    feed_no_etag.last_fetched = DateTime::UNIX_EPOCH.naive_utc();
     if let Err(e) = work_q
         .send(FeedOp::RefreshOne {
-            feed: Box::new(feed),
+            feed: feed_no_etag,
             reply: tx,
         })
         .await

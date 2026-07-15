@@ -18,7 +18,7 @@
 use libsqlite3_sys as ffi;
 use sqlx::sqlite::SqliteConnection;
 use std::ffi::CString;
-use url::{ParseError, Url};
+use url::Url;
 
 pub fn normalize_url(url: &str) -> String {
     let mut u = match Url::parse(&url) {
@@ -46,7 +46,7 @@ pub async fn register_udf(conn: &mut SqliteConnection) {
     let mut handle = conn.lock_handle().await.unwrap();
     let raw = handle.as_raw_handle().as_ptr();
 
-    extern "C" fn normalize_url_C(
+    extern "C" fn normalize_url_c(
         ctx: *mut ffi::sqlite3_context,
         _argc: i32,
         argv: *mut *mut ffi::sqlite3_value,
@@ -78,7 +78,7 @@ pub async fn register_udf(conn: &mut SqliteConnection) {
             1, // nArg
             ffi::SQLITE_UTF8 | ffi::SQLITE_DETERMINISTIC,
             std::ptr::null_mut(), // pApp
-            Some(normalize_url_C),
+            Some(normalize_url_c),
             None, // xStep
             None, // xFinal
             None, // xDestroy
