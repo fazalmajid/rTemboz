@@ -1,5 +1,5 @@
 # --- Build stage ---
-FROM alpine:3.23 AS builder
+FROM alpine:3.24 AS builder
 
 RUN apk add --no-cache \
     rust \
@@ -32,7 +32,7 @@ RUN wget -q -O static/datatables.css \
 
 # Create the SQLite database from migrations so sqlx can check queries at compile time
 COPY migrations/ migrations/
-RUN cat migrations/*.sql | sqlite3 boot.db
+RUN cat migrations/*.sql | sed -e '/-- sqlx skip/,/-- end sqlx skip/d' | sqlite3 boot.db
 
 COPY build.rs ./
 COPY src/ src/
