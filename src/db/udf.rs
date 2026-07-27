@@ -25,6 +25,14 @@ pub fn normalize_url(url: &str) -> String {
         Err(_) => return url.to_string(),
         Ok(some_url) => some_url,
     };
+    // some sites like antirez still use http:// for permalinks even if they are
+    // redirected to https://
+    if u.scheme() == "http" {
+        let _ = u.set_scheme("https");
+    }
+    // this is problematic, the Zig blog for instance has links of the form:
+    // https://ziglang.org/devlog/2026/#2026-06-26
+    // so all posts for a year have the same normalized link
     u.set_fragment(None);
     let mut pairs: Vec<(String, String)> = u
         .query_pairs()

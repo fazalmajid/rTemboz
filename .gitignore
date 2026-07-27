@@ -8,3 +8,4 @@ Cargo.lock
 *.log
 tests/__pycache__
 minimal.sh
+AGENTS.md

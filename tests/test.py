@@ -99,10 +99,23 @@ def insert_auth_settings(conn):
     conn.commit()
 
 
+def remove_db_files(db_path):
+    """Remove the SQLite main DB file along with its WAL/SHM sidecar files.
+
+    rtemboz opens the DB in WAL mode (src/db.rs), so a prior run can leave
+    temboz.db-wal/-shm behind with data not yet checkpointed into the main
+    file. If only the main file is removed, the next `rtemboz rebuild`
+    creates a fresh empty DB next to those stale sidecar files, and SQLite's
+    WAL recovery on open fails with a "disk I/O error" (SQLITE_IOERR_SHORT_READ).
+    """
+    for path in (db_path, f"{db_path}-wal", f"{db_path}-shm"):
+        if os.path.exists(path):
+            os.remove(path)
+
+
 def init_db(work_dir, db_path, feed_url, env):
     """Create a fresh database using rtemboz rebuild, add a feed, and return the connection."""
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    remove_db_files(db_path)
     # Let rtemboz create and migrate the database
     result = subprocess.run(
         [BINARY, "rebuild"],
@@ -136,22 +149,8 @@ def feed_server():
     server.stop()
 
 
-@pytest.fixture(scope="session")
-def build_binary():
-    """Ensure the binary is built."""
-    env = os.environ.copy()
-    env["OPENSSL_DIR"] = os.path.join(os.environ["HOME"], "local", "ssl")
-    subprocess.run(
-        ["cargo", "build"],
-        cwd=PROJECT_DIR,
-        env=env,
-        check=True,
-        capture_output=True,
-    )
-
-
 @pytest.fixture()
-def test_env(feed_server, build_binary):
+def test_env(feed_server):
     """Set up a clean test environment with a fresh database in tests/."""
     work_dir = TEST_WORK_DIR
     feed_url = f"http://127.0.0.1:{FEED_SERVER_PORT}/fazal"
@@ -161,8 +160,7 @@ def test_env(feed_server, build_binary):
     env["OPENSSL_DIR"] = os.path.join(os.environ["HOME"], "local", "ssl")
 
     # Remove any leftover DB from a previous run
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    remove_db_files(db_path)
 
     conn = init_db(work_dir, db_path, feed_url, env)
 
@@ -176,8 +174,7 @@ def test_env(feed_server, build_binary):
 
     conn.close()
     # Clean up
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    remove_db_files(db_path)
 
 
 def run_refresh(test_env):
@@ -219,7 +216,7 @@ def stop_serve(proc):
 
 
 @pytest.fixture()
-def serve_env(feed_server, build_binary):
+def serve_env(feed_server):
     """Set up a clean test environment with a running rtemboz server (no pre-inserted feed)."""
     work_dir = TEST_WORK_DIR
     db_path = os.path.join(work_dir, "temboz.db")
@@ -228,8 +225,7 @@ def serve_env(feed_server, build_binary):
     env["OPENSSL_DIR"] = os.path.join(os.environ["HOME"], "local", "ssl")
 
     # Remove any leftover DB from a previous run
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    remove_db_files(db_path)
 
     # Let rtemboz create and migrate the database
     result = subprocess.run(
@@ -270,8 +266,7 @@ def serve_env(feed_server, build_binary):
 
     conn.close()
     stop_serve(proc)
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    remove_db_files(db_path)
 
 
 def login_session(base_url):
@@ -567,6 +562,14 @@ class TestRuleAdd:
         conn.execute(
             "INSERT INTO feed (uid, xml, html, title, status) VALUES (999, 'http://example.com/feed', 'http://example.com', 'Test Feed', 0)"
         )
+        # The update_normalized_link trigger calls the normalize_url() SQL
+        # function on every INSERT, which is only registered by the rtemboz
+        # binary (src/db/udf.rs), not on this direct Python sqlite3
+        # connection. SQLite resolves function names when the trigger is
+        # prepared, before its WHERE clause is evaluated, so it errors even
+        # though the update would otherwise be a no-op here; register a
+        # stand-in so the trigger can prepare.
+        conn.create_function("normalize_url", 1, lambda url: url)
         conn.execute(
             "INSERT INTO item (uid, feed, title, link, guid, content, rating, loaded) "
             "VALUES (888, 999, 'Test Item', 'http://example.com/1', 'guid-888', 'content', 0, strftime('%s','now'))"
@@ -613,6 +616,61 @@ class TestRuleAdd:
         assert row is not None, f"Rule with text={kw!r} not found in DB"
         _, _, feed = row
         assert feed is None, f"Expected feed=NULL for global rule, got {feed}"
+
+
+class TestEchoCancellation:
+    """Test that an aggregator's echo of a primary feed's item is linked
+    to the original via the item.parent column."""
+
+    def test_lobsters_linked_to_antirez_parent(self, test_env):
+        conn = test_env["conn"]
+
+        # Add the primary feed (antirez) and fetch it first, so the
+        # original item exists before the aggregator echoes it.
+        primary_url = f"http://127.0.0.1:{FEED_SERVER_PORT}/echo3"
+        conn.execute(
+            "INSERT INTO feed (xml, html, title, status, aggregator) VALUES (?, ?, ?, 0, 0)",
+            (primary_url, "http://antirez.com", "antirez"),
+        )
+        conn.commit()
+
+        result = run_refresh(test_env)
+        assert result.returncode == 0, (
+            f"refresh failed:\nstdout: {result.stdout}\nstderr: {result.stderr}"
+        )
+
+        parent_row = conn.execute(
+            "SELECT uid, parent FROM item WHERE title='Being Linux Torvalds'"
+        ).fetchone()
+        assert parent_row is not None, "Primary antirez item was not fetched"
+        parent_uid, parent_parent = parent_row
+        assert parent_parent is None, "Primary item should not itself have a parent"
+
+        # Now add the aggregator feed (Lobsters-like) that echoes the same
+        # story, and fetch it.
+        aggregator_url = f"http://127.0.0.1:{FEED_SERVER_PORT}/echo4"
+        conn.execute(
+            "INSERT INTO feed (xml, html, title, status, aggregator) VALUES (?, ?, ?, 0, 1)",
+            (aggregator_url, "https://lobste.rs/", "Lobsters"),
+        )
+        conn.commit()
+
+        result = run_refresh(test_env)
+        assert result.returncode == 0, (
+            f"refresh failed:\nstdout: {result.stdout}\nstderr: {result.stderr}"
+        )
+
+        echo_row = conn.execute(
+            """SELECT uid, parent FROM item
+            WHERE title='Being Linux Torvalds' AND uid<>?""",
+            (parent_uid,),
+        ).fetchone()
+        assert echo_row is not None, "Echoed Lobsters item was not fetched"
+        echo_uid, echo_parent = echo_row
+        assert echo_parent == parent_uid, (
+            f"Expected echo item {echo_uid} to be linked (parent={parent_uid}), "
+            f"got parent={echo_parent}"
+        )
 
 
 class TestEscapeTitle:
