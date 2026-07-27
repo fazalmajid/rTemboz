@@ -67,3 +67,4 @@ once after the migration.
 - [ ] More test cases
 - [ ] Better build process
 - [ ] Measure async loop contention using tokio-metrics
+- [ ] Honor HTTP 301 redirects
