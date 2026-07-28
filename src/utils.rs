@@ -32,7 +32,11 @@ pub fn clean_text(html: &str) -> String {
 
 // sanitize URLs
 pub fn clean_url(input: &str) -> Result<String, NormalizeUrlError> {
-    let result = normalize_url(input, &Options::default())?;
+    let opts = Options{
+        strip_www: false,
+        ..Options::default()
+    };
+    let result = normalize_url(input, &opts)?;
     Ok(result)
 }
 

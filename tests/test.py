@@ -4,6 +4,7 @@ End-to-end tests for rtemboz
 
 import http.server
 import os
+import re
 import signal
 import sqlite3
 import subprocess
@@ -712,3 +713,63 @@ class TestEscapeTitle:
         assert item_count > 0, (
             f"Expected item with escaped title to be loaded for feed {feed_uid}, got {item_count}"
         )
+
+
+class TestWwwPreserved:
+    """Test that item links keep their 'www' subdomain, both in the
+    database and in the rendered /view page.
+
+    bugfeed/inconspicuous is a Substack feed whose item links are all of
+    the form https://www.inconspicuous.info/p/... . The stored item.link
+    is unaffected, but get_items() (src/db/items.rs) recomputes the
+    'redirect' and 'feed_html' fields rendered as hrefs in
+    templates/view.html by calling clean_url(), which defaults to
+    url_normalize::Options { strip_www: true, .. }, silently dropping
+    the 'www.' from every link actually shown to the user.
+    """
+
+    def test_www_preserved_in_view(self, serve_env):
+        conn = serve_env["conn"]
+        feed_url = f"http://127.0.0.1:{FEED_SERVER_PORT}/inconspicuous"
+        base_url = f"http://127.0.0.1:{RTEMBOZ_PORT}"
+
+        session = login_session(base_url)
+
+        resp = session.post(
+            f"{base_url}/add",
+            data={"feed_xml": feed_url},
+            timeout=60,
+        )
+        assert resp.status_code == 200, (
+            f"/add returned status {resp.status_code}: {resp.text[:500]}"
+        )
+
+        row = conn.execute(
+            "SELECT uid FROM feed WHERE xml=?", (feed_url,)
+        ).fetchone()
+        assert row is not None, "Feed was not inserted into the database"
+        feed_uid = row[0]
+
+        # The database itself must keep the 'www' subdomain.
+        links = conn.execute(
+            "SELECT link FROM item WHERE feed=?", (feed_uid,)
+        ).fetchall()
+        assert len(links) > 0, "Expected items to be loaded for the feed"
+        for (link,) in links:
+            assert link.startswith("https://www."), (
+                f"Stored item.link lost its 'www' subdomain: {link}"
+            )
+
+        # The rendered /view page must link to the same 'www' URLs.
+        resp = session.get(
+            f"{base_url}/view",
+            params={"feed_uid": feed_uid, "show": "all"},
+        )
+        assert resp.status_code == 200
+
+        hrefs = re.findall(r'href="(https://[^"]*inconspicuous\.info[^"]*)"', resp.text)
+        assert hrefs, "Expected at least one inconspicuous.info href in /view"
+        for href in hrefs:
+            assert href.startswith("https://www."), (
+                f"Rendered href lost its 'www' subdomain: {href}"
+            )
