@@ -18,7 +18,7 @@ use crate::db::worker::DbOp;
 use crate::feeds::work::Work;
 use crate::utils::{clean_text, clean_url};
 use ammonia::clean;
-use anyhow::{Result, bail};
+use anyhow::{bail, Result};
 use chrono::{DateTime, Utc};
 use feedparser_rs::types::{Content, Entry, Person};
 use html_escape::encode_text;
@@ -113,7 +113,7 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
         feed_uid,
         aggregator,
         exempt,
-        rss,
+        mut rss,
         bloom,
         filters,
         db_q,
@@ -121,6 +121,8 @@ pub async fn process_rss(work: Work, reply: Option<tokio::sync::oneshot::Sender<
     } = work;
     let mut added: u32 = 0;
     let mut filtered: u32 = 0;
+    rss.entries
+        .sort_by_key(|e| e.published.unwrap_or_else(Utc::now));
     for entry in rss.entries {
         let entry_id = entry.id.clone();
         let item = match extract(&entry) {

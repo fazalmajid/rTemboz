@@ -56,7 +56,7 @@ once after the migration.
       column
 - [ ] Delete a rule in the Filters Actions column
 - [ ] Feed autodiscovery
-- [ ] When more than one item is fetched, sort them in chronological order
+- [X] When more than one item is fetched, sort them in chronological order
       before inserting them in the database
 - [ ] Feed duplicate title checking
 - [ ] Reimplement editor
@@ -68,3 +68,4 @@ once after the migration.
 - [ ] Better build process
 - [ ] Measure async loop contention using tokio-metrics
 - [ ] Honor HTTP 301 redirects
+- [ ] Add feed/item languages and make them filterable
