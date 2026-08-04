@@ -13,8 +13,8 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::filter::{FilterError, Filters, Rule, new_filters, rule_from_string};
-use anyhow::{Error as AnyhowError, anyhow};
+use crate::filter::{new_filters, rule_from_string, FilterError, Filters, Rule};
+use anyhow::{anyhow, Error as AnyhowError};
 use log::{error, info};
 use serde::{Deserialize, Serialize};
 use sqlx::error::Error;
@@ -43,7 +43,7 @@ LIMIT 25
             Rule {
                 uid: row.rule.unwrap() as u32,
                 rule_type: rule_from_string(row.rule_type),
-                text: row.text.unwrap_or("Unknown".to_string()),
+                text: row.text,
                 feed: row.rule_feed.map(|uid| uid as u32),
                 feed_title: None,
             },
@@ -64,7 +64,7 @@ pub async fn get_filters(db: &SqlitePool) -> Result<Filters, FilterError> {
             Rule {
                 uid: row.uid as u32,
                 rule_type: rule_from_string(row.rule_type),
-                text: row.text.unwrap_or("Unknown".to_string()),
+                text: row.text,
                 feed: row.feed.map(|uid| uid as u32),
                 feed_title: None,
             },
@@ -92,7 +92,7 @@ LEFT OUTER JOIN feed ON rule.feed=feed.uid
         .map(|row| Rule {
             uid: row.uid as u32,
             rule_type: rule_from_string(row.rule_type.clone()),
-            text: row.text.clone().unwrap_or("Unknown".to_string()),
+            text: row.text.clone(),
             feed: row.feed.map(|uid| uid as u32),
             feed_title: row.feed_title.clone(),
         })
@@ -173,4 +173,44 @@ RETURNING uid
     .await?;
     info!("rule uid = {}", row.uid);
     Ok(row.uid)
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct RuleStats {
+    pub uid: i64,
+    pub match_type: String,
+    pub text: String,
+    pub rule_feed_uid: i64,
+    pub feed_title: String,
+    pub last_7: i64,
+    pub prev_7: i64,
+    pub min_uid: i64,
+    pub max_uid: i64,
+}
+
+pub async fn get_rule_stats(db: &SqlitePool) -> Result<Vec<RuleStats>, FilterError> {
+    let rows = sqlx::query_as!(
+        RuleStats,
+        r###"
+SELECT rule.uid AS "uid!", rule.type AS "match_type!", text AS "text!",
+   COALESCE(rule.feed, -1) AS rule_feed_uid,
+   COALESCE(feed.title, 'Not scoped to a feed') AS feed_title,
+   SUM(CASE WHEN item.loaded > julianday('now')-7 THEN 1 ELSE 0 END) last_7,
+   SUM(CASE WHEN item.loaded < julianday('now')-7 THEN 1 ELSE 0 END) prev_7,
+   MIN(CASE WHEN item.loaded > julianday('now')-7
+            THEN item.uid ELSE 2000000000 END) AS min_uid,
+   MAX(CASE WHEN item.loaded > julianday('now')-7
+            THEN item.uid ELSE 0 END) AS max_uid
+ FROM rule
+ JOIN item ON item.rule=rule.uid
+ LEFT JOIN feed ON rule.feed=feed.uid
+ WHERE item.loaded > julianday('now')-14
+ GROUP BY 1, 2, 3, 4, 5
+ ORDER BY 6 DESC
+ LIMIT 100
+"###
+    )
+    .fetch_all(db)
+    .await?;
+    Ok(rows)
 }

@@ -24,6 +24,7 @@ use chrono::prelude::*;
 use fastbloom::AtomicBloomFilter;
 use futures::TryStreamExt;
 use log::{error, info};
+use serde::{Deserialize, Serialize};
 use sqlx::error::Error;
 use sqlx::sqlite::{SqliteConnection, SqlitePool};
 use sqlx::AssertSqlSafe;
@@ -432,7 +433,7 @@ INSERT INTO item (
   rule,
   normalized_link
 ) VALUES (
-  ?, ?,julianday('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?
+  ?, ?,julianday('now'), julianday(?), julianday(?), ?, ?, ?, ?, ?, ?, ?
 ) RETURNING uid"###,
         feed_uid,
         item.guid,
@@ -553,4 +554,35 @@ RETURNING rating
     }
 
     Ok(item_uid as u64)
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct ItemStats {
+    pub date: String,
+    pub articles: i64,
+    pub interesting: i64,
+    pub unread: i64,
+    pub filtered: i64,
+    pub aggregated: i64,
+}
+
+pub async fn get_item_stats(db: &SqlitePool) -> Result<Vec<ItemStats>, GetError> {
+    let rows = sqlx::query_as!(
+        ItemStats,
+        r###"
+SELECT
+  strftime('%F', loaded) AS "date!",
+  COUNT(*) AS articles,
+  SUM(CASE WHEN rating=1 THEN 1 ELSE 0 END) AS interesting,
+  SUM(CASE WHEN rating=0 THEN 1 ELSE 0 END) AS unread,
+  SUM(CASE WHEN rating=-1 THEN 1 ELSE 0 END) AS filtered,
+  SUM(CASE WHEN parent IS NOT NULL THEN 1 ELSE 0 END) AS aggregated
+FROM item
+WHERE loaded > julianday('now') - 30
+GROUP BY 1
+ORDER BY 1"###
+    )
+    .fetch_all(db)
+    .await?;
+    Ok(rows)
 }

@@ -16,7 +16,8 @@
 use crate::db::feeds::{Feed, FeedStatus};
 use crate::db::since;
 use crate::feeds::worker::FeedOp;
-use crate::feeds::worker::{FetchError, fetch_and_parse};
+use crate::feeds::worker::{fetch_and_parse, FetchError};
+use chrono::naive::NaiveDateTime;
 use feedparser_rs::FeedError;
 use log::error;
 use sqlx::error::Error;
@@ -30,7 +31,8 @@ SELECT
   f.uid, f.title, f.description, f.html, f.xml,
   COALESCE(f.pubxml, f.xml) AS pubxml, last_modified, interesting, unread,
   uninteresting, filtered, total, snr, f.status, f.private, f.exempt,
-  f.errors, f.dupcheck, f.etag, f.last_fetched, f.aggregator
+  f.errors, f.dupcheck, f.etag,
+  f.last_fetched AS "last_fetched: NaiveDateTime", f.aggregator
 FROM feed f
 JOIN v_feeds_snr v ON f.uid=v.uid
 WHERE f.uid=?

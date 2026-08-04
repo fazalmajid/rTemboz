@@ -21,6 +21,7 @@ pub mod login;
 pub mod menu;
 pub mod routes;
 pub mod rules;
+pub mod settings;
 pub mod updown;
 pub mod util;
 pub mod view;

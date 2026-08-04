@@ -111,7 +111,7 @@
 {% endblock %}
 
 {% block CONTENT %}
-  {% if status %}
+  {% if status != "" %}
 <p>{{ status }}</p>
   {% endif %}
 <div id="settings" class="ui-tabs">
@@ -137,13 +137,13 @@
     <table>
     <tr><th>Rule</th><th>Type</th><th>Text</th><th>Last 7 days</th>
       <th>Prev 7 days</th></tr>
-    {% for id, type, text, feed, title, last_7, prev_7, min_uid, max_uid in stats %}
-    <tr class="{{ loop.cycle('odd', 'even') }}">
-      <td>{{ id }}</td>
-      <td>{{ type }}</td>
-      <td>{{ text}}{% if feed != -1 %} (<a href="feed_info?feed_uid={{ feed }}">{{ title }}</a>){% endif %}</td>
-      <td align="right"><a href="view?show=filtered&rule_uid={{ id }}&min={{ min_uid }}&max={{ max_uid }}{% if feed != -1 %}&feed_uid={{ feed }}{% endif %}">{{ last_7 }}</a></td>
-      <td align="right">{{ prev_7 }}</td>
+    {% for row in stats %}
+    <tr class="{{ loop.cycle(["odd", "even"]) }}">
+      <td>{{ row.uid }}</td>
+      <td>{{ row.match_type }}</td>
+      <td>{{ row.text }}{% if row.rule_feed_uid != -1 %} (<a href="/feed/{{ row.rule_feed_uid }}">{{ row.feed_title }}</a>){% endif %}</td>
+      <td align="right"><a href="view?show=filtered&rule_uid={{ row.uid }}&min={{ row.min_uid }}&max={{ row.max_uid }}{% if row.rule_feed_uid != -1 %}&feed_uid={{ row.rule_feed_uid }}{% endif %}">{{ row.last_7 }}</a></td>
+      <td align="right">{{ row.prev_7 }}</td>
     </tr>
     {% endfor %}
     </table>
@@ -312,46 +312,27 @@
   <div id="maint" class="ui-tabs-hide">
     <form method="POST"><input type="hidden" name="op" value="maint">
       <table>
-      <tr>
-        <td>Press the button below to purge and rebuild the stats table. This
-        will speed up the all feeds view and sort operations using SNR</td>
-      </tr>
-      <tr>
-        <td><input type="submit" value="Rebuild stats"></td>
-      </tr>
+        <tr>
+          <td>Press the button below to purge and rebuild the stats table. This
+            will speed up the all feeds view and sort operations using SNR</td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="Rebuild stats"></td>
+        </tr>
       </table>
     </form>
   </div>
   <div id="status" class="ui-tabs-hide">
     <table>
-    <tr>
-      <td>Executable</td><td>{{ executable }}</td>
-    </tr>
-    <tr>
-      <td>Started</td><td>{{ started }}</td>
-    </tr>
-    <tr>
-      <td>Uptime</td><td>{{ uptime }}</td>
-    </tr>
-    <tr>
-      <td>Python version</td><td>{{ py_version }}</td>
-    </tr>
-    <tr>
-      <td>Searches using SQLite FTS5 full-text search</td>
-      <td>{{ fts5_enabled }}</td>
-    </tr>
-    <tr>
-      <td>Verbose logging</td><td>{{ param_debug }}
-	<form id="debug" method="POST" action="#status">
-          <input type="hidden" name="op" value="debug">
-         {% if param_debug %}
-	  <input name="debug" type="submit" value="Disable verbose logging">
-         {% else %}
-	  <input name="debug" type="submit" value="Enable verbose logging">
-         {% endif %}
-	</form>
-      </td>
-    </tr>
+      <tr>
+        <td>Command-line</td><td>{{ executable }}</td>
+      </tr>
+      <tr>
+        <td>Started</td><td>{{ started }}</td>
+      </tr>
+      <tr>
+        <td>Uptime</td><td>{{ uptime }}</td>
+      </tr>
     </table>
   </div>
 </div>

@@ -16,7 +16,7 @@
 use crate::db::auth::change_password;
 use crate::feeds::worker::{feed_worker_setup, spawn_worker};
 use crate::webui::auth::Authentication;
-use actix_web::{App, HttpServer, web};
+use actix_web::{web, App, HttpServer};
 use clap::{Parser, Subcommand};
 use log::{error, info};
 use rpassword::prompt_password;
@@ -75,6 +75,7 @@ async fn main() -> std::io::Result<()> {
 }
 
 async fn serve() -> std::io::Result<()> {
+    let started = std::time::SystemTime::now();
     info!("setting up database");
     let db = db::create_db().await;
     // rebuild materialized views
@@ -92,6 +93,7 @@ async fn serve() -> std::io::Result<()> {
             .app_data(web::Data::new(db.clone()))
             .app_data(web::Data::new(work_q.clone()))
             .app_data(web::Data::new(feed_work_q.clone()))
+            .app_data(web::Data::new(started))
             .configure(webui::routes::configure)
     })
     .bind(BIND_ADDRESS)?

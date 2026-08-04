@@ -47,6 +47,8 @@ stop-words = "0.10.0"
 diacritics = "0.2.2"
 html-escape = "0.2.14"
 libsqlite3-sys = "0.37.0"
+humantime = "2.4.0"
+csv = "1.4.0"
 
 [build-dependencies]
 static-files = "0.3.1"

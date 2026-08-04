@@ -24,7 +24,7 @@ all: run
 $(CARGO_SQLX):
 	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli --no-default-features --features sqlite
 
-boot.db:
+boot.db: $(wildcard migrations/*.sql)
 	cat migrations/*.sql | sed -e '/-- sqlx skip/,/-- end sqlx skip/d' | sqlite3 boot.db
 
 assets: static/datatables.css static/simple-datatables.js target/debug/rtemboz

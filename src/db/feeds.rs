@@ -71,7 +71,9 @@ pub async fn get_feeds(db: &SqlitePool) -> Result<Vec<Feed>, Error> {
 SELECT
   uid, title, html, xml, last_modified, interesting, unread, uninteresting,
   filtered, total, snr, status, private, exempt, errors, dupcheck, etag,
-  last_fetched, last_parsed, last_error, aggregator
+  last_fetched AS "last_fetched: NaiveDateTime",
+  last_parsed AS "last_parsed: NaiveDateTime",
+  last_error AS "last_error: NaiveDateTime", aggregator
 FROM v_feeds_snr
 ORDER BY (unread > 0) DESC, snr DESC"###
     )

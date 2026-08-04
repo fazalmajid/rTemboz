@@ -33,5 +33,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
         .service(webui::rules::stem)
         .service(webui::rules::rule_add)
         .service(webui::rules::rules)
+        .service(webui::settings::settings)
+        .service(webui::settings::get_stats)
         .service(webui::util::sync);
 }
