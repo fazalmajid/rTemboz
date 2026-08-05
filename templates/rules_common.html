@@ -3,8 +3,8 @@
     <script>
       function del_kw_rule(uid) {
         uid = String(uid);
-        $.get("/rule/" + uid + "/del");
-        $("tr#rule_" + uid).hide();
+        getRequest("/rule/" + uid + "/del");
+        document.getElementById("rule_" + uid).style.display = "none";
       };
     </script>
 {%- endmacro %}
@@ -179,12 +179,8 @@
 {% endif %}
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("div#tabset").tabs({
-      //beforeLoad: function(event, ui) {
-      //  debugger;
-      //}
-    });
+  document.addEventListener("DOMContentLoaded", function() {
+    init_tabs("#tabset");
   });
 </script>
     

@@ -61,18 +61,19 @@
           } else {
             url = '/sync' + location.search + '&updated=' + updated
           }
-          return $.ajax(url, {
-            type: 'get',
-            timeout: 30000,
-            dataType: 'json',
-            error: function(xhr, textStatus) {
-              console.log('offline article sync failed: ' + textStatus);
-              resolve([]);
-            },
-            success: function(data) {
+          var controller = new AbortController();
+          var timeout = setTimeout(function() { controller.abort(); }, 30000);
+          return fetch(url, { method: 'get', signal: controller.signal })
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+              clearTimeout(timeout);
               resolve(data);
-            }
-          });
+            })
+            .catch(function(error) {
+              clearTimeout(timeout);
+              console.log('offline article sync failed: ' + error);
+              resolve([]);
+            });
         })
     }).then(function (data) {
       if (data.length > 0) {
@@ -85,15 +86,17 @@
 {% endblock INSERT_ARTICLES %}
 
 {% block GET_ARTICLES %}
-    var do_cols = $("body").width() >= 760;
+    var do_cols = document.body.clientWidth >= 760;
     db.open();
     db.items.orderBy('uid').reverse().each(function render(item) {
       if (item.rating == 0) {
-        var node = $(Mustache.render(item_tmpl, item));
+        var template = document.createElement("template");
+        template.innerHTML = Mustache.render(item_tmpl, item);
+        var node = template.content.firstElementChild;
         if(do_cols) {
           assign_column.call(node);
         } else {
-          node.appendTo($("div#initial"));
+          document.getElementById("initial").appendChild(node);
         }
       }
     });

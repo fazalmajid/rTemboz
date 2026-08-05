@@ -259,11 +259,17 @@ form.feed_info, form.add, div#tabset, div#settings, .padded {
   ul.menu {display: none}
 }
 
-/* jQuery dialog */
-div.ui-dialog {
+/* keyword-rule popup, a native <dialog> */
+dialog.ui-dialog {
   padding: 0px;
   border: 6px ridge;
   width: 600px;
+  /* the top-level `* {margin:0}` reset above overrides the UA
+     stylesheet's own `margin: auto`, which is what centers a
+     <dialog> shown via showModal(); restore it explicitly */
+  margin: auto;
+  background: white;
+  color: black;
 }
 .ui-dialog-titlebar {
   font-weight: bold;
@@ -365,7 +371,7 @@ tbody tr:hover, th.nonsort, tr.footer, span.item.tag, ul.menu {
 th.sort {
   background: #fd9;
 }
-div.overlay .opaque, tbody tr:nth-child(odd), div.ui-dialog,
+div.overlay .opaque, tbody tr:nth-child(odd), dialog.ui-dialog,
 .ui-tab-nav li.ui-tabs-active a,
 .ui-tabs-nav li.ui-tabs-active a:link,
 .ui-tabs-nav li.ui-tabs-active a:active,
@@ -390,7 +396,7 @@ span.tag.highlighted {
 .ui-tabs-nav ul a:hover {
   color: #f00 !important
 }
-div.ui-dialog {
+dialog.ui-dialog {
   border-color: green;
 }
 .ui-dialog-titlebar {
@@ -498,7 +504,7 @@ div.children {
   th.sort {
     background: #fd9;
   }
-  div.overlay .opaque, tbody tr:nth-child(odd), div.ui-dialog,
+  div.overlay .opaque, tbody tr:nth-child(odd), dialog.ui-dialog,
   .ui-tab-nav li.ui-tabs-active a,
   .ui-tabs-nav li.ui-tabs-active a:link,
   .ui-tabs-nav li.ui-tabs-active a:active,
@@ -532,8 +538,14 @@ div.children {
   .ui-tabs-nav ul a:hover {
     color: #f00 !important
   }
-  div.ui-dialog {
+  dialog.ui-dialog {
     border-color: green;
+    /* <dialog> defaults to a white background regardless of
+       prefers-color-scheme, but `color` still inherits from html
+       (white in dark mode) -- without this, labels are white text
+       on the UA-default white background */
+    background: black;
+    color: white;
   }
   .ui-dialog-titlebar {
     border-bottom: 1px solid #d8d2aa;

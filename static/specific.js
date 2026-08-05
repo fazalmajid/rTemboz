@@ -1,107 +1,180 @@
-// get user selection, empty string if none or unsupported browser
-// on Safari iOS clicking on a UI element like the "thumbs up" arrow
-// deselects, so we save the selection as soon as it is completed in
-// a global variable
+// vanilla-JS replacement for the old jQuery + jQuery UI + jQuery Form +
+// jQuery Hotkeys bundle. temboz.js is just this file run through jsmin.
+
+// ---- text selection (used to pre-fill the "add filter rule" popup) ----
+
+// On Safari iOS, tapping a UI element like the thumbs-up/down arrows
+// clears the current selection, so we save it as soon as it's made.
 var saved_selection = "";
 
 function raw_selection() {
-    var userSelection;
-    userSelection = "";
-    if(window.getSelection) {
-        userSelection = String(window.getSelection());
-    } else if (document.selection) {
-        userSelection = document.selection.createRange().text;
-    }
-    return $.trim(userSelection);
+  var s = window.getSelection ? String(window.getSelection()) : "";
+  return s.trim();
 }
 function save_selection() {
-    saved_selection = raw_selection();
+  saved_selection = raw_selection();
 }
 function get_selection() {
-    var s = raw_selection();
-    if (s == "" && saved_selection != "") s = saved_selection;
-    return s;
+  var s = raw_selection();
+  return s === "" ? saved_selection : s;
 }
 
 function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.substring(1);
+  return s.charAt(0).toUpperCase() + s.substring(1);
 }
-/* pop-up menus */
+
+// ---- popups (the "..." callout menus) ----
+
 function place_popup() {
-    var popup = $("div#popup_" + this.id);
-    this.popup = popup;
+  this.popup = document.getElementById("popup_" + this.id);
 }
 function hide_popups() {
-    $(document).unbind("click", hide_popups);
-    $("div.popup").hide();
+  document.removeEventListener("click", hide_popups);
+  document.querySelectorAll("div.popup").forEach(function (p) {
+    p.style.display = "none";
+  });
 }
 function show_popup(event) {
-    event.stopPropagation();
-
-    var callout = $(this).offset();
-    var container = $(this).offsetParent().offset();
-    this.popup.css("left", callout.left - container.left);
-    this.popup.css("top", callout.top - container.top + $(this).height() + 3);
-
-    this.popup.toggle();
-    $(document).click(hide_popups);
+  event.stopPropagation();
+  var rect = this.getBoundingClientRect();
+  var containerRect = this.offsetParent
+    ? this.offsetParent.getBoundingClientRect()
+    : { left: 0, top: 0 };
+  var wasOpen = this.popup.style.display === "block";
+  this.popup.style.left = rect.left - containerRect.left + "px";
+  this.popup.style.top =
+    rect.top - containerRect.top + this.offsetHeight + 3 + "px";
+  this.popup.style.display = wasOpen ? "none" : "block";
+  document.addEventListener("click", hide_popups);
 }
 function init_popups() {
-    $(document).ready(function() {
-        $("a.callout").each(place_popup);
-        $("a.callout").click(show_popup);
-    });
+  document.querySelectorAll("a.callout").forEach(function (a) {
+    place_popup.call(a);
+    a.addEventListener("click", show_popup);
+  });
 }
+
 function rand() {
-    return Math.random().toString().substring(8);
+  return Math.random().toString().substring(8);
 }
-/* work around jQuery bug */
-$.widget( "ui.tabs", $.ui.tabs, {
-    _isLocal: function( anchor ) {
-        // If there's no hash, it can't be local
-        if ( !anchor.hash.length ) {
-            return false;
-        }
 
-        // http://bugs.jqueryui.com/ticket/11223
-        // Intentionally skip hash, username, password
-        // href may contain username and password, so we can't use that
-        // host, hostname, port, and protocol are all included in origin
-        var urlParts = [ "origin", "pathname", "search" ];
-        var isLocal = true;
+// ---- tiny AJAX helpers (replace $.get / .ajaxSubmit) ----
 
-        $.each( urlParts, function( urlPart ) {
-            var anchorValue = anchor[ urlPart ];
-            var locationValue = location[ urlPart ];
+function getRequest(url, params, callback) {
+  if (typeof params === "function") {
+    callback = params;
+    params = null;
+  }
+  if (params) {
+    url +=
+      (url.indexOf("?") === -1 ? "?" : "&") +
+      new URLSearchParams(params).toString();
+  }
+  var p = fetch(url);
+  if (callback) {
+    p = p.then(function (r) {
+      return r.text();
+    }).then(callback);
+  }
+  return p;
+}
 
-            // Decoding may throw an error if the URL isn't UTF-8 (#9518)
-            try {
-	        anchorValue = decodeURIComponent( anchorValue );
-            } catch ( error ) {}
-            try {
-	        locationValue = decodeURIComponent( locationValue );
-            } catch ( error ) {}
+function submitForm(form) {
+  // application/x-www-form-urlencoded, not multipart/form-data: the
+  // Rust side extracts these with actix-web's web::Form<T>, which
+  // only accepts the urlencoded content type.
+  return fetch(form.action, {
+    method: form.method || "GET",
+    body: new URLSearchParams(new FormData(form)),
+  });
+}
 
-            if ( anchorValue !== locationValue ) {
-	        isLocal = false;
-	        return false;
-            }
-        });
+// ---- hotkeys (replace the jQuery Hotkeys plugin) ----
 
-        return isLocal;
+// combos look like "ctrl+z" / "meta+z" / "ctrl+shift+l"; keys are
+// matched case-insensitively against event.key
+function matches_hotkey(event, combo) {
+  var parts = combo.toLowerCase().split("+");
+  var key = parts.pop();
+  var need = { ctrl: false, meta: false, shift: false, alt: false };
+  parts.forEach(function (m) {
+    need[m] = true;
+  });
+  return (
+    event.ctrlKey === need.ctrl &&
+    event.metaKey === need.meta &&
+    event.shiftKey === need.shift &&
+    event.altKey === need.alt &&
+    event.key.toLowerCase() === key
+  );
+}
+
+function bind_hotkeys(map) {
+  document.addEventListener("keydown", function (event) {
+    for (var combo in map) {
+      if (matches_hotkey(event, combo)) {
+        map[combo](event);
+        return;
+      }
     }
-});
-/* search */
-$(function() {
-    $("input#search").focus(
-        function() {
-            $("select.hidden").show();
-        }
-    );
-    document.body.addEventListener("touchend", function(e) {
-        save_selection();
-    }, false);
-    if (document.cookie.indexOf("collapse=true") != -1) {
-        collapse_all();
-    }
+  });
+}
+
+// ---- tabs (replace the jQuery UI Tabs widget) ----
+//
+// Applies the same classes temboz.css already styles (ui-tabs-nav /
+// ui-tabs-active / ui-tabs-panel / ui-tabs-hide), so no CSS changes
+// are needed. The initially active tab is whichever panel doesn't
+// already carry ui-tabs-hide in the server-rendered markup.
+function init_tabs(container) {
+  if (typeof container === "string") {
+    container = document.querySelector(container);
+  }
+  if (!container) return;
+  var nav = container.querySelector("ul");
+  if (!nav) return;
+  nav.classList.add("ui-tabs-nav");
+  var tabs = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+  var panels = tabs.map(function (a) {
+    return document.getElementById(a.getAttribute("href").substring(1));
+  });
+  panels.forEach(function (panel) {
+    if (panel) panel.classList.add("ui-tabs-panel");
+  });
+  function activate(index) {
+    tabs.forEach(function (a, i) {
+      a.parentElement.classList.toggle("ui-tabs-active", i === index);
+      if (panels[i]) panels[i].classList.toggle("ui-tabs-hide", i !== index);
+    });
+  }
+  var initial = panels.findIndex(function (p) {
+    return p && !p.classList.contains("ui-tabs-hide");
+  });
+  activate(initial === -1 ? 0 : initial);
+  tabs.forEach(function (a, i) {
+    a.addEventListener("click", function (event) {
+      event.preventDefault();
+      activate(i);
+    });
+  });
+}
+
+// ---- page init ----
+
+document.addEventListener("DOMContentLoaded", function () {
+  var search = document.getElementById("search");
+  if (search) {
+    search.addEventListener("focus", function () {
+      document.querySelectorAll("select.hidden").forEach(function (s) {
+        s.classList.remove("hidden");
+      });
+    });
+  }
+  document.body.addEventListener("touchend", save_selection, false);
+  if (
+    document.cookie.indexOf("collapse=true") !== -1 &&
+    typeof collapse_all === "function"
+  ) {
+    collapse_all();
+  }
 });

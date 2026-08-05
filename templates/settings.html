@@ -7,22 +7,8 @@
     <script language="JavaScript" src="/static/temboz.js"></script>
     <script src="/static/dygraph-combined.js"></script>
     <style type="text/css">
-    form.yappi, form#yappi_refresh_tsub, form#yappi_refresh_ttot, form#debug {
-      display: inline;
-    }
-    .yappi {
-      display: none;
-    }
-    div#settings div#yappi_stats table td {
-      padding: 1px;
-    }
     div#settings div#statistics table td {
       padding: 0;
-    }
-    div#yappi_stats table th {
-      background: #bfff80;
-      padding: 6px;
-      text-align: center;
     }
     .dygraph-legend > span {
       display: none;
@@ -33,48 +19,20 @@
     </style>
     <script type="text/javascript">
     function do_compressor() {
-      if($(this).html() == "gzip") {
-        $("input#c1").val("gzip -9c");
-        $("input#c2").val("gz");
+      var c1 = document.getElementById("c1");
+      var c2 = document.getElementById("c2");
+      if(this.innerHTML == "gzip") {
+        c1.value = "gzip -9c";
+        c2.value = "gz";
       }
-      if($(this).html() == "bzip2") {
-        $("input#c1").val("bzip2 -9c");
-        $("input#c2").val("bz2");
+      if(this.innerHTML == "bzip2") {
+        c1.value = "bzip2 -9c";
+        c2.value = "bz2";
       }
-      if($(this).html() == "reset") {
-        $("input#c1").val("");
-        $("input#c2").val("");
+      if(this.innerHTML == "reset") {
+        c1.value = "";
+        c2.value = "";
       }
-    }
-    function yappi(event) {
-      event.stopPropagation();
-        var op = this.id.substring(6);
-        if (op == "pstat" || op == "callgrind") {
-          // Content-Disposition is not honored from within a XmlHttpRequest
-          // so we create a bogus iframe instead
-          var i = document.createElement("iframe");
-          i.style.position = "absolute";
-          i.style.left = "-10000px";
-          i.style.width = "1px";
-          i.style.height = "1px";
-          i.src = '/profile?random=' + rand() + '&format=' + op;
-          document.body.appendChild(i);
-        } else {
-          $.get('/xmlfeedback/yappi/' + rand() + '/' + op, load_yappi);
-        }
-      return false;
-    }
-    function load_yappi() {
-      order = this.id;
-      if (this.id == "yappi_refresh_ttot") {
-        order = "ttot";
-      } else {
-        order = "tsub";
-      }        
-      $.get('/profile?rand=' + rand() + "&sort=" + order, function(data) {
-        $("div#yappi_data").html(data);
-      });
-      return false;
     }
     function load_stats() {
       // Graphs
@@ -90,23 +48,14 @@
       };
       dg = new Dygraph(document.getElementById("stats"), "/stats", opts);
     }
-    $(document).ready(function() {
-      //$("form.yappi").hide();
-      $("div#settings").tabs(
-        {
-    {#    activate: function(event, ui) { #}
-    {#    }                               #}
-      });
-      $("form.yappi").submit(yappi);
-      $("form#yappi_refresh_tsub").submit(load_yappi);
-      $("form#yappi_refresh_ttot").submit(load_yappi);
+    document.addEventListener("DOMContentLoaded", function() {
+      init_tabs("#settings");
       load_stats();
+      document.querySelectorAll("div#popup_compressor a").forEach(function(a) {
+        a.addEventListener("click", do_compressor);
+      });
     });
     init_popups();
-    $(document).ready(function() {
-      $("div#popup_compressor a").click(do_compressor);
-      load_yappi();
-    });
     </script>
 {% endblock %}
 
@@ -279,35 +228,6 @@
       </tr>
       </table>
     </form>
-  </div>
-  <div id="profiler" class="ui-tabs-hide">
-    <form id="yappi_start_cpu" class="yappi">
-      <input type="submit" value="Start Yappi (CPU time)">
-    </form>
-    <form id="yappi_start_wall" class="yappi">
-      <input type="submit" value="(Wall clock time)">
-    </form>
-    <form id="yappi_stop" class="yappi">
-      <input type="submit" value="Suspend Yappi">
-    </form>
-    <form id="yappi_clear_stats" class="yappi">
-      <input type="submit" value="Reset stats">
-    </form>
-    <form id="yappi_refresh_tsub">
-      <input type="submit" value="Refresh (self time)">
-    </form>
-    <form id="yappi_refresh_ttot">
-      <input type="submit" value="Refresh (total time)">
-    </form>
-    <form id="yappi_pstat" class="yappi"
-          method="GET" action="/profile?format=pstat">
-      <input type="submit" value="Export pstat">
-    </form>
-    <form id="yappi_callgrind" class="yappi"
-          method="GET" action="/profile?format=callgrind">
-      <input type="submit" value="Export callgrind">
-    </form>
-    <div id="yappi_data"></div>
   </div>
   <div id="maint" class="ui-tabs-hide">
     <form method="POST"><input type="hidden" name="op" value="maint">

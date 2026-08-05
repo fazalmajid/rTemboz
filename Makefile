@@ -27,7 +27,20 @@ $(CARGO_SQLX):
 boot.db: $(wildcard migrations/*.sql)
 	cat migrations/*.sql | sed -e '/-- sqlx skip/,/-- end sqlx skip/d' | sqlite3 boot.db
 
-assets: static/datatables.css static/simple-datatables.js target/debug/rtemboz
+assets: static/temboz.js static/datatables.css static/simple-datatables.js target/debug/rtemboz
+
+JSMIN=	jsmin
+
+spool:
+	mkdir -p spool
+sync-js:
+	../src/scripts/vcheck --verbose -d --file etc/vcheck
+	(cd spool; wget -N https://unpkg.com/dexie@latest/dist/dexie.js)
+	(cd spool; wget -N https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js)
+#	(cd spool; wget -N https://unpkg.com/colcade/colcade.js)
+
+static/temboz.js: static/specific.js
+	cat $^ | $(JSMIN) > static/temboz.js
 
 static/datatables.css:
 	wget -c -O $@ https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css

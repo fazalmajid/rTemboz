@@ -18,96 +18,109 @@ input#stem {
   hidden = Array();
   var i = new Image();
   function webop(op, uid) {
-    $.get('/xmlfeedback/' + op + '/' + rand() + '/' + uid + '.xml');
+    getRequest('/xmlfeedback/' + op + '/' + rand() + '/' + uid + '.xml');
   }
   function refresh_counter() {
-    var articles = $("div.article:visible");
-    if(articles.size() < {{ overload_threshold }}) {
-      $("b#count").html(String(articles.size()));
-    } else {
-      $("b#count").html(String(articles.size()) + "+");
-    }
+    var articles = Array.prototype.filter.call(
+      document.querySelectorAll("div.article"),
+      function(el) { return el.offsetParent !== null; }
+    );
+    var count = document.getElementById("count");
+    count.innerHTML = articles.length < {{ overload_threshold }}
+      ? String(articles.length)
+      : String(articles.length) + "+";
     return articles;
   }
-  function set_context(context) {
+  function set_context(dialogContent, context) {
+    var stem = dialogContent.querySelector('input[name="stem"]');
+    var kwInput = dialogContent.querySelector('input[name="kw"]');
+    var target = dialogContent.querySelector('select[name="target"]');
+    var label = dialogContent.querySelector("td");
     if (context == "word") {
-      $('.ui-dialog-content input[name="stem"]').show();
-      $('.ui-dialog-content input[name="kw"]').hide();
+      stem.style.display = "";
+      kwInput.style.display = "none";
     } else {
-      $('.ui-dialog-content input[name="stem"]').hide();
-      $('.ui-dialog-content input[name="kw"]').show();
+      stem.style.display = "none";
+      kwInput.style.display = "";
     }
     if (context == "tag" || context == "author") {
-      $('.ui-dialog-content select[name="target"]').hide();
-      $('.ui-dialog-content td:first').html(capitalize(context));
+      target.style.display = "none";
+      label.innerHTML = capitalize(context);
     } else {
-      $('.ui-dialog-content select[name="target"]').show();
+      target.style.display = "";
       if(context == "word") {
-        $('.ui-dialog-content td:first').html("Keyword");
+        label.innerHTML = "Keyword";
       } else if(context == "exactword") {
-        $('.ui-dialog-content td:first').html("Keyword");
+        label.innerHTML = "Keyword";
       } else if(context == "all") {
-        $('.ui-dialog-content td:first').html("Keywords");
+        label.innerHTML = "Keywords";
       } else {
-        $('.ui-dialog-content td:first').html("Phrase");
+        label.innerHTML = "Phrase";
       }
     }
   }
   function kw_dialog(id, kw, context, exempt, where) {
-    var tmpl = $("div#kw_form_tmpl");
-    var body = '<div title="Add a keyword rule">' + tmpl.html() + '</div>';
-    body = body.replace(/__item_uid__/, id);
-    body = body.replace(/__feed_title__/, $('#feed' + id + ':first').text());
-    $(body).appendTo("body").dialog({
-      buttons: {
-        "Add": function() {
-          $(this).find("form").ajaxSubmit();
-          $(this).dialog("destroy");
-          $(this).remove();
-        },
-        "Cancel": function() {
-          $(this).dialog("destroy");
-          $(this).remove();
-        }
-      },
-      width: 500,
-      height: 250
-      // modal: true,
-      //   overlay: {
-      //     opacity: 0.5,
-      //     background: "black"
-      //   }
-    }).find(":text").val(kw);
-    $('.ui-dialog-content input[name="kw"]').hide();
-    $.get("/stem", {"q": kw}, function(data) {
-      $('.ui-dialog-content input[name="stem"]').val($.trim(data));
+    var tmpl = document.getElementById("kw_form_tmpl");
+    var dialog = document.createElement("dialog");
+    dialog.className = "ui-dialog";
+    var feedTitleEl = document.getElementById("feed" + id);
+    var feedTitle = feedTitleEl ? feedTitleEl.textContent : "";
+    dialog.innerHTML =
+      '<div class="ui-dialog-titlebar">Add a keyword rule</div>' +
+      '<div class="ui-dialog-content">' + tmpl.innerHTML + '</div>' +
+      '<div class="ui-dialog-buttonpane">' +
+      '<button type="button" class="add">Add</button>' +
+      '<button type="button" class="cancel">Cancel</button>' +
+      '</div>';
+    dialog.innerHTML = dialog.innerHTML
+      .replace(/__item_uid__/, id)
+      .replace(/__feed_title__/, feedTitle);
+    document.body.appendChild(dialog);
+    var content = dialog.querySelector(".ui-dialog-content");
+    var form = content.querySelector("form");
+
+    function closeDialog() {
+      dialog.close();
+      dialog.remove();
+    }
+    dialog.querySelector("button.add").addEventListener("click", function() {
+      submitForm(form);
+      closeDialog();
     });
-    $('.ui-dialog-content select[name="match_type"]').change(function() {
-      var context = $(this).val();
-      set_context(context);
-    })
+    dialog.querySelector("button.cancel").addEventListener("click", closeDialog);
+
+    content.querySelector('input[name="kw"]').value = kw;
+    content.querySelector('input[name="kw"]').style.display = "none";
+    getRequest("/stem", {"q": kw}, function(data) {
+      content.querySelector('input[name="stem"]').value = data.trim();
+    });
+    content.querySelector('select[name="match_type"]').addEventListener("change", function() {
+      set_context(content, this.value);
+    });
     if(kw.search(/[\s-_.,/?;:'"[\]\\|!@#$%&*()=+\^]/) != -1) {
-      $('.ui-dialog-content select[name="match_type"]').val('phrase_lc');
-      set_context("phrase_lc");
+      content.querySelector('select[name="match_type"]').value = 'phrase_lc';
+      set_context(content, "phrase_lc");
     } else {
       if (!context) {
-        $('.ui-dialog-content input[name="kw"]').hide();
+        content.querySelector('input[name="kw"]').style.display = "none";
       }
     }
     if(where=='union') {
-      $('.ui-dialog-content select[name="target"]').val("union");
+      content.querySelector('select[name="target"]').value = "union";
     }
     if(exempt) {
-      $('.ui-dialog-content :checkbox').prop("checked", true);
+      content.querySelector('input[type="checkbox"]').checked = true;
     }
     if(context) {
-      $('.ui-dialog-content select[name="match_type"]').val(context.toLowerCase());
-      $('.ui-dialog-content select[name="target"]').hide();
-      $('.ui-dialog-content :checkbox').val(["feed_only"]);
-      $('.ui-dialog-content :checkbox').prop("checked", true);
-      $('.ui-dialog-content td:first').html(context);
-      set_context(context);                       
+      content.querySelector('select[name="match_type"]').value = context.toLowerCase();
+      content.querySelector('select[name="target"]').style.display = "none";
+      var exemptBox = content.querySelector('input[type="checkbox"]');
+      exemptBox.value = "feed_only";
+      exemptBox.checked = true;
+      content.querySelector("td").innerHTML = context;
+      set_context(content, context);
     }
+    dialog.showModal();
   }
   function thumbs_down(id, exempt) {
     var elt = document.getElementById('art' + id);
@@ -116,7 +129,7 @@ input#stem {
       webop('basic', id);
       refresh_counter();
     } else {
-      var kw = $.trim(get_selection());
+      var kw = get_selection();
       hidden[hidden.length] = elt;
       elt.classList.add("thumbsDown");
       if(kw!="" && elt.innerHTML.indexOf(kw)!=-1) {
@@ -128,13 +141,13 @@ input#stem {
         }
         kw_dialog(id, kw, false, exempt, where);
       } else {
-        var tags = $(elt).find("span.author.tag.highlighted").html();
-        if(tags) {
-          kw_dialog(id, tags, 'Author', exempt);
+        var authorTag = elt.querySelector("span.author.tag.highlighted");
+        if(authorTag) {
+          kw_dialog(id, authorTag.innerHTML, 'Author', exempt);
         } else {
-          var tags = $(elt).find("span.item.tag.highlighted").html();
-          if(tags) {
-            kw_dialog(id, tags, 'Tag', exempt);
+          var itemTag = elt.querySelector("span.item.tag.highlighted");
+          if(itemTag) {
+            kw_dialog(id, itemTag.innerHTML, 'Tag', exempt);
           }
         }
       }
@@ -153,20 +166,29 @@ input#stem {
     }
   }
   function toggle_tags(id) {
-    $("div#tags_" + id).toggle();
+    var elt = document.getElementById("tags_" + id);
+    elt.style.display = elt.style.display === "none" ? "" : "none";
   }
   function collapse_all() {
-    $(".content").hide();
-    $(".ctarrow").html("&#9654;&nbsp;");
+    document.querySelectorAll(".content").forEach(function(el) {
+      el.style.display = "none";
+    });
+    document.querySelectorAll(".ctarrow").forEach(function(el) {
+      el.innerHTML = "&#9654;&nbsp;";
+    });
     document.cookie = "collapse=true";
   }
   function uncollapse_all() {
-    $(".content").show();
-    $(".ctarrow").html("&#9660;&nbsp;");
+    document.querySelectorAll(".content").forEach(function(el) {
+      el.style.display = "";
+    });
+    document.querySelectorAll(".ctarrow").forEach(function(el) {
+      el.innerHTML = "&#9660;&nbsp;";
+    });
     document.cookie = "collapse=false";
   }
   function toggle_tag() {
-    $(this).toggleClass("highlighted");
+    this.classList.toggle("highlighted");
   }
   function highlight(id) {
     var elt = document.getElementById('art' + id);
@@ -203,15 +225,19 @@ input#stem {
   function toggle(item) {
     document.items[item].checked = !document.items[item].checked;
   }
-  $(document).ready(function() {
-    $("span.tag").click(toggle_tag);
-    $(document).bind("keydown", "ctrl+z", undo);
-    $(document).bind("keydown", "meta+z", undo);
-    $(document).bind("keydown", "ctrl+meta+z", undo);
-    $(document).bind("keydown", "ctrl+l", collapse_all);
-    $(document).bind("keydown", "ctrl+shift+l", uncollapse_all);
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("span.tag").forEach(function(el) {
+      el.addEventListener("click", toggle_tag);
+    });
+    bind_hotkeys({
+      "ctrl+z": undo,
+      "meta+z": undo,
+      "ctrl+meta+z": undo,
+      "ctrl+l": collapse_all,
+      "ctrl+shift+l": uncollapse_all
+    });
     {% block GET_ARTICLES %}
-    if($("body").width() >= 760) {
+    if(document.body.clientWidth >= 760) {
       var articles = document.getElementsByClassName("article");
       var col1 = document.getElementById("col1");
       var left = 0;
@@ -312,7 +338,7 @@ input#stem {
 <div id="col2" class="col2"></div>
 <div style="clear: both;" />
 <script language="JavaScript">
-if($("body").width() < 760) {
+if(document.body.clientWidth < 760) {
   document.write('<div id="initial">');
 } else {
   document.write('<div id="initial" class="col1">');
