@@ -187,6 +187,19 @@ input#stem {
     });
     document.cookie = "collapse=false";
   }
+  function toggle_collapse_all() {
+    var content = document.querySelector(".content");
+    console.log("[toggle_collapse_all] content found:", !!content,
+      "display:", content && content.style.display,
+      "cookie:", document.cookie);
+    if (content && content.style.display === "none") {
+      console.log("[toggle_collapse_all] -> uncollapse_all");
+      uncollapse_all();
+    } else {
+      console.log("[toggle_collapse_all] -> collapse_all");
+      collapse_all();
+    }
+  }
   function toggle_tag() {
     this.classList.toggle("highlighted");
   }
@@ -225,16 +238,20 @@ input#stem {
   function toggle(item) {
     document.items[item].checked = !document.items[item].checked;
   }
+  // registered immediately, not gated behind DOMContentLoaded: the
+  // handlers only touch the DOM when a key is actually pressed, and
+  // waiting for the whole page (including all article HTML) to
+  // parse before the listener even exists left a real, user-visible
+  // race window right after a reload
+  bind_hotkeys({
+    "ctrl+z": undo,
+    "meta+z": undo,
+    "ctrl+meta+z": undo,
+    "ctrl+m": toggle_collapse_all
+  });
   document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll("span.tag").forEach(function(el) {
       el.addEventListener("click", toggle_tag);
-    });
-    bind_hotkeys({
-      "ctrl+z": undo,
-      "meta+z": undo,
-      "ctrl+meta+z": undo,
-      "ctrl+l": collapse_all,
-      "ctrl+shift+l": uncollapse_all
     });
     {% block GET_ARTICLES %}
     if(document.body.clientWidth >= 760) {
@@ -293,8 +310,7 @@ input#stem {
   <ul>
     <li><a href="javascript:unhide_last();">Undo last hide (Ctrl-Z)</a></li>
     <li><a href="javascript:unhide_all();">Undo all hides</a></li>
-    <li><a href="javascript:collapse_all();">Collapse all (Ctrl-L)</a></li>
-    <li><a href="javascript:uncollapse_all();">Undo collapse all (Ctrl-Shift-L)</a></li>
+    <li><a href="javascript:toggle_collapse_all();">Toggle collapse all (Ctrl-M)</a></li>
   </ul>
 </li>
 {% endblock CONTEXT_MENU %}

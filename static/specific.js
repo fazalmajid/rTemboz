@@ -109,14 +109,39 @@ function matches_hotkey(event, combo) {
   );
 }
 
+// key-accepting form fields don't get hotkey treatment -- typing "l"
+// in the search box shouldn't toggle collapse
+function is_typing_target(el) {
+  if (!el) return false;
+  if (el.isContentEditable) return true;
+  var tag = el.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+}
+
 function bind_hotkeys(map) {
+  console.log("[hotkeys] bind_hotkeys called, registering listener for:", Object.keys(map));
   document.addEventListener("keydown", function (event) {
+    console.log("[hotkeys] keydown", {
+      key: event.key,
+      repeat: event.repeat,
+      ctrlKey: event.ctrlKey,
+      shiftKey: event.shiftKey,
+      metaKey: event.metaKey,
+      altKey: event.altKey,
+      target: event.target.tagName
+    });
+    if (is_typing_target(event.target)) {
+      console.log("[hotkeys] ignored, typing target");
+      return;
+    }
     for (var combo in map) {
       if (matches_hotkey(event, combo)) {
+        console.log("[hotkeys] matched", combo);
         map[combo](event);
         return;
       }
     }
+    console.log("[hotkeys] no match");
   });
 }
 
