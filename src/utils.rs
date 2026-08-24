@@ -14,7 +14,7 @@
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 use scraper::Html;
-use url_normalize::{NormalizeUrlError, Options, normalize_url};
+use url_normalize::{normalize_url, NormalizeUrlError, Options};
 
 // strip all tags completely rather than escaping them as ammonia::clean_text
 pub fn clean_text(html: &str) -> String {
@@ -32,8 +32,9 @@ pub fn clean_text(html: &str) -> String {
 
 // sanitize URLs
 pub fn clean_url(input: &str) -> Result<String, NormalizeUrlError> {
-    let opts = Options{
+    let opts = Options {
         strip_www: false,
+        remove_trailing_slash: false,
         ..Options::default()
     };
     let result = normalize_url(input, &opts)?;
