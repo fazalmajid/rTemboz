@@ -82,21 +82,6 @@ struct Term {
     q: String,
 }
 
-// @app.route("/stem")
-// def stem():
-//   term = flask.request.args.get('q', '')
-//   stem = ' '.join(normalize.stem(normalize.get_words(term)))
-// strip_tags_re = re.compile('<[^>]*>')
-// def get_words(s):
-//   return set([
-//     word for word
-//     in lower(str(strip_tags_re.sub('', str(s)))
-//              ).translate(punct_map).split()
-//     if word not in stop_words])
-// def stem(words):
-//   return {porter2.stem(word) for word in words}
-//   return (stem, 200, {'Content-Type': 'text/plain'})
-
 #[get("/stem")]
 pub async fn stem(params: web::Query<Term>) -> impl Responder {
     let en_stemmer: Stemmer = Stemmer::create(Algorithm::English);
