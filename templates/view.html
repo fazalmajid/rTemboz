@@ -84,6 +84,10 @@ input#stem {
       dialog.remove();
     }
     dialog.querySelector("button.add").addEventListener("click", function() {
+      if(content.querySelector('select[name="match_type"]').value === "exactword") {
+        content.querySelector('input[name="stem"]').value =
+          content.querySelector('input[name="kw"]').value;
+      }
       submitForm(form);
       closeDialog();
     });
@@ -167,7 +171,7 @@ input#stem {
   }
   function toggle_tags(id) {
     var elt = document.getElementById("tags_" + id);
-    elt.style.display = elt.style.display === "none" ? "" : "none";
+    elt.style.display = elt.style.display === "block" ? "none" : "block";
   }
   function collapse_all() {
     document.querySelectorAll(".content").forEach(function(el) {
@@ -329,7 +333,7 @@ input#stem {
         </td></tr>
       <tr><td>Match type</td><td><select name="match_type">
       <option value="word" selected>Any words</option>
-      <option value="exactword">Any words (exact match)</option>
+      <option value="exactword">Any words (exact match, case sensitive)</option>
       <option value="all">All words</option>
       <option value="phrase_lc">Phrase</option>
       <option value="phrase">Phrase (case-sensitive)</option>

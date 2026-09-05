@@ -13,11 +13,11 @@
 /// You should have received a copy of the GNU Affero General Public License
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
-use crate::db::rules::{RuleData, get_rules, save_rule};
+use crate::db::rules::{get_rules, save_rule, RuleData};
 use crate::feeds::worker::FeedOp;
 use crate::filter::Rule;
-use crate::webui::menu::{MenuItem, menus};
-use actix_web::{HttpResponse, Responder, get, post, web};
+use crate::webui::menu::{menus, MenuItem};
+use actix_web::{get, post, web, HttpResponse, Responder};
 use askama::Template;
 use diacritics::remove_diacritics;
 use itertools::join;
@@ -102,7 +102,7 @@ pub async fn stem(params: web::Query<Term>) -> impl Responder {
     let en_stemmer: Stemmer = Stemmer::create(Algorithm::English);
     let stop_words = stop_words::get(stop_words::LANGUAGE::English);
     // strip punctuation
-    let cleaned: String = remove_diacritics(params.q.as_str())
+    let cleaned: String = remove_diacritics(params.q.to_lowercase().as_str())
         .chars()
         .filter(|c| c.is_alphanumeric() || c.is_whitespace())
         .collect();
@@ -110,7 +110,7 @@ pub async fn stem(params: web::Query<Term>) -> impl Responder {
         cleaned
             .as_str()
             .split_whitespace()
-            .filter(|w| !&stop_words.contains(&w.to_lowercase().as_str()))
+            .filter(|w| !&stop_words.contains(&w))
             .map(|w| en_stemmer.stem(w).into_owned()),
         " ",
     ))
