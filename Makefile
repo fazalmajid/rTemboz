@@ -94,6 +94,7 @@ push-docker docker-push: docker docker-ubuntu
 upgrade:
 	$(CARGO) install cargo-edit
 	$(CARGO) upgrade
+	$(CARGO) update
 
 clean:
 	-find . -name \*~ -exec rm {} \;
