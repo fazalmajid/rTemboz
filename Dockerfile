@@ -1,5 +1,5 @@
 # --- Build stage ---
-FROM alpine:3.24 AS builder
+FROM alpine:latest AS builder
 
 RUN apk add --no-cache \
     rust \
@@ -51,8 +51,10 @@ ENV CARGO_BACKTRACE=1
 RUN cargo build --release
 
 # --- Runtime stage ---
-FROM alpine:3.23
+FROM alpine:latest
 
+RUN apk update
+RUN apk upgrade
 RUN apk add --no-cache \
     vectorscan \
     openssl \

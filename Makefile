@@ -14,6 +14,7 @@ ENV=		env CARGO_BACKTRACE=1 OPENSSL_DIR=$(SSL_HOME) \
 
 CARGO=		$(ENV) cargo
 CARGO_SQLX=	$(HOME)/.cargo/bin/cargo-sqlx
+CARGO_AUDIT=	$(HOME)/.cargo/bin/cargo-auditable
 
 all: run
 
@@ -23,6 +24,9 @@ all: run
 
 $(CARGO_SQLX):
 	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install sqlx-cli --no-default-features --features sqlite
+
+$(CARGO_AUDIT):
+	$(ENV) OPENSSL_DIR=$(SSL_HOME) cargo install auditable
 
 boot.db: $(wildcard migrations/*.sql)
 	cat migrations/*.sql | sed -e '/-- sqlx skip/,/-- end sqlx skip/d' | sqlite3 boot.db
@@ -48,13 +52,13 @@ static/datatables.css:
 static/simple-datatables.js:
 	wget -c -O $@ https://cdn.jsdelivr.net/npm/simple-datatables@latest
 
-target/debug/rtemboz:
-	$(CARGO) build
+build target/debug/rtemboz: .sqlx $(CARGO_AUDIT)
+	$(CARGO) auditable build
 
-release target/release/rtemboz:
-	$(CARGO) build --release
+release target/release/rtemboz: .sqlx $(CARGO_AUDIT)
+	$(CARGO) auditable build --release
 
-build run check clippy fmt: .sqlx assets
+run check clippy fmt: .sqlx assets
 	$(CARGO) $@
 
 rebuild: target/debug/rtemboz
@@ -68,7 +72,7 @@ clippy-fix: .sqlx assets
 
 
 test: .venv/bin/pytest
-	$(CARGO) build
+	$(CARGO) auditable build
 	$(CARGO) test
 	$(ENV) .venv/bin/pytest tests/test.py -v $(TEST_ARGS)
 
